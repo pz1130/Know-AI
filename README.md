@@ -50,13 +50,17 @@ chmod +x scripts/deploy-hf.sh
 1. **改词条释义 → 先改手册，再对照站点。** 不要只改 TS 忘了讲义。  
 2. **改易混 / 十讲 → 只改 `glossary.ts`（及对应英文）。**  
 3. **中英必须同 PR、同条数。** `terms` / `confusions` / `lectures` 任一不对齐，`check:glossary` 失败。  
-4. **日常用 check，大手术才 write。** 默认不要 `--write` 冲掉精炼词条。
+4. **日常用 check，大手术才 write。** 默认不要 `--write` 冲掉精炼词条。  
+5. **`sync-glossary` 的输出应当是空的。** 命名差异（手册 `沙箱与爆炸半径` ↔ 站点 `沙箱 / 爆炸半径`）登记在 `TERM_ALIAS`，站点独有卡片登记在 `CURATED_ONLY`。**报出东西 = 真出事了**：手册新增了站点没有的词条，或者有人改名没记。别靠"这些差异是正常的"来消化输出。
 
 ### 命令
 
 ```bash
-# 手册 ↔ 站点词条 diff（不写文件；允许精炼版与 MD 有意差集）
+# 手册 ↔ 站点词条 diff（不写文件；已登记的命名差异不再刷屏）
 node scripts/sync-glossary.mjs
+
+# 同上，有未登记漂移则退出码 1（可挂 CI）
+node scripts/sync-glossary.mjs --strict
 
 # 中英条数 / 空字段硬校验（CI / prebuild / pre-commit）
 node scripts/check-glossary.mjs

@@ -6,6 +6,13 @@
  *   (default) --check     Report drift: MD vs web/src/data/glossary.ts
  *   --write               Replace **terms only** from MD parse; keep confusions + lectures
  *   --dry-run             With --write: print stats, do not write
+ *   --strict              Exit 1 if any *unexplained* drift remains (for CI)
+ *
+ * Naming drift between the handbook and the curated site list is expected: the site
+ * uses shorter card titles (沙箱 / 爆炸半径) than the handbook prose (沙箱与爆炸半径).
+ * Every such pair is registered in TERM_ALIAS, and site-only cards live in CURATED_ONLY,
+ * so the report stays quiet. A non-empty report therefore means real drift — a term the
+ * handbook gained and the site missed, or a rename nobody recorded. Keep it at zero.
  *
  * English (web/src/data/en/glossary.ts) is never auto-translated; count drift is reported.
  *
@@ -29,6 +36,7 @@ const root = resolve(__dirname, '..')
 const args = process.argv.slice(2)
 const doWrite = args.includes('--write')
 const dryRun = args.includes('--dry-run')
+const strict = args.includes('--strict')
 const mdIdx = args.indexOf('--md')
 const mdPath = resolve(
   root,
@@ -118,7 +126,31 @@ const TERM_ALIAS = {
   'Copilot（助手）': 'Copilot',
   'Generative UI（生成式界面）': 'Generative UI',
   '脱敏与令牌化（Tokenization）': '脱敏 / 令牌化',
+  '提示注入（Prompt Injection）': 'Prompt Injection',
+  '越权（横向 / 纵向）': '越权',
+  '沙箱与爆炸半径': '沙箱 / 爆炸半径',
+  '红队测试（Red Teaming）': '红队测试',
+  '密级分层与密级感知检索': '密级分层 / 密级感知检索',
+  '数据出境与部署形态': '数据出境 / 部署形态',
+  '数据契约（Data Contract）': '数据契约',
+  '质量门禁（Quality Gate）': '质量门禁',
+  '状态持久化与断点恢复': '状态持久化 / 断点恢复',
+  '超时与限流熔断': '超时 / 限流 / 熔断',
+  '工具接入的五个动作': '工具接入五动作',
+  'Graph Engineering（图工程）': 'Graph Engineering 图工程',
+  'Loop Engineering（循环工程）': 'Loop Engineering 循环工程',
+  'LoRA（Low-Rank Adaptation，低秩适配）': 'LoRA',
+  'PII（个人可识别信息）': 'PII',
+  'RBAC（基于角色的访问控制）': 'RBAC',
+  'SLO（服务目标）与 TTFT（首 token 延迟）': 'SLO / TTFT',
+  'Tools（工具）': 'Tools',
 }
+
+/**
+ * Cards that exist only on the site: the handbook covers them in prose that the
+ * bullet parser cannot reach, so they were written by hand. Not drift.
+ */
+const CURATED_ONLY = new Set(['A2A', 'HITL', 'Transformer'])
 
 const SKIP_RAW = new Set(['大模型的本质', '叫法不通用', '这里要更正一个常见的画法'])
 
@@ -179,6 +211,15 @@ function parseTermsFromMd(md) {
       push('EU AI Act', '欧盟人工智能立法。注意国际组织特有问题需自行补充。', group)
       continue
     }
+    if (raw === '三种缓存') {
+      push('Prefix / Prompt Cache', '服务端复用相同上下文前缀的计算，命中就便宜。', group)
+      push(
+        'Semantic Cache',
+        '按语义相似度直接返回历史答案。相似问题不等于同一答案，用在数据查询上会出事。',
+        group,
+      )
+      continue
+    }
     if (TERM_ALIAS[raw]) raw = TERM_ALIAS[raw]
 
     if (/ReAct/.test(raw) && /Plan-and-Execute/.test(raw)) {
@@ -227,22 +268,35 @@ function main() {
   const tsKeys = new Set(existing.terms.map((t) => t.term))
   const onlyMd = [...mdKeys].filter((k) => !tsKeys.has(k)).sort((a, b) => a.localeCompare(b, 'zh'))
   const onlyTs = [...tsKeys].filter((k) => !mdKeys.has(k)).sort((a, b) => a.localeCompare(b, 'zh'))
+  const curated = onlyTs.filter((k) => CURATED_ONLY.has(k))
+  const strayTs = onlyTs.filter((k) => !CURATED_ONLY.has(k))
+  const staleCurated = [...CURATED_ONLY].filter((k) => !tsKeys.has(k)).sort()
 
   console.log(`Handbook: ${mdPath}`)
   console.log(`MD parse: ${fromMd.length} terms · glossary.ts: ${existing.terms.length} terms`)
   console.log(`confusions: ${existing.confusions.length} · lectures: ${existing.lectures.length}`)
+  console.log(
+    `aliases: ${Object.keys(TERM_ALIAS).length} registered · curated site-only: ${curated.length}/${CURATED_ONLY.size}`,
+  )
   if (onlyMd.length) {
-    console.log(`\nIn MD, not in TS (${onlyMd.length}):`)
+    console.log(`\n⚠ In MD, not in TS (${onlyMd.length}) — handbook gained a term the site lacks,`)
+    console.log(`  or it was renamed: add the pair to TERM_ALIAS.`)
     onlyMd.slice(0, 40).forEach((k) => console.log(`  + ${k}`))
     if (onlyMd.length > 40) console.log(`  … +${onlyMd.length - 40} more`)
   }
-  if (onlyTs.length) {
-    console.log(`\nIn TS, not in MD parse (${onlyTs.length}) — often intentional splits/curation:`)
-    onlyTs.slice(0, 40).forEach((k) => console.log(`  · ${k}`))
-    if (onlyTs.length > 40) console.log(`  … +${onlyTs.length - 40} more`)
+  if (strayTs.length) {
+    console.log(`\n⚠ In TS, not in MD parse and not registered (${strayTs.length}):`)
+    console.log(`  intentional? add to CURATED_ONLY. A rename? add the pair to TERM_ALIAS.`)
+    strayTs.slice(0, 40).forEach((k) => console.log(`  · ${k}`))
+    if (strayTs.length > 40) console.log(`  … +${strayTs.length - 40} more`)
   }
-  if (!onlyMd.length && !onlyTs.length) {
-    console.log('\n✓ Term keys match between MD parse and glossary.ts')
+  if (staleCurated.length) {
+    console.log(`\n⚠ CURATED_ONLY lists terms no longer in glossary.ts (${staleCurated.length}):`)
+    staleCurated.forEach((k) => console.log(`  · ${k}`))
+  }
+  const drift = onlyMd.length + strayTs.length + staleCurated.length
+  if (!drift) {
+    console.log('\n✓ Term keys match between MD parse and glossary.ts (aliases applied)')
   }
 
   try {
@@ -260,10 +314,18 @@ function main() {
 
   if (!doWrite) {
     console.log('\n(check only — pass --write to replace terms from MD)')
+    if (strict && drift) {
+      console.log(`✗ strict: ${drift} unexplained drift`)
+      process.exit(1)
+    }
     return
   }
 
   const terms = fromMd
+  if (curated.length) {
+    console.log(`\n⚠ --write drops ${curated.length} curated site-only card(s): ${curated.join(' · ')}`)
+    console.log('  they are not in the handbook bullets — re-add by hand, or they leave the site.')
+  }
   const out = `export interface Term {
   term: string
   def: string
