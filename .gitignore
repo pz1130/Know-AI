@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# 依赖与构建产物（web/ 内另有一份局部规则）
+node_modules/
+dist/
+
+# 本地环境
+*.local
+.env
+.env.*

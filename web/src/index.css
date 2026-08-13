@@ -1,0 +1,324 @@
+@import 'tailwindcss';
+
+@theme {
+  /* React Bits–inspired stack: grotesk display + clean CJK body + code mono */
+  --font-sans: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, sans-serif;
+  --font-serif: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'Google Sans Code', 'SF Mono', ui-monospace, monospace;
+
+  --color-ink: var(--eap-ink);
+  --color-ink-2: var(--eap-ink-2);
+  --color-ink-3: var(--eap-ink-3);
+  --color-panel: var(--eap-panel);
+  --color-panel-2: var(--eap-panel-2);
+  --color-line: var(--eap-line);
+  --color-line-2: var(--eap-line-2);
+  --color-mist: var(--eap-mist);
+  --color-fog: var(--eap-fog);
+  --color-paper: var(--eap-paper);
+  --color-copper: var(--eap-accent);
+  --color-copper-dim: var(--eap-accent-dim);
+  --color-teal: var(--eap-secondary);
+  --color-teal-dim: var(--eap-secondary-dim);
+  --color-danger: var(--eap-danger);
+  --color-danger-dim: var(--eap-danger-dim);
+  --color-safe: var(--eap-safe);
+}
+
+/* Dark — React Bits #120F17 family */
+:root,
+[data-theme='dark'] {
+  --eap-ink: #120f17;
+  --eap-ink-2: #18141f;
+  --eap-ink-3: #221c2c;
+  --eap-panel: #1c1724;
+  --eap-panel-2: #252030;
+  --eap-line: rgba(255, 255, 255, 0.08);
+  --eap-line-2: rgba(255, 255, 255, 0.14);
+  --eap-mist: #9b93a8;
+  --eap-fog: #d4cfe0;
+  --eap-paper: #f4f0fa;
+  --eap-accent: #c4b5fd;
+  --eap-accent-dim: #a78bfa;
+  --eap-secondary: #7dd3c0;
+  --eap-secondary-dim: #5ab8a4;
+  --eap-danger: #f0a090;
+  --eap-danger-dim: #e07a68;
+  --eap-safe: #86d4a8;
+  --eap-glow: rgba(167, 139, 250, 0.14);
+  --eap-glow-2: rgba(125, 211, 192, 0.08);
+  --eap-header-bg: rgba(18, 15, 23, 0.82);
+  --eap-selection: rgba(167, 139, 250, 0.35);
+  --eap-card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 8px 32px rgba(0, 0, 0, 0.28);
+  --eap-on-accent: #120f17;
+}
+
+/* Light — paper UI, soft violet accent */
+[data-theme='light'] {
+  --eap-ink: #f6f4f9;
+  --eap-ink-2: #eeebf3;
+  --eap-ink-3: #e4e0ec;
+  --eap-panel: #ffffff;
+  --eap-panel-2: #f3f0f7;
+  --eap-line: rgba(24, 16, 40, 0.1);
+  --eap-line-2: rgba(24, 16, 40, 0.16);
+  --eap-mist: #6b6578;
+  --eap-fog: #3a3545;
+  --eap-paper: #16131c;
+  --eap-accent: #6d28d9;
+  --eap-accent-dim: #5b21b6;
+  --eap-secondary: #0f766e;
+  --eap-secondary-dim: #0d5c56;
+  --eap-danger: #c2410c;
+  --eap-danger-dim: #9a3412;
+  --eap-safe: #15803d;
+  --eap-glow: rgba(109, 40, 217, 0.08);
+  --eap-glow-2: rgba(15, 118, 110, 0.06);
+  --eap-header-bg: rgba(246, 244, 249, 0.88);
+  --eap-selection: rgba(109, 40, 217, 0.2);
+  --eap-card-shadow: 0 0 0 1px rgba(24, 16, 40, 0.06), 0 4px 20px rgba(24, 16, 40, 0.06);
+  --eap-on-accent: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  background: var(--eap-ink);
+  color: var(--eap-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-feature-settings: 'ss01' on, 'cv11' on;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+/* Soft ambient — no blueprint grid / grain (less “AI dashboard”) */
+.bg-blueprint {
+  background-color: var(--eap-ink);
+  /* SoftAurora sits on top; keep a flat base so WebGL alpha blends cleanly */
+}
+
+.grain::before {
+  display: none;
+}
+
+::selection {
+  background: var(--eap-selection);
+  color: inherit;
+}
+
+.site-header {
+  background: var(--eap-header-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Segmented controls */
+.pref-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--eap-line);
+  border-radius: 999px;
+  padding: 3px;
+  background: var(--eap-panel);
+}
+
+.pref-toggle button {
+  border: none;
+  background: transparent;
+  color: var(--eap-mist);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pref-toggle button[data-active='true'] {
+  background: color-mix(in srgb, var(--eap-accent) 18%, var(--eap-panel-2));
+  color: var(--eap-paper);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .pref-toggle button[data-active='true'] {
+  color: var(--eap-accent);
+}
+
+.pref-toggle button:hover:not([data-active='true']) {
+  color: var(--eap-fog);
+  background: var(--eap-panel-2);
+}
+
+/* Markdown prose */
+.prose-doc h1 {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--eap-paper);
+  margin: 2rem 0 1rem;
+  line-height: 1.35;
+}
+.prose-doc h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--eap-accent);
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--eap-line);
+}
+.prose-doc h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--eap-fog);
+  margin: 1.5rem 0 0.5rem;
+}
+.prose-doc p {
+  color: var(--eap-fog);
+  line-height: 1.75;
+  margin: 0.75rem 0;
+  font-size: 0.95rem;
+}
+.prose-doc li {
+  color: var(--eap-fog);
+  line-height: 1.7;
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+.prose-doc ul,
+.prose-doc ol {
+  padding-left: 1.25rem;
+}
+.prose-doc strong {
+  color: var(--eap-paper);
+  font-weight: 600;
+}
+.prose-doc blockquote {
+  border-left: 3px solid var(--eap-accent);
+  margin: 1rem 0;
+  padding: 0.5rem 0 0.5rem 1rem;
+  color: var(--eap-fog);
+  background: color-mix(in srgb, var(--eap-accent) 8%, transparent);
+  border-radius: 0 8px 8px 0;
+}
+.prose-doc code {
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  background: var(--eap-ink-3);
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  color: var(--eap-accent);
+}
+.prose-doc pre {
+  background: var(--eap-ink-2);
+  border: 1px solid var(--eap-line);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.prose-doc pre code {
+  background: none;
+  padding: 0;
+  color: var(--eap-fog);
+}
+.prose-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.prose-doc th,
+.prose-doc td {
+  border: 1px solid var(--eap-line);
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+}
+.prose-doc th {
+  background: var(--eap-panel);
+  color: var(--eap-accent);
+  font-weight: 600;
+}
+.prose-doc td {
+  color: var(--eap-fog);
+}
+.prose-doc a {
+  color: var(--eap-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-doc hr {
+  border: none;
+  border-top: 1px solid var(--eap-line);
+  margin: 2rem 0;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-delay-1 {
+  animation-delay: 0.06s;
+}
+.anim-delay-2 {
+  animation-delay: 0.12s;
+}
+.anim-delay-3 {
+  animation-delay: 0.18s;
+}
+.anim-delay-4 {
+  animation-delay: 0.24s;
+}
+
+input[type='range'] {
+  accent-color: var(--eap-accent);
+}
+
+input[type='search'],
+input[type='text'] {
+  color: var(--eap-paper);
+  background: var(--eap-panel);
+  border-color: var(--eap-line);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+}
+
+input[type='search']:focus,
+input[type='text']:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--eap-accent) 45%, var(--eap-line));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--eap-accent) 15%, transparent);
+}

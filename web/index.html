@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#120F17" />
+    <meta
+      name="description"
+      content="AI 分诊台 · 概念电梯、A×B 定义网格、选型分诊与术语馆。面向 IT 内训与架构师选型。"
+    />
+    <title>AI 分诊台</title>
+    <script>
+      try {
+        var th = localStorage.getItem('eap-theme')
+        if (th === 'light' || th === 'dark') document.documentElement.setAttribute('data-theme', th)
+        else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+          document.documentElement.setAttribute('data-theme', 'light')
+        var loc = localStorage.getItem('eap-locale')
+        if (loc === 'en' || loc === 'zh')
+          document.documentElement.setAttribute('lang', loc === 'zh' ? 'zh-CN' : 'en')
+      } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Display: Bricolage (React Bits); body CJK: Noto Sans SC; mono: Google Sans Code -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700&family=Google+Sans+Code:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
