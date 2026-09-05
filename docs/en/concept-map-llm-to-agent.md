@@ -61,7 +61,7 @@ Two very different technical paths—under-explained in the book, critical for s
 
 ## L2-A Unstructured: knowledge Q&A
 
-**Book concepts**: Embedding, vector DB, dense/sparse (BM25), hybrid, RRF, HNSW/IVF/PQ, rerankers, Cross-Encoder, ColBERT, chunking, OCR, doc parse, GraphRAG, knowledge graphs.
+**Book concepts**: Embedding, vector DB, dense/sparse (BM25), hybrid, RRF, HNSW/IVF/PQ, rerankers, Cross-Encoder, ColBERT, chunking, OCR, doc parse, knowledge graphs. GraphRAG is optional, not a default architecture; some integrated platforms have dropped it from the UI—do not plan from sales narrative.
 
 **Key insight**: RAG does not make the model smarter—it hands references. Answer quality is capped by retrieval. Industry now demotes RAG to one technique under **context engineering** (retrieve, compress, remember, format, budget tokens).
 
@@ -97,11 +97,13 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **What it solves**: without a standard, every app×system is a custom adapter. MCP exposes capabilities once for reuse.
 
-**Book concepts**: MCP, host-client-server, tools/resources/prompts, tool registry, Schema versioning.
+**Book concepts**: MCP, tools/resources/prompts, tool registry, Schema versioning.
 
 **Key insight**: economics, not raw ability. With or without MCP the model can do the same things; the difference is one-off glue vs reusable assets. For institutions wiring loan, procurement, and finance systems, decide before the first Agent project.
 
-**Failure modes**: vague tool descriptions → wrong pick; silent break on version change; ACL bypassed at protocol layer.
+**As of 2026-09**: the 2026-07-28 spec removed protocol-level sessions and the initialize handshake. Each request carries protocol version and client capabilities; clients may call `server/discover`; servers scale like ordinary HTTP. The “like HTTP” analogy is now more accurate than the session-based version. Enterprise rollout needs the authorization extension (Enterprise-Managed Authorization) so “the agent inherits the initiator’s identity” is a protocol capability, not a custom bolt-on. Progressive tool discovery is coming for large catalogs—Form E’s “≤15 tools” remains a governance cap, not a protocol cap.
+
+**Failure modes**: vague tool descriptions → wrong pick; silent break on version change; ACL bypassed at protocol layer; SDKs still on the sessionful spec.
 
 ---
 
@@ -109,7 +111,7 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **What it solves**: real tasks need multi-step loops. The leap is not a stronger model—it is moving “what next” from if-else in our code to the model at runtime.
 
-**Book concepts**: Runtime, ReAct, Plan-and-Execute, Reflexion, Self-Refine, memory, HITL, LangGraph/AutoGen/CrewAI/Dify/Coze…
+**Book concepts**: Runtime, ReAct, Plan-and-Execute, Reflexion, Self-Refine, memory, HITL, LangGraph / Microsoft Agent Framework / CrewAI / Dify / Coze. AutoGen is in maintenance mode; do not list it for new work.
 
 **Key insight**: engineering cost cliffs regardless of model IQ. Non-enumerable paths force state persistence/resume, timeouts and token budgets, retries and idempotency, step audit, HITL, eval sets.
 
@@ -127,7 +129,7 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **Book concepts**: A2A, Agent Card; fan-out, pipeline, manager–worker, debate, swarm.
 
-**Key insight**: organizational design, not pure tech—who supervises, conflict resolution, failure cleanup, explainable chains. Benefits are often overrated; many “multi-agent” needs are L3 or L5.
+**Key insight**: organizational design, not pure tech—who supervises, conflict resolution, failure cleanup, explainable chains. Benefits are often overrated; many “multi-agent” needs are L3 or L5. MCP is how an agent uses tools; A2A is how one agent hands a task to another. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration, not a bank-internal single agent. Standardization lowers integration cost, not audit explainability—Form F remains mostly dissuasive.
 
 **Failure modes**: coordination > parallel gain, error amplification, multiplied cost, near-impossible attribution.
 

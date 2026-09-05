@@ -48,6 +48,8 @@ Adaptation: **LoRA**, **DPO**. Reasoning: **CoT**, **ToT**. Engines: **vLLM**, *
 
 **Runtime**, **Tool Registry**. Protocols: **MCP**, **A2A** + **Agent Card**. Patterns: **ReAct**, **Plan-and-Execute**, **Reflexion**, **Self-Refine**, **HITL**. **Memory** short/long. Frameworks: LangGraph, AutoGen, CrewAI, Dify, Coze.
 
+As of 2026-09: MCP spec 2026-07-28 is sessionless and scales as ordinary HTTP; A2A and MCP now sit in the Agentic AI Foundation. AutoGen is in maintenance mode—new work should look at Microsoft Agent Framework. The book’s host-client-server roles still explain the split of duties; do not design around “handshake then hold a session.”
+
 ---
 
 ## 6. Evaluation & observability

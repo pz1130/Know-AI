@@ -30,7 +30,7 @@ export const morphologies: Morphology[] = [
     products: ['Milvus / Qdrant / pgvector', 'BGE / Conan', 'MinerU / PaddleOCR', 'Dify / RAGFlow'],
     duration: '2–6 周（不含文档整理与密级梳理）',
     dissuade: ['文档不到百篇且少更新 → 全文塞上下文即可', '多版本政策无人说清有效版 → 先做文件治理'],
-    notes: ['时间黑洞在文档清洗和密级标注，不在技术'],
+    notes: ['时间黑洞在文档清洗和密级标注，不在技术', 'RAGFlow 取其解析与溯源；不要按旧 GraphRAG 按钮规划'],
     layer: 'L2-A',
   },
   {
@@ -96,7 +96,7 @@ export const morphologies: Morphology[] = [
       '评测集',
     ],
     optional: [],
-    products: ['LangGraph / AutoGen / CrewAI', 'MCP', 'Langfuse', 'LiteLLM'],
+    products: ['LangGraph / Microsoft Agent Framework', 'MCP（无会话规范）', 'Langfuse', 'LiteLLM'],
     duration: '8–16 周（含评测体系）',
     dissuade: [
       '"什么情况都能处理" → 必须压缩范围',
@@ -106,6 +106,7 @@ export const morphologies: Morphology[] = [
     notes: [
       '四前提缺一不可：工具≤15、单业务域、失败可回滚、有完成判据',
       '工具接入要按五个动作估工作量',
+      'AutoGen 已维护模式，不接新项目；沙箱含白名单代理与评测夹具',
     ],
     layer: 'L5',
   },

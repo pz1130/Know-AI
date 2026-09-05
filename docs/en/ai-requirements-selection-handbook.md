@@ -80,7 +80,7 @@ Both last two are mandatory here. Citations must land on specific clauses. ACL m
 
 **Optional**: query rewrite, multilingual, knowledge graph (only for multi-hop relation asks).
 
-**Products**: Milvus/Qdrant/Weaviate/pgvector; BGE/Conan; bge-reranker/Cohere; MinerU/Unstructured/PaddleOCR; Dify/RAGFlow or custom.
+**Products**: Milvus/Qdrant/Weaviate/pgvector; BGE/Conan; bge-reranker/Cohere; MinerU/Unstructured/PaddleOCR; Dify/RAGFlow or custom. Pick RAGFlow for parse quality and citation grounding; from 0.27 the UI dropped GraphRAG/RAPTOR and aims at knowledge compilation for agents—do not plan around the old buttons.
 
 **Duration**: 2–6 weeks excluding doc cleanup and classification labeling—the real time sink.
 
@@ -148,7 +148,7 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 
 **Two under-estimated costs**: (1) tool onboarding = five actions each (register, validate, isolate, normalize results, error return); (2) stop criteria as a *set* (done, max iter, timeout, cost, confidence).
 
-**Products**: LangGraph/AutoGen/CrewAI; MCP; Langfuse/Phoenix; LiteLLM/Higress; container sandbox.
+**Products**: LangGraph (default when the path is open and you need resume/approval gates); Microsoft Agent Framework (Microsoft stack, native MCP/A2A). CrewAI is fine for role prototypes—review its code-execution sandbox before production. AutoGen is in maintenance mode; do not start new work on it. MCP (the 2026-07-28 spec removed protocol-level sessions; enterprise auth is the Enterprise-Managed Authorization extension); Langfuse/Phoenix; LiteLLM/Higress; container sandbox—and treat allowlisted proxies, shared registries, and eval fixtures as part of the blast radius.
 
 **Framework hard questions**: auto context compression strategy; serializable/resumable state granularity; suspend for external events (approval/callback).
 
@@ -250,7 +250,7 @@ Match business unit quotes:
 
 # 7. Build order from zero
 
-**Layer 0 (first)**: model gateway, prompt versioning, observability, cost breakers, **deploy form & data egress policy**.  
+**Layer 0 (first)**: model gateway, prompt versioning, observability, cost breakers, **deploy form & data egress policy**. The gateway should route across vendors by task, classification, and cost rather than hard-wiring one model per project. Design fixed system prompts and retrieval prefixes to hit Prefix/Prompt Cache—the main cost lever for Forms A and C. Open-weight models make self-hosted inference more realistic than before; procurement, classification review, and supply-chain checks still apply.  
 **Layer 1 (pick one path)**: knowledge pipeline + vectors + classification ACL *or* warehouse/OLAP + metrics.  
 **Layer 2 (when D/E)**: tool registry, state store, orchestration, sandbox, identity inheritance.  
 **Layer 3 (when E/F)**: evals, red team, fine cost attribution, multi-agent coord.

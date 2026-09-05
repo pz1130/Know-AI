@@ -79,9 +79,9 @@ export const layers: Layer[] = [
     subtitle: 'MCP 与可复用资产',
     solves: '每个应用对接每个系统要单独写适配。MCP 把系统能力暴露一次，所有应用复用。',
     insight:
-      '价值是经济性不是能力——有没有 MCP，模型能做的事一样，区别是工具一次性开发还是可复用资产。接贷款、采购、财务多个老系统的机构，应在第一个 Agent 项目前定下来。',
-    failures: ['工具描述含糊导致选错', '版本变更导致静默失败', '权限在协议层被绕过'],
-    concepts: ['MCP', 'host-client-server', 'Tools / Resources / Prompts', '工具注册中心', 'Schema 版本'],
+      '价值是经济性不是能力。现行规范无协议级会话，按普通 HTTP 扩展；企业落地看授权扩展（Agent 继承发起人权限）。接贷款、采购、财务多个老系统的机构，应在第一个 Agent 项目前定下来。',
+    failures: ['工具描述含糊导致选错', '版本变更导致静默失败', '权限在协议层被绕过', 'SDK 停在有会话的旧规范'],
+    concepts: ['MCP', '无协议级会话', 'Tools / Resources / Prompts', '工具注册中心', '企业授权'],
     morphologies: ['形态 D / E 的底座'],
     color: '#d4a054',
   },
@@ -100,7 +100,7 @@ export const layers: Layer[] = [
       '成本失控',
       '行为不可复现',
     ],
-    concepts: ['Runtime', 'ReAct', 'Plan-and-Execute', 'Memory', 'HITL', 'LangGraph 等'],
+    concepts: ['Runtime', 'ReAct', 'Plan-and-Execute', 'Memory', 'HITL', 'LangGraph / MAF'],
     morphologies: ['形态 E · 限域自主 Agent'],
     color: '#e07058',
   },
@@ -110,7 +110,7 @@ export const layers: Layer[] = [
     subtitle: '一个不够用了',
     solves: '一个 Agent 的上下文和工具集装不下时，拆成多个再加协调层。',
     insight:
-      '问题不再是技术问题，是组织设计：谁监督谁、冲突听谁、失败怎么收尾、决策链路怎么解释。收益常被高估——多数号称需要多 Agent 的需求，其实是 L3 或 L5。',
+      '问题不再是技术问题，是组织设计：谁监督谁、冲突听谁、失败怎么收尾、决策链路怎么解释。MCP 管工具，A2A 管 Agent 之间交任务，现同属一个基金会。收益常被高估——多数号称需要多 Agent 的需求，其实是 L3 或 L5。',
     failures: ['协调开销超过并行收益', '错误在 Agent 间放大', '成本成倍', '故障归因几乎不可能'],
     concepts: ['A2A', 'Agent Card', '扇出 / 流水线', '主管—工人', '辩论'],
     morphologies: ['形态 F · 多 Agent（劝退为主）'],
@@ -133,7 +133,7 @@ export const crossCuts = [
   },
   {
     title: '成本与部署',
-    body: '缓存、模型网关、预算闸门。L1 一次调用，L5 一个任务可能几百次。',
+    body: '缓存、模型网关、预算闸门。网关按任务/密级/成本路由；固定前缀应能命中 Prompt Cache。L1 一次调用，L5 一个任务可能几百次。',
   },
 ]
 

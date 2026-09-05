@@ -90,6 +90,7 @@ const TERM_ALIAS = {
   'Agent Runtime（运行行为）': 'Agent Runtime',
   '工具注册中心（Tool Registry）': '工具注册中心',
   'MCP（Model Context Protocol）': 'MCP',
+  'A2A（Agent-to-Agent）': 'A2A',
   'HITL（Human-in-the-Loop，人在回路）': 'HITL',
   'HITL（人在回路）': 'HITL',
   'Hook（钩子）': 'Hook',
@@ -150,7 +151,7 @@ const TERM_ALIAS = {
  * Cards that exist only on the site: the handbook covers them in prose that the
  * bullet parser cannot reach, so they were written by hand. Not drift.
  */
-const CURATED_ONLY = new Set(['A2A', 'HITL', 'Transformer'])
+const CURATED_ONLY = new Set(['HITL', 'Transformer'])
 
 const SKIP_RAW = new Set(['大模型的本质', '叫法不通用', '这里要更正一个常见的画法'])
 

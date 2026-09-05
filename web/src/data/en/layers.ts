@@ -67,9 +67,9 @@ export const layersEn: Layer[] = [
     subtitle: 'MCP & reusable assets',
     solves: 'Without a standard, every app×system is a custom adapter. MCP exposes capabilities once for reuse.',
     insight:
-      'Value is economics, not raw ability. For banks integrating loan, procurement, and finance systems, decide before the first Agent project.',
-    failures: ['Vague tool descriptions → wrong pick', 'Version drift silent failure', 'ACL bypassed at protocol layer'],
-    concepts: ['MCP', 'host-client-server', 'Tools / Resources / Prompts', 'Tool registry', 'Schema versioning'],
+      'Value is economics, not raw ability. Current spec is sessionless and scales as HTTP; enterprise rollout needs the auth extension so the agent inherits the initiator. Decide before the first Agent project.',
+    failures: ['Vague tool descriptions → wrong pick', 'Version drift silent failure', 'ACL bypassed at protocol layer', 'SDK still on the sessionful spec'],
+    concepts: ['MCP', 'Sessionless spec', 'Tools / Resources / Prompts', 'Tool registry', 'Enterprise auth'],
     morphologies: ['Base for forms D / E'],
     color: '#d4a054',
   },
@@ -88,7 +88,7 @@ export const layersEn: Layer[] = [
       'Cost blowups',
       'Non-reproducible behavior',
     ],
-    concepts: ['Runtime', 'ReAct', 'Plan-and-Execute', 'Memory', 'HITL', 'LangGraph etc.'],
+    concepts: ['Runtime', 'ReAct', 'Plan-and-Execute', 'Memory', 'HITL', 'LangGraph / MAF'],
     morphologies: ['Form E · Bounded autonomous agent'],
     color: '#e07058',
   },
@@ -98,7 +98,7 @@ export const layersEn: Layer[] = [
     subtitle: 'One is not enough',
     solves: 'When one agent cannot hold context/tools, split roles and add coordination.',
     insight:
-      'Problems become organizational: who supervises, conflict resolution, failure cleanup, explainable chains. Benefits are often overrated—many “multi-agent” needs are L3 or L5.',
+      'Problems become organizational: who supervises, conflict resolution, failure cleanup, explainable chains. MCP is tools; A2A is agent-to-agent handoff; both now share a foundation. Benefits are often overrated—many “multi-agent” needs are L3 or L5.',
     failures: ['Coordination > parallel gain', 'Error amplification', 'Multiplied cost', 'Near-impossible attribution'],
     concepts: ['A2A', 'Agent Card', 'Fan-out / pipeline', 'Manager–worker', 'Debate'],
     morphologies: ['Form F · Multi-agent (mostly dissuade)'],
@@ -121,7 +121,7 @@ export const crossCutsEn = [
   },
   {
     title: 'Cost & deploy',
-    body: 'Caches, gateways, budget breakers. L1 is one call; L5 may be hundreds per task.',
+    body: 'Caches, gateways, budget breakers. Route by task/classification/cost; design prefixes to hit prompt cache. L1 is one call; L5 may be hundreds per task.',
   },
 ]
 

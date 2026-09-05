@@ -52,7 +52,7 @@ This group is the easiest to confuse, and confusing it leads directly to errors 
 
 **Vocabulary size** — how many distinct token types the tokenizer supports; for some models this is in the hundred-thousand range.
 
-**Context window** — the token ceiling for a single pass, e.g. 128K.
+**Context window** — the token ceiling for a single pass, commonly 200K to 1M. A larger window does not retire retrieval: classification filtering, citation grounding, and long-task compression still have to be done.
 
 **Training tokens** — how many tokens the model saw in total during training; a measure of training data scale.
 
@@ -111,11 +111,13 @@ In one line: an agent does not answer in a single shot; it works like a person �
 
 **Tool registry** — a service that centrally records which tools exist, their schemas, versions and permissions. Once tool count grows, there is no controlling it without one.
 
-**MCP (Model Context Protocol)** — the context protocol standard proposed by Anthropic, letting AI applications recognise and call external services in a uniform way. An MCP server can expose three kinds of thing: **Resources** (readable data sources), **Prompts** (preset templates) and **Tools** (callable functions).
+**MCP (Model Context Protocol)** — the context protocol standard proposed by Anthropic and now maintained under an independent foundation, letting AI applications recognise and call external services in a uniform way. An MCP server can expose three kinds of thing: **Resources** (readable data sources), **Prompts** (preset templates) and **Tools** (callable functions).
 
-An analogy: MCP is to tool calling what HTTP is to network communication — not the only way, but valuable because it provides a common language.
+An analogy: MCP is to tool calling what HTTP is to network communication — not the only way, but valuable because it provides a common language. The current spec (2026-07-28) removed protocol-level sessions and the initialize handshake: each request carries protocol version and client capabilities, clients may call `server/discover`, and servers scale like ordinary HTTP. That analogy is now more accurate than the earlier sessionful version. Enterprise rollout also needs the authorization extension (who acts on whose behalf); listing tools is not enough.
 
 Some easily confused items: a **tool** is a specific capability; an **MCP tool** is a tool exposed through the MCP protocol; an **MCP server** is the service offering a set of tools, resources and prompts; the **agent** is the thing deciding whether to call them. Note that tools are not the same as MCP — private APIs and function calling connect tools too; MCP is simply one way of standardising it.
+
+**A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an **Agent Card** describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
 
 **Hook** — a program triggered under specific conditions. Typical uses: pre-checks, post-processing (logging, notifications), exception interception, lifecycle actions. Not an AI-specific concept — Git and front-end frameworks have them too.
 
@@ -309,7 +311,7 @@ These describe what a product looks like rather than its technical architecture,
 
 ## 1.12 A note on where terms come from
 
-**Skill, Plugin, Harness and Hook** in section 1.4 come mainly from the product vocabulary of the Claude ecosystem. The concepts they describe are general, but **the names are not** — other frameworks do not necessarily use them, and Harness in particular is not standard terminology in general engineering (in testing it means something else).
+**Skill, Plugin, Harness and Hook** in section 1.4 started mainly in the Claude product vocabulary. The concepts now show up across products (Skill management on some platforms, skills in Microsoft Agent Framework), but **the names are still not unified** — other frameworks do not necessarily use them, and Harness in particular is not standard terminology in general engineering (in testing it means something else).
 
 When talking to vendors or writing tender documents, prefer neutral phrasing: say "runtime framework / execution environment" for harness, "reusable capability package / prompt template package" for skill, and "extension package" for plugin. Otherwise the two sides end up talking past each other.
 
@@ -345,7 +347,8 @@ By contrast, **MCP, function calling, RAG and ReAct** are used across ecosystems
 | Plan-and-Execute / Reflexion | Plan then execute / review after failure and retry | Agent |
 | Termination conditions | Completion criterion, iteration cap, timeout, cost, confidence | Agent |
 | Tools / tool registry | Callable external capabilities / central registration | Agent |
-| MCP | One standard protocol for connecting tools | Agent |
+| MCP | One standard protocol for connecting tools; current spec is sessionless | Agent |
+| A2A / Agent Card | Protocol for handing tasks between agents, and its capability description | Agent |
 | Hook | A program fired on a specific condition | Agent |
 | Skill / Plugin / Harness | Capability pack / extension pack / runtime (ecosystem terms) | Agent |
 | Sub-agent | A dispatched independent agent, mainly for context isolation | Agent |
@@ -516,7 +519,7 @@ Not everyone needs these, but whoever leads the relevant area does.
 
 **The three kinds of cache** — a prefix / prompt cache reuses server-side computation for identical context prefixes and is cheap on a hit; a semantic cache returns a stored answer by semantic similarity, and the risk is that a similar question is not the same question — used on data queries it will go wrong. The two are routinely conflated.
 
-**Deciding on MCP** — it determines whether connecting a tool is one-off development or a reusable asset. For an institution like ours, connecting several ageing lending, procurement and finance systems, the long-term impact is large, and it should be settled before the first agent project.
+**Deciding on MCP** — it determines whether connecting a tool is one-off development or a reusable asset. For an institution like ours, connecting several ageing lending, procurement and finance systems, the long-term impact is large, and it should be settled before the first agent project. The current spec is sessionless; confirm the SDK tracks 2026-07-28 or later. Identity propagation (the agent inherits the initiator’s permissions) should align with the enterprise authorization extension—do not only check that tools can be listed. Progressive discovery will help large catalogs; Form E’s “no more than 15 tools” remains a governance cap.
 
 **The five actions required to connect a tool** — "connect a tool" sounds like one thing and is actually five. Registration and schema declaration (what the tool is called, what its arguments are, when it should be used — note that this description is itself part of the prompt, and vague wording makes the model choose wrongly). Argument validation (the model invents argument values, so validate before executing). Execution isolation (timeouts, rate limits, sandboxing). Result normalisation (turning the assorted return formats of different systems into something the model can digest). Error propagation (failure information has to come back in a form the model can act on, so it corrects rather than repeats the mistake).
 
@@ -530,7 +533,7 @@ For an architect this is two things: a checklist for assessing any framework, an
 
 **OLAP architectural roles** — building a warehouse in-house means understanding the FE / BE / CN division of labour and the trade-offs of separating storage from compute. With a managed service, the concepts are enough.
 
-**The divide between orchestration frameworks** — workflow engines (Temporal, Camunda) solve the fixed-path problem; agent frameworks (LangGraph and similar) solve the open-path problem. Choosing the wrong side is expensive.
+**The divide between orchestration frameworks** — workflow engines (Temporal, Camunda) solve the fixed-path problem; agent frameworks (LangGraph, Microsoft Agent Framework and similar) solve the open-path problem. Choosing the wrong side is expensive. AutoGen is in maintenance mode; do not start new work on it.
 
 **Context compression and long-task state management** — long-running tasks overflow the context. The compression strategy (summarisation, tiered memory, external state) determines whether long tasks are viable at all.
 
@@ -550,7 +553,7 @@ This list exists to keep the team from drowning in terminology, and to stop vend
 
 **GPU cluster scheduling** — device plugins, gang scheduling, MIG, KServe, Volcano. As above, it depends on whether we self-host. Do not invest study time before the deployment form is settled.
 
-**Knowledge graphs and GraphRAG** — the area most easily hijacked by sales narrative. They genuinely work in specific cases (multi-hop relational reasoning, global summarisation), but construction and maintenance costs are high and most Q&A requirements do not need them. A working test: if users' questions do not include many of the "what is the relationship between A and B" or "list every project affected by this policy" kind requiring cross-document linking, leave it alone for now.
+**Knowledge graphs and GraphRAG** — the area most easily hijacked by sales narrative. They genuinely work in specific cases (multi-hop relational reasoning, global summarisation), but construction and maintenance costs are high and most Q&A requirements do not need them. A working test: if users' questions do not include many of the "what is the relationship between A and B" or "list every project affected by this policy" kind requiring cross-document linking, leave it alone for now. Some integrated platforms have already dropped GraphRAG from the default UI, which is further evidence it is not a knowledge-Q&A default.
 
 **Multi-agent coordination patterns** — fan-out, debate, swarm and the rest. Revisit after completing at least one single-agent project.
 
@@ -563,6 +566,8 @@ This list exists to keep the team from drowning in terminology, and to stop vend
 ## Blast radius and sandboxing
 
 An agent operating in an isolated environment and an agent holding production credentials can have identical autonomy and differ in risk by orders of magnitude. Review should ask this separately: what is the worst this can cause, and where is the boundary?
+
+**A sandbox is only as closed as what the agent can reach.** Incidents in evaluation and demo environments show the escape path is often not a container breakout but an allowlisted package proxy, a shared registry, or an eval fixture that was accidentally given the open internet. Detection runs at human speed; actions run at machine speed. “Container isolation” is not enough for Form E: cut paths to production networks, withhold production credentials, and normalise tool results. Red teams should test whether the agent can walk from an allowed dependency to somewhere it should not be—not only prompt injection. The security boundary is still the host, not the model.
 
 ## Long-running execution, context compression and resumption
 
@@ -614,7 +619,7 @@ The following adjustments were made during consolidation. If colleagues are hold
 
 **Where workflow sits.** The original's overview tree and reference table placed workflow as a sub-item of the agent system. It has been changed to two parallel modes of control. The reasoning is in section 1.5 — left uncorrected, the team will default to building an agent on every project, whereas the correct answer for the overwhelming majority of our requests is workflow only.
 
-**Ecosystem-specific vocabulary marked.** Skill, Plugin, Harness and Hook come mainly from the Claude ecosystem; the concepts are general but the names are not, and section 1.12 gives neutral alternatives for external communication.
+**Ecosystem-specific vocabulary marked.** Skill, Plugin, Harness and Hook now appear across products; the names are still not unified. Section 1.12 gives neutral alternatives for external communication.
 
 **Six layers added**: knowledge and retrieval (1.6), data (1.7), engineering and runtime (1.8), security and permissions (1.9), governance, evaluation and cost (1.10), and product-form terms (1.11), plus the six missing concepts in Part 5. The original document takes the perspective of agent application development and gives insufficient coverage of the retrieval, data, engineering, security and governance work an enterprise platform requires.
 

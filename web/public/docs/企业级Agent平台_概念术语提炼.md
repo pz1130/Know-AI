@@ -58,9 +58,11 @@
 
 协议层是这本书的一个重点：**MCP（Model Context Protocol）**是 Anthropic 主导的开放协议，用 host-client-server 架构统一暴露 tools/resources/prompts；**A2A（Agent-to-Agent）**面向 Agent 间协作与跨平台互操作，其中 **Agent Card** 是描述 Agent 能力、端点、认证的元数据文件。
 
+时点注记（2026-09）：MCP 现行规范 2026-07-28 已去掉协议级会话，请求自描述、按普通 HTTP 扩展；A2A 与 MCP 现同属 Agentic AI Foundation。书中的 host-client-server 仍可用来理解角色分工，不要再按「先握手再持会话」来设计。
+
 推理编排范式有四种：**ReAct**（思考与调用交替循环）、**Plan-and-Execute**（先全局规划再分步执行）、**Reflexion（反思）**（失败后复盘轨迹并改进）、**Self-Refine（自我改进）**（用自己的输出做输入迭代优化）。关键节点引入人工审批或纠正的设计叫 **HITL（Human-in-the-Loop，人在回路）**。
 
-**Memory（记忆）**分短期（会话级）和长期（用户/企业级）。编排框架横向对比了 LangGraph、AutoGen、CrewAI、Dify、Coze。
+**Memory（记忆）**分短期（会话级）和长期（用户/企业级）。编排框架横向对比了 LangGraph、AutoGen、CrewAI、Dify、Coze。时点注记：AutoGen 已进维护模式，新项目看 Microsoft Agent Framework；CrewAI 仍可用于原型。
 
 ---
 

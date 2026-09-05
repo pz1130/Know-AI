@@ -17,7 +17,10 @@ export const morphologiesEn: Morphology[] = [
     products: ['Milvus / Qdrant / pgvector', 'BGE / Conan', 'MinerU / PaddleOCR', 'Dify / RAGFlow'],
     duration: '2–6 weeks (excludes doc cleanup & classification)',
     dissuade: ['<100 rarely updated docs → stuff full context', 'Multi-version policies unclear → fix records first'],
-    notes: ['Time sinks are cleanup & classification labels, not tech'],
+    notes: [
+      'Time sinks are cleanup & classification labels, not tech',
+      'RAGFlow for parse and citations; do not plan around old GraphRAG buttons',
+    ],
     layer: 'L2-A',
   },
   {
@@ -83,7 +86,7 @@ export const morphologiesEn: Morphology[] = [
       'Eval set',
     ],
     optional: [],
-    products: ['LangGraph / AutoGen / CrewAI', 'MCP', 'Langfuse', 'LiteLLM'],
+    products: ['LangGraph / Microsoft Agent Framework', 'MCP (sessionless spec)', 'Langfuse', 'LiteLLM'],
     duration: '8–16 weeks (includes eval system)',
     dissuade: [
       '“Handles anything” → must narrow scope',
@@ -93,6 +96,7 @@ export const morphologiesEn: Morphology[] = [
     notes: [
       'Four prerequisites: ≤15 tools, single domain, rollback-tolerant, clear stop criteria',
       'Tooling work = five actions per tool',
+      'AutoGen is in maintenance; sandbox includes allowlisted proxies and eval fixtures',
     ],
     layer: 'L5',
   },
