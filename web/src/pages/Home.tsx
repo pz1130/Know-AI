@@ -134,7 +134,7 @@ export function Home() {
           <div className="flex items-center gap-2.5">
             <span className="h-2.5 w-2.5 rounded-full bg-[#4285F4]" />
             <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-paper">
-              {locale === 'zh' ? '现场演播台 · 八大决策与实践模块' : 'Keynote Demo Deck · 8 Modules'}
+              {locale === 'zh' ? '架构工作台 · 八大决策与实践模块' : 'Decision Workbench · 8 Modules'}
             </h2>
           </div>
           <span className="text-xs font-semibold text-mist uppercase tracking-wider">

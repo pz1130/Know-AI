@@ -54,7 +54,7 @@ export function Layout() {
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 rounded-full border border-[#4285F4]/30 bg-[#4285F4]/10 px-2 py-0.5 text-[10px] font-semibold text-[#4285F4] dark:text-[#8ab4f8]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4] animate-pulse" />
-                  Keynote 2026
+                  Enterprise 2026
                 </span>
               </div>
             </NavLink>
@@ -144,7 +144,9 @@ export function Layout() {
               <span className="h-2 w-2 rounded-full bg-[#FBBC05]" />
               <span className="h-2 w-2 rounded-full bg-[#34A853]" />
               <span className="font-semibold text-fog tracking-wide ml-1">
-                Google Keynote Edition · Enterprise Agent Architecture
+                {locale === 'zh'
+                  ? 'AI 分诊台 · 企业级智能体架构工作台'
+                  : 'AI Triage Desk · Enterprise Agent Architecture'}
               </span>
             </div>
             <p className="leading-relaxed">{t(ui.footer1, locale)}</p>
