@@ -6,7 +6,7 @@ import { ui } from '../i18n/ui'
 type Tab = 'terms' | 'confusions' | 'lectures' | 'flash'
 
 export function Glossary() {
-  const { t } = useUi()
+  const { t, locale } = useUi()
   const g = ui.glossary
   const { terms, confusions, lectures, flashcards } = useContent()
   const [tab, setTab] = useState<Tab>('terms')
@@ -18,7 +18,7 @@ export function Glossary() {
   const groups = useMemo(() => [...new Set(terms.map((x) => x.group))], [terms])
   const filteredTerms = useMemo(() => {
     return terms.filter((term) => {
-      const hitQ = !q || term.term.includes(q) || term.def.includes(q)
+      const hitQ = !q || term.term.toLowerCase().includes(q.toLowerCase()) || term.def.includes(q)
       const hitG = !group || term.group === group
       return hitQ && hitG
     })
@@ -27,39 +27,65 @@ export function Glossary() {
   const card = flashcards[cardIdx % flashcards.length]
 
   return (
-    <div>
+    <div className="space-y-10">
       <PageHeader kicker={t(g.kicker)} title={t(g.title)} desc={t(g.desc)} />
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      {/* Google Keynote Segmented Tab Bar */}
+      <div className="flex flex-wrap items-center gap-2 rounded-full border border-line bg-panel/70 p-1.5 backdrop-blur-xl max-w-max">
         {(
           [
-            ['terms', g.tabTerms],
-            ['confusions', g.tabConf],
-            ['lectures', g.tabLectures],
-            ['flash', g.tabFlash],
+            ['terms', g.tabTerms, '📚'],
+            ['confusions', g.tabConf, '⚖️'],
+            ['lectures', g.tabLectures, '🎙️'],
+            ['flash', g.tabFlash, '🎴'],
           ] as const
-        ).map(([id, label]) => (
-          <Button key={id} active={tab === id} onClick={() => setTab(id)}>
-            {t(label)}
-          </Button>
+        ).map(([id, label, icon]) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setTab(id)}
+            className={[
+              'inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer',
+              tab === id
+                ? 'bg-gradient-to-r from-[#4285F4] to-[#1A73E8] text-white shadow-[0_2px_12px_rgba(66,133,244,0.35)]'
+                : 'text-mist hover:text-paper hover:bg-panel-2',
+            ].join(' ')}
+          >
+            <span>{icon}</span>
+            <span>{t(label)}</span>
+          </button>
         ))}
       </div>
 
+      {/* Tab 1: Terms Directory */}
       {tab === 'terms' && (
-        <>
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row">
-            <input
-              type="search"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={t(g.searchTerm)}
-              className="flex-1 rounded-md border border-line bg-panel px-3 py-2 text-sm text-paper outline-none focus:border-copper/50"
-            />
-            <div className="flex flex-wrap gap-1">
+        <div className="space-y-6 anim-fade-up">
+          {/* Search Bar + Group Pills */}
+          <div className="space-y-4">
+            <div className="relative flex items-center">
+              <span className="absolute left-4 text-mist text-sm">🔍</span>
+              <input
+                type="search"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder={t(g.searchTerm)}
+                className="w-full rounded-full border border-line bg-panel/85 py-3.5 pl-11 pr-24 text-sm text-paper shadow-xs backdrop-blur-xl outline-none transition-all placeholder:text-mist/60 focus:border-[#4285F4] focus:ring-2 focus:ring-[#4285F4]/20"
+              />
+              <span className="absolute right-4 rounded-full bg-panel-2 px-2.5 py-1 text-xs font-mono font-medium text-mist border border-line">
+                {filteredTerms.length} {t(ui.common.count)}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => setGroup(null)}
-                className={`rounded border px-2 py-1 text-xs ${!group ? 'border-copper/40 text-copper bg-copper/10' : 'border-line text-mist'}`}
+                className={[
+                  'rounded-full px-3.5 py-1 text-xs font-semibold transition-all cursor-pointer border',
+                  !group
+                    ? 'border-[#4285F4] bg-[#4285F4]/15 text-[#4285F4] dark:text-[#8ab4f8] shadow-xs'
+                    : 'border-line bg-panel-2/70 text-mist hover:border-line-2 hover:text-fog',
+                ].join(' ')}
               >
                 {t(ui.common.all)}
               </button>
@@ -68,63 +94,113 @@ export function Glossary() {
                   key={gr}
                   type="button"
                   onClick={() => setGroup(gr === group ? null : gr)}
-                  className={`rounded border px-2 py-1 text-xs ${group === gr ? 'border-copper/40 text-copper bg-copper/10' : 'border-line text-mist'}`}
+                  className={[
+                    'rounded-full px-3.5 py-1 text-xs font-semibold transition-all cursor-pointer border',
+                    group === gr
+                      ? 'border-[#4285F4] bg-[#4285F4]/15 text-[#4285F4] dark:text-[#8ab4f8] shadow-xs'
+                      : 'border-line bg-panel-2/70 text-mist hover:border-line-2 hover:text-fog',
+                  ].join(' ')}
                 >
                   {gr}
                 </button>
               ))}
             </div>
           </div>
-          <div className="grid gap-2 sm:grid-cols-2">
+
+          {/* Terms Grid */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredTerms.map((term) => (
-              <Card key={term.term + term.group} className="!p-3">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-copper">{term.term}</h3>
-                  <Badge>{term.group}</Badge>
+              <Card
+                key={term.term + term.group}
+                className="p-5 hover:border-copper/40 hover:shadow-[0_8px_24px_rgba(66,133,244,0.12)] transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-display text-base font-bold text-paper text-[#4285F4] dark:text-[#8ab4f8]">
+                      {term.term}
+                    </h3>
+                    <Badge tone="copper">{term.group}</Badge>
+                  </div>
+                  <p className="mt-3 text-xs leading-relaxed text-fog font-normal">
+                    {term.def}
+                  </p>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-mist">{term.def}</p>
               </Card>
             ))}
           </div>
-        </>
-      )}
 
-      {tab === 'confusions' && (
-        <div className="grid gap-3 md:grid-cols-2">
-          {confusions.map((c) => (
-            <Card key={c.left + c.right} accent>
-              <div className="flex flex-wrap items-center gap-2 text-sm">
-                <span className="font-medium text-paper">{c.left}</span>
-                <span className="text-xs font-medium text-copper">vs</span>
-                <span className="font-medium text-paper">{c.right}</span>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-fog">{c.point}</p>
-            </Card>
-          ))}
-        </div>
-      )}
-
-      {tab === 'lectures' && (
-        <div className="space-y-3">
-          {lectures.map((l, i) => (
-            <Card key={l.title}>
-              <p className="text-[12px] font-medium text-mist">
-                {t(g.talk)} {i + 1}
-                {t(g.talkUnit) ? ` ${t(g.talkUnit)}` : ''}
+          {filteredTerms.length === 0 && (
+            <div className="text-center py-16 rounded-3xl border border-dashed border-line">
+              <p className="text-base text-mist">
+                {locale === 'zh' ? '没有匹配的术语，试试别的关键词。' : 'No matching terms found.'}
               </p>
-              <h3 className="mt-1 font-display text-lg text-paper">{l.title}</h3>
-              <div className="mt-3 grid gap-3 md:grid-cols-3">
-                <div>
-                  <p className="text-[11px] font-medium text-mist">{t(g.what)}</p>
-                  <p className="mt-1 text-xs text-fog leading-relaxed">{l.what}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Tab 2: Confusions */}
+      {tab === 'confusions' && (
+        <div className="grid gap-5 md:grid-cols-2 anim-fade-up">
+          {confusions.map((c) => (
+            <Card key={c.left + c.right} accent className="p-6">
+              <div className="flex flex-wrap items-center gap-2.5 pb-3 border-b border-line">
+                <span className="rounded-full bg-panel-2 px-3 py-1 font-display text-sm font-bold text-paper border border-line">
+                  {c.left}
+                </span>
+                <span className="font-mono text-xs font-bold text-copper">VS</span>
+                <span className="rounded-full bg-panel-2 px-3 py-1 font-display text-sm font-bold text-paper border border-line">
+                  {c.right}
+                </span>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-fog font-normal">
+                {c.point}
+              </p>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {/* Tab 3: Lectures */}
+      {tab === 'lectures' && (
+        <div className="space-y-5 anim-fade-up">
+          {lectures.map((l, i) => (
+            <Card key={l.title} className="p-6 sm:p-8">
+              <div className="flex items-center justify-between border-b border-line pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="rounded-full bg-[#4285F4]/15 border border-[#4285F4]/30 px-2.5 py-0.5 text-xs font-mono font-bold text-[#4285F4] dark:text-[#8ab4f8]">
+                    {t(g.talk)} 0{i + 1}
+                  </span>
+                  <h3 className="font-display text-xl font-bold text-paper">{l.title}</h3>
                 </div>
-                <div>
-                  <p className="text-[11px] font-medium text-mist">{t(g.why)}</p>
-                  <p className="mt-1 text-xs text-fog leading-relaxed">{l.why}</p>
+              </div>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                <div className="rounded-2xl border border-line bg-panel-2/40 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#4285F4]">
+                    {t(g.what)}
+                  </p>
+                  <p className="mt-2 text-xs sm:text-sm text-fog leading-relaxed font-normal">
+                    {l.what}
+                  </p>
                 </div>
-                <div className="rounded border border-danger/20 bg-danger/5 p-2">
-                  <p className="text-[11px] font-medium text-danger">{t(g.myth)}</p>
-                  <p className="mt-1 text-xs text-fog leading-relaxed">{l.myth}</p>
+
+                <div className="rounded-2xl border border-line bg-panel-2/40 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#34A853]">
+                    {t(g.why)}
+                  </p>
+                  <p className="mt-2 text-xs sm:text-sm text-fog leading-relaxed font-normal">
+                    {l.why}
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-[#EA4335]/30 bg-[#EA4335]/8 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#EA4335]">
+                    {t(g.myth)}
+                  </p>
+                  <p className="mt-2 text-xs sm:text-sm text-fog leading-relaxed font-normal">
+                    {l.myth}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -132,35 +208,53 @@ export function Glossary() {
         </div>
       )}
 
+      {/* Tab 4: Flashcards */}
       {tab === 'flash' && card && (
-        <div className="mx-auto max-w-lg">
+        <div className="mx-auto max-w-xl anim-fade-up">
           <button
             type="button"
             onClick={() => setFlipped((f) => !f)}
-            className="w-full min-h-[220px] rounded-xl border border-copper/30 bg-gradient-to-br from-panel to-ink-2 p-8 text-center shadow-lg transition-transform hover:scale-[1.01]"
+            className="w-full min-h-[260px] rounded-3xl border border-copper/40 bg-gradient-to-br from-panel via-panel-2 to-panel p-10 text-center shadow-[0_12px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_16px_48px_rgba(66,133,244,0.2)] cursor-pointer flex flex-col justify-between"
           >
-            {!flipped ? (
-              <>
-                <p className="text-[12px] font-medium text-mist">{t(g.front)}</p>
-                <p className="mt-6 font-display text-xl text-paper">{card.front}</p>
-              </>
-            ) : (
-              <>
-                <p className="text-[12px] font-medium text-mist">{t(g.back)}</p>
-                <p className="mt-6 text-sm leading-relaxed text-fog">{card.back}</p>
-              </>
-            )}
+            <div className="flex items-center justify-between text-xs font-semibold text-mist">
+              <span className="flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4]" />
+                {!flipped ? t(g.front) : t(g.back)}
+              </span>
+              <span className="text-[11px] font-mono text-copper">
+                {flipped ? '✓ 答案解析' : '✦ 点击翻转'}
+              </span>
+            </div>
+
+            <div className="my-auto py-6">
+              {!flipped ? (
+                <p className="font-display text-2xl sm:text-3xl font-bold text-paper">
+                  {card.front}
+                </p>
+              ) : (
+                <p className="text-base sm:text-lg leading-relaxed text-fog font-medium">
+                  {card.back}
+                </p>
+              )}
+            </div>
+
+            <div className="text-[11px] text-mist">
+              {cardIdx + 1} of {flashcards.length}
+            </div>
           </button>
-          <div className="mt-4 flex items-center justify-between">
+
+          <div className="mt-6 flex items-center justify-between">
             <Button
               onClick={() => {
                 setFlipped(false)
                 setCardIdx((i) => (i - 1 + flashcards.length) % flashcards.length)
               }}
+              className="gap-1.5"
             >
-              {t(ui.common.prev)}
+              <span>←</span>
+              <span>{t(ui.common.prev)}</span>
             </Button>
-            <span className="text-xs text-mist">
+            <span className="font-mono text-xs font-bold text-mist">
               {(cardIdx % flashcards.length) + 1} / {flashcards.length}
             </span>
             <Button
@@ -168,8 +262,10 @@ export function Glossary() {
                 setFlipped(false)
                 setCardIdx((i) => (i + 1) % flashcards.length)
               }}
+              className="gap-1.5"
             >
-              {t(ui.common.nextCard)}
+              <span>{t(ui.common.nextCard)}</span>
+              <span>→</span>
             </Button>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import SoftAurora from '../bits/SoftAurora'
 import { usePrefs } from '../i18n/context'
 
-/** Full-viewport React Bits SoftAurora — disabled when user prefers reduced motion. */
+/** Full-viewport Google Keynote Stage Lighting & Gemini Aurora */
 export function BitsBackdrop() {
   const { theme } = usePrefs()
   const [reduce, setReduce] = useState(false)
@@ -15,8 +15,6 @@ export function BitsBackdrop() {
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
-  if (reduce) return null
-
   const dark = theme === 'dark'
 
   return (
@@ -24,28 +22,35 @@ export function BitsBackdrop() {
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
       aria-hidden
     >
-      <div className="absolute inset-0 opacity-90">
-        <SoftAurora
-          speed={0.45}
-          scale={1.35}
-          brightness={dark ? 0.55 : 0.35}
-          color1={dark ? '#a78bfa' : '#7c3aed'}
-          color2={dark ? '#5eead4' : '#0d9488'}
-          noiseFrequency={2.2}
-          noiseAmplitude={0.9}
-          bandHeight={0.55}
-          bandSpread={1.1}
-          enableMouseInteraction
-          mouseInfluence={0.2}
-        />
-      </div>
-      {/* Fade bottom so content stays readable */}
+      {/* Google Keynote Overhead Stage Spotlight Cone */}
+      <div className="stage-spotlight-beam" />
+
+      {/* Dynamic Gemini Aurora Field */}
+      {!reduce && (
+        <div className="absolute inset-0 opacity-80">
+          <SoftAurora
+            speed={0.4}
+            scale={1.4}
+            brightness={dark ? 0.6 : 0.4}
+            color1={dark ? '#4285f4' : '#1a73e8'}
+            color2={dark ? '#9b72cf' : '#8ab4f8'}
+            noiseFrequency={2.0}
+            noiseAmplitude={0.85}
+            bandHeight={0.6}
+            bandSpread={1.2}
+            enableMouseInteraction
+            mouseInfluence={0.25}
+          />
+        </div>
+      )}
+
+      {/* Keynote stage gradient fade so text is crisp */}
       <div
         className="absolute inset-0"
         style={{
           background: dark
-            ? 'linear-gradient(to bottom, transparent 0%, #120f17 88%)'
-            : 'linear-gradient(to bottom, transparent 0%, #f6f4f9 90%)',
+            ? 'radial-gradient(ellipse 90% 70% at 50% 0%, transparent 20%, #0a0c10 92%)'
+            : 'radial-gradient(ellipse 90% 70% at 50% 0%, transparent 20%, #f8f9fd 92%)',
         }}
       />
     </div>

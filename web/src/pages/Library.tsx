@@ -58,34 +58,56 @@ export function Library() {
     <div>
       <PageHeader kicker={t(lib.kicker)} title={t(lib.title)} desc={t(lib.desc)} />
 
-      <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
-        <aside className="space-y-2 lg:sticky lg:top-20 lg:self-start">
-          {catalog.map((d) => (
+      <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+        {/* Left Document Catalog Navigator */}
+        <aside className="space-y-2.5 lg:sticky lg:top-24 lg:self-start">
+          <p className="text-xs font-bold uppercase tracking-wider text-mist px-1 mb-2">
+            {locale === 'zh' ? '官方规范白皮书' : 'Official Whitepapers'}
+          </p>
+          {catalog.map((d, i) => (
             <button
               key={d.id}
               type="button"
               onClick={() => setActiveId(d.id)}
               className={[
-                'w-full rounded-lg border p-3 text-left transition-colors',
+                'w-full rounded-2xl border p-4 text-left transition-all duration-200 cursor-pointer',
                 active.id === d.id
-                  ? 'border-copper/40 bg-copper/10'
-                  : 'border-line bg-panel/50 hover:border-line-2',
+                  ? 'border-[#4285F4] bg-[#4285F4]/15 shadow-[0_4px_16px_rgba(66,133,244,0.18)] ring-1 ring-[#4285F4]/40'
+                  : 'border-line bg-panel/70 hover:border-line-2 hover:bg-panel',
               ].join(' ')}
             >
-              <p className="text-sm font-medium text-paper leading-snug">{d.title}</p>
-              <p className="mt-1 text-[11px] text-mist">{d.audience}</p>
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-mono text-[10px] font-bold text-mist">
+                  DOC 0{i + 1}
+                </span>
+                <span className="rounded-full bg-panel-2 px-2 py-0.5 text-[10px] font-medium text-mist border border-line">
+                  {d.audience}
+                </span>
+              </div>
+              <p className="font-display text-sm font-bold text-paper leading-snug">
+                {d.title}
+              </p>
+              <p className="mt-1 text-xs text-mist line-clamp-2">{d.blurb}</p>
             </button>
           ))}
         </aside>
 
-        <Card className="min-h-[60vh]">
-          <div className="mb-4 flex flex-wrap items-start justify-between gap-2 border-b border-line pb-4">
+        {/* Right Keynote Whitepaper Stage Card */}
+        <Card className="min-h-[70vh] p-6 sm:p-10">
+          <div className="mb-6 flex flex-wrap items-start justify-between gap-4 border-b border-line pb-6">
             <div>
-              <Badge tone="copper">{active.audience}</Badge>
-              <h2 className="mt-2 font-display text-xl text-paper">{active.title}</h2>
-              <p className="mt-1 text-xs text-mist">{active.blurb}</p>
+              <Badge tone="copper">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4]" />
+                {active.audience}
+              </Badge>
+              <h2 className="mt-3 font-display text-2xl sm:text-3xl font-extrabold text-paper tracking-tight">
+                {active.title}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-mist max-w-2xl">{active.blurb}</p>
             </div>
+
             <Button
+              variant="primary"
               onClick={() => {
                 const blob = new Blob([content], { type: 'text/markdown' })
                 const a = document.createElement('a')
@@ -94,19 +116,28 @@ export function Library() {
                 a.click()
               }}
               disabled={!content}
+              className="gap-2"
             >
-              {t(ui.common.downloadMd)}
+              <span>📥</span>
+              <span>{t(ui.common.downloadMd)}</span>
             </Button>
           </div>
 
           {loading && (
-            <p className="text-sm text-mist py-12 text-center">{t(ui.common.loading)}</p>
+            <div className="py-20 text-center">
+              <span className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-copper border-t-transparent" />
+              <p className="mt-3 text-sm text-mist">{t(ui.common.loading)}</p>
+            </div>
           )}
+
           {error && (
-            <p className="text-sm text-danger py-12 text-center">
-              {t(ui.common.loadFail)}：{error}
-            </p>
+            <div className="py-20 text-center">
+              <p className="text-sm text-[#EA4335]">
+                {t(ui.common.loadFail)}：{error}
+              </p>
+            </div>
           )}
+
           {!loading && !error && content && (
             <article
               className="prose-doc max-w-none"

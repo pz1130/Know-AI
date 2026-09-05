@@ -3,6 +3,8 @@ import { PageHeader, Card, Badge, Button } from '../components/ui'
 import { useContent, useUi } from '../hooks/useContent'
 import { ui } from '../i18n/ui'
 
+const questionColors = ['#4285F4', '#FBBC05', '#EA4335', '#34A853']
+
 export function Quiz() {
   const { t, locale } = useUi()
   const qz = ui.quiz
@@ -14,6 +16,7 @@ export function Quiz() {
     3: null,
   })
   const [revealed, setRevealed] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const done = Object.values(answers).every((a) => a !== null)
 
@@ -48,37 +51,65 @@ export function Quiz() {
     return lines
   }
 
+  function handleCopy() {
+    navigator.clipboard?.writeText(summary().join('\n'))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
-    <div>
+    <div className="space-y-10">
       <PageHeader kicker={t(qz.kicker)} title={t(qz.title)} desc={t(qz.desc)} />
 
-      <div className="space-y-4">
+      {/* Interactive Question Cards */}
+      <div className="space-y-5">
         {acceptanceQuestions.map((item, i) => (
-          <Card key={item.q} accent={answers[i] !== null}>
-            <div className="flex items-start gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-copper/40 text-sm font-semibold text-copper">
-                {i + 1}
+          <Card
+            key={item.q}
+            accent={answers[i] !== null}
+            className="p-6 transition-all duration-300"
+          >
+            <div className="flex items-start gap-4">
+              <span
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl font-mono text-sm font-bold border"
+                style={{
+                  color: questionColors[i % questionColors.length],
+                  borderColor: `${questionColors[i % questionColors.length]}44`,
+                  backgroundColor: `${questionColors[i % questionColors.length]}15`,
+                }}
+              >
+                0{i + 1}
               </span>
+
               <div className="flex-1">
-                <h3 className="font-display text-lg text-paper leading-snug">{item.q}</h3>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <h3 className="font-display text-lg sm:text-xl font-bold text-paper leading-snug">
+                  {item.q}
+                </h3>
+
+                <div className="mt-4 flex flex-wrap gap-2.5">
                   <Button
                     active={answers[i] === 'yes'}
                     onClick={() => setAnswers((prev) => ({ ...prev, [i]: 'yes' }))}
+                    className="min-w-[84px]"
                   >
                     {t(ui.common.yes)}
                   </Button>
                   <Button
                     active={answers[i] === 'no'}
                     onClick={() => setAnswers((prev) => ({ ...prev, [i]: 'no' }))}
+                    className="min-w-[84px]"
                   >
                     {t(ui.common.no)}
                   </Button>
                 </div>
+
                 {revealed && answers[i] && (
-                  <p className="mt-3 text-xs text-mist leading-relaxed">
+                  <div className="mt-4 rounded-2xl border border-line bg-panel-2/50 p-4 text-xs sm:text-sm leading-relaxed text-fog">
+                    <strong className="text-paper mr-2">
+                      {answers[i] === 'yes' ? t(ui.common.yes) : t(ui.common.no)}:
+                    </strong>
                     {answers[i] === 'yes' ? item.yes : item.no}
-                  </p>
+                  </div>
                 )}
               </div>
             </div>
@@ -86,9 +117,16 @@ export function Quiz() {
         ))}
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
-        <Button variant="primary" disabled={!done} onClick={() => setRevealed(true)}>
-          {t(qz.generate)}
+      {/* Actions */}
+      <div className="flex flex-wrap items-center gap-3">
+        <Button
+          variant="primary"
+          disabled={!done}
+          onClick={() => setRevealed(true)}
+          className="px-6 py-2.5"
+        >
+          <span>{t(qz.generate)}</span>
+          <span className="ml-1.5">✦</span>
         </Button>
         <Button
           onClick={() => {
@@ -100,22 +138,37 @@ export function Quiz() {
         </Button>
       </div>
 
+      {/* Revealed Conclusion Deck */}
       {revealed && done && (
-        <Card className="mt-6 anim-fade-up" accent>
-          <Badge tone="copper">{t(qz.portrait)}</Badge>
-          <ul className="mt-4 space-y-2">
+        <Card className="anim-fade-up p-8 border-[#4285F4]/40" accent>
+          <div className="flex items-center justify-between border-b border-line pb-4">
+            <Badge tone="copper">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4]" />
+              {t(qz.portrait)} · {locale === 'zh' ? '架构四问裁决画像' : 'Architecture Gate Verdict'}
+            </Badge>
+          </div>
+
+          <ul className="mt-5 space-y-3">
             {summary().map((line) => (
-              <li key={line} className="text-sm text-fog leading-relaxed">
-                · {line}
+              <li
+                key={line}
+                className="flex items-start gap-3 rounded-xl border border-line bg-panel-2/40 p-3.5 text-sm text-fog leading-relaxed font-medium"
+              >
+                <span className="mt-0.5 text-copper">✦</span>
+                <span>{line}</span>
               </li>
             ))}
           </ul>
-          <Button
-            className="mt-4"
-            onClick={() => navigator.clipboard?.writeText(summary().join('\n'))}
-          >
-            {t(qz.copyPortrait)}
-          </Button>
+
+          <div className="mt-6">
+            <Button variant="primary" onClick={handleCopy}>
+              {copied
+                ? locale === 'zh'
+                  ? '✓ 已复制挑战画像'
+                  : '✓ Copied Summary'
+                : t(qz.copyPortrait)}
+            </Button>
+          </div>
         </Card>
       )}
     </div>

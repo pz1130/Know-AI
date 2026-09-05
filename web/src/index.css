@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
 @theme {
-  /* React Bits–inspired stack: grotesk display + clean CJK body + code mono */
-  --font-sans: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-  --font-display: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, sans-serif;
-  --font-serif: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, sans-serif;
+  /* Google Keynote stack: Plus Jakarta Sans / Google Sans style + clean CJK + Google Sans Code */
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, sans-serif;
+  --font-serif: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, sans-serif;
   --font-mono: 'Google Sans Code', 'SF Mono', ui-monospace, monospace;
 
   --color-ink: var(--eap-ink);
@@ -24,60 +24,66 @@
   --color-danger: var(--eap-danger);
   --color-danger-dim: var(--eap-danger-dim);
   --color-safe: var(--eap-safe);
+  --color-warning: var(--eap-warning);
+  --color-warning-dim: var(--eap-warning-dim);
 }
 
-/* Dark — React Bits #120F17 family */
+/* Dark — Google I/O Keynote Stage (Obsidian + Gemini Aurora + Stage Beams) */
 :root,
 [data-theme='dark'] {
-  --eap-ink: #120f17;
-  --eap-ink-2: #18141f;
-  --eap-ink-3: #221c2c;
-  --eap-panel: #1c1724;
-  --eap-panel-2: #252030;
+  --eap-ink: #0a0c10;
+  --eap-ink-2: #0f131d;
+  --eap-ink-3: #161b28;
+  --eap-panel: #121622;
+  --eap-panel-2: #1a2030;
   --eap-line: rgba(255, 255, 255, 0.08);
-  --eap-line-2: rgba(255, 255, 255, 0.14);
-  --eap-mist: #9b93a8;
-  --eap-fog: #d4cfe0;
-  --eap-paper: #f4f0fa;
-  --eap-accent: #c4b5fd;
-  --eap-accent-dim: #a78bfa;
-  --eap-secondary: #7dd3c0;
-  --eap-secondary-dim: #5ab8a4;
-  --eap-danger: #f0a090;
-  --eap-danger-dim: #e07a68;
-  --eap-safe: #86d4a8;
-  --eap-glow: rgba(167, 139, 250, 0.14);
-  --eap-glow-2: rgba(125, 211, 192, 0.08);
-  --eap-header-bg: rgba(18, 15, 23, 0.82);
-  --eap-selection: rgba(167, 139, 250, 0.35);
-  --eap-card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 8px 32px rgba(0, 0, 0, 0.28);
-  --eap-on-accent: #120f17;
+  --eap-line-2: rgba(255, 255, 255, 0.16);
+  --eap-mist: #9aa0a6;
+  --eap-fog: #e8eaed;
+  --eap-paper: #ffffff;
+  --eap-accent: #4285f4;
+  --eap-accent-dim: #1a73e8;
+  --eap-secondary: #34a853;
+  --eap-secondary-dim: #1e8e3e;
+  --eap-danger: #ea4335;
+  --eap-danger-dim: #d93025;
+  --eap-warning: #fbbc05;
+  --eap-warning-dim: #f9ab00;
+  --eap-safe: #34a853;
+  --eap-glow: rgba(66, 133, 244, 0.22);
+  --eap-glow-2: rgba(155, 114, 207, 0.16);
+  --eap-header-bg: rgba(10, 12, 16, 0.82);
+  --eap-selection: rgba(66, 133, 244, 0.38);
+  --eap-card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 12px 36px -6px rgba(0, 0, 0, 0.55);
+  --eap-on-accent: #ffffff;
 }
 
-/* Light — paper UI, soft violet accent */
+/* Light — Material 3 Expressive Daylight Keynote */
 [data-theme='light'] {
-  --eap-ink: #f6f4f9;
-  --eap-ink-2: #eeebf3;
-  --eap-ink-3: #e4e0ec;
+  --eap-ink: #f8f9fd;
+  --eap-ink-2: #eef2f9;
+  --eap-ink-3: #e3e8f3;
   --eap-panel: #ffffff;
-  --eap-panel-2: #f3f0f7;
-  --eap-line: rgba(24, 16, 40, 0.1);
-  --eap-line-2: rgba(24, 16, 40, 0.16);
-  --eap-mist: #6b6578;
-  --eap-fog: #3a3545;
-  --eap-paper: #16131c;
-  --eap-accent: #6d28d9;
-  --eap-accent-dim: #5b21b6;
-  --eap-secondary: #0f766e;
-  --eap-secondary-dim: #0d5c56;
-  --eap-danger: #c2410c;
-  --eap-danger-dim: #9a3412;
-  --eap-safe: #15803d;
-  --eap-glow: rgba(109, 40, 217, 0.08);
-  --eap-glow-2: rgba(15, 118, 110, 0.06);
-  --eap-header-bg: rgba(246, 244, 249, 0.88);
-  --eap-selection: rgba(109, 40, 217, 0.2);
-  --eap-card-shadow: 0 0 0 1px rgba(24, 16, 40, 0.06), 0 4px 20px rgba(24, 16, 40, 0.06);
+  --eap-panel-2: #f1f4f9;
+  --eap-line: rgba(0, 0, 0, 0.08);
+  --eap-line-2: rgba(0, 0, 0, 0.14);
+  --eap-mist: #5f6368;
+  --eap-fog: #3c4043;
+  --eap-paper: #202124;
+  --eap-accent: #1a73e8;
+  --eap-accent-dim: #1557b0;
+  --eap-secondary: #188038;
+  --eap-secondary-dim: #137333;
+  --eap-danger: #d93025;
+  --eap-danger-dim: #b31412;
+  --eap-warning: #e37400;
+  --eap-warning-dim: #b06000;
+  --eap-safe: #188038;
+  --eap-glow: rgba(26, 115, 232, 0.12);
+  --eap-glow-2: rgba(155, 114, 207, 0.08);
+  --eap-header-bg: rgba(248, 249, 253, 0.85);
+  --eap-selection: rgba(66, 133, 244, 0.22);
+  --eap-card-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 20px -2px rgba(0, 0, 0, 0.06);
   --eap-on-accent: #ffffff;
 }
 
@@ -99,23 +105,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
   font-feature-settings: 'ss01' on, 'cv11' on;
 }
 
 .font-display {
   font-family: var(--font-display);
   font-optical-sizing: auto;
+  letter-spacing: -0.02em;
 }
 
-/* Soft ambient — no blueprint grid / grain (less “AI dashboard”) */
+/* Keynote Stage Background */
 .bg-blueprint {
   background-color: var(--eap-ink);
-  /* SoftAurora sits on top; keep a flat base so WebGL alpha blends cleanly */
-}
-
-.grain::before {
-  display: none;
 }
 
 ::selection {
@@ -123,21 +125,23 @@ body {
   color: inherit;
 }
 
+/* Floating Glass Header */
 .site-header {
   background: var(--eap-header-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* Segmented controls */
+/* Google Keynote Capsule Toggle */
 .pref-toggle {
   display: inline-flex;
   align-items: center;
   gap: 2px;
   border: 1px solid var(--eap-line);
-  border-radius: 999px;
+  border-radius: 9999px;
   padding: 3px;
   background: var(--eap-panel);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .pref-toggle button {
@@ -149,9 +153,9 @@ body {
   font-weight: 500;
   letter-spacing: 0;
   padding: 0.35rem 0.75rem;
-  border-radius: 999px;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.18s, color 0.18s;
 }
 
 .pref-toggle button[data-active='true'] {
@@ -161,7 +165,8 @@ body {
 }
 
 [data-theme='dark'] .pref-toggle button[data-active='true'] {
-  color: var(--eap-accent);
+  color: #8ab4f8;
+  background: rgba(66, 133, 244, 0.18);
 }
 
 .pref-toggle button:hover:not([data-active='true']) {
@@ -169,47 +174,92 @@ body {
   background: var(--eap-panel-2);
 }
 
+/* Gemini Keynote Rainbow Gradient */
+.gemini-gradient-text {
+  background: linear-gradient(135deg, #4285f4 0%, #9b72cf 38%, #ea4335 72%, #fbbc05 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gemini-gradient-border {
+  position: relative;
+}
+
+.gemini-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(66, 133, 244, 0.6), rgba(155, 114, 207, 0.4), rgba(234, 67, 53, 0.3), rgba(52, 168, 83, 0.4));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Keynote Stage Spotlight Cone */
+.stage-spotlight-beam {
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 520px;
+  background: radial-gradient(ellipse 65% 55% at 50% 0%, rgba(66, 133, 244, 0.22) 0%, rgba(155, 114, 207, 0.12) 45%, rgba(0, 0, 0, 0) 75%);
+  pointer-events: none;
+  filter: blur(48px);
+  z-index: 0;
+}
+
+[data-theme='light'] .stage-spotlight-beam {
+  background: radial-gradient(ellipse 65% 55% at 50% 0%, rgba(66, 133, 244, 0.14) 0%, rgba(155, 114, 207, 0.08) 45%, rgba(255, 255, 255, 0) 75%);
+  filter: blur(56px);
+}
+
 /* Markdown prose */
 .prose-doc h1 {
   font-family: var(--font-display);
-  font-size: 1.65rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   color: var(--eap-paper);
-  margin: 2rem 0 1rem;
-  line-height: 1.35;
+  margin: 2.25rem 0 1.25rem;
+  line-height: 1.3;
 }
 .prose-doc h2 {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   color: var(--eap-accent);
-  margin: 2rem 0 0.75rem;
-  padding-bottom: 0.4rem;
+  margin: 2rem 0 0.85rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--eap-line);
 }
 .prose-doc h3 {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--eap-fog);
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.6rem 0 0.6rem;
 }
 .prose-doc p {
   color: var(--eap-fog);
-  line-height: 1.75;
-  margin: 0.75rem 0;
+  line-height: 1.8;
+  margin: 0.85rem 0;
   font-size: 0.95rem;
 }
 .prose-doc li {
   color: var(--eap-fog);
-  line-height: 1.7;
-  margin: 0.3rem 0;
+  line-height: 1.75;
+  margin: 0.35rem 0;
   font-size: 0.95rem;
 }
 .prose-doc ul,
 .prose-doc ol {
-  padding-left: 1.25rem;
+  padding-left: 1.35rem;
 }
 .prose-doc strong {
   color: var(--eap-paper);
@@ -217,27 +267,27 @@ body {
 }
 .prose-doc blockquote {
   border-left: 3px solid var(--eap-accent);
-  margin: 1rem 0;
-  padding: 0.5rem 0 0.5rem 1rem;
+  margin: 1.25rem 0;
+  padding: 0.6rem 0 0.6rem 1.1rem;
   color: var(--eap-fog);
   background: color-mix(in srgb, var(--eap-accent) 8%, transparent);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 12px 12px 0;
 }
 .prose-doc code {
   font-family: var(--font-mono);
-  font-size: 0.84em;
+  font-size: 0.86em;
   background: var(--eap-ink-3);
-  padding: 0.12em 0.4em;
-  border-radius: 5px;
+  padding: 0.15em 0.45em;
+  border-radius: 6px;
   color: var(--eap-accent);
 }
 .prose-doc pre {
   background: var(--eap-ink-2);
   border: 1px solid var(--eap-line);
-  border-radius: 12px;
-  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  padding: 1.2rem 1.3rem;
   overflow-x: auto;
-  margin: 1rem 0;
+  margin: 1.2rem 0;
 }
 .prose-doc pre code {
   background: none;
@@ -247,13 +297,13 @@ body {
 .prose-doc table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   font-size: 0.9rem;
 }
 .prose-doc th,
 .prose-doc td {
   border: 1px solid var(--eap-line);
-  padding: 0.55rem 0.75rem;
+  padding: 0.65rem 0.85rem;
   text-align: left;
 }
 .prose-doc th {
@@ -265,20 +315,20 @@ body {
   color: var(--eap-fog);
 }
 .prose-doc a {
-  color: var(--eap-secondary);
+  color: var(--eap-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .prose-doc hr {
   border: none;
   border-top: 1px solid var(--eap-line);
-  margin: 2rem 0;
+  margin: 2.25rem 0;
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -287,7 +337,7 @@ body {
 }
 
 .anim-fade-up {
-  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .anim-delay-1 {
@@ -312,13 +362,13 @@ input[type='text'] {
   color: var(--eap-paper);
   background: var(--eap-panel);
   border-color: var(--eap-line);
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: var(--font-sans);
 }
 
 input[type='search']:focus,
 input[type='text']:focus {
   outline: none;
-  border-color: color-mix(in srgb, var(--eap-accent) 45%, var(--eap-line));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--eap-accent) 15%, transparent);
+  border-color: var(--eap-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--eap-accent) 22%, transparent);
 }

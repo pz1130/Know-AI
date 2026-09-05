@@ -20,24 +20,47 @@ export function Layout() {
   const { theme, setTheme, locale, setLocale } = usePrefs()
 
   return (
-    <div className="bg-blueprint relative min-h-screen">
+    <div className="bg-blueprint relative min-h-screen text-paper selection:bg-copper/30">
       <BitsBackdrop />
 
-      <div className="relative z-10">
-        <header className="site-header sticky top-0 z-40 border-b border-line">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3.5">
-            <NavLink to="/" className="group flex items-center gap-2.5 no-underline">
-              <Magnet padding={28} magnetStrength={4} wrapperClassName="inline-block">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-copper/15 text-[11px] font-semibold text-copper">
-                  AI
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Floating Keynote Stage Header */}
+        <header className="site-header sticky top-0 z-40 border-b border-line shadow-xs">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6">
+            <NavLink to="/" className="group flex items-center gap-3 no-underline">
+              <Magnet padding={28} magnetStrength={3} wrapperClassName="inline-block">
+                {/* Gemini 4-point sparkle icon with Google 4-color gradient */}
+                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-panel-2 border border-line shadow-xs transition-transform duration-300 group-hover:scale-105">
+                  <svg className="w-5 h-5" viewBox="0 0 32 32" fill="none">
+                    <defs>
+                      <linearGradient id="nav-sparkle" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#4285F4" />
+                        <stop offset="35%" stopColor="#9B72CF" />
+                        <stop offset="70%" stopColor="#EA4335" />
+                        <stop offset="100%" stopColor="#34A853" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M16 4C16 10.6274 10.6274 16 4 16C10.6274 16 16 21.3726 16 28C16 21.3726 21.3726 16 28 16C21.3726 16 16 10.6274 16 4Z"
+                      fill="url(#nav-sparkle)"
+                    />
+                  </svg>
                 </span>
               </Magnet>
-              <span className="font-display text-[15px] font-semibold tracking-tight text-paper group-hover:text-copper transition-colors">
-                {t(ui.brand, locale)}
-              </span>
+
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-[17px] font-bold tracking-tight text-paper transition-colors group-hover:text-copper">
+                  {t(ui.brand, locale)}
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1 rounded-full border border-[#4285F4]/30 bg-[#4285F4]/10 px-2 py-0.5 text-[10px] font-semibold text-[#4285F4] dark:text-[#8ab4f8]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4] animate-pulse" />
+                  Keynote 2026
+                </span>
+              </div>
             </NavLink>
 
-            <div className="flex flex-wrap items-center gap-2">
+            {/* Segmented Controls */}
+            <div className="flex items-center gap-2">
               <div className="pref-toggle" role="group" aria-label={t(ui.themeToggle, locale)}>
                 <button
                   type="button"
@@ -45,7 +68,7 @@ export function Layout() {
                   onClick={() => setTheme('dark')}
                   title={t(ui.themeDark, locale)}
                 >
-                  {locale === 'zh' ? '深色' : 'Dark'}
+                  {locale === 'zh' ? '舞台深色' : 'Stage Dark'}
                 </button>
                 <button
                   type="button"
@@ -53,9 +76,10 @@ export function Layout() {
                   onClick={() => setTheme('light')}
                   title={t(ui.themeLight, locale)}
                 >
-                  {locale === 'zh' ? '浅色' : 'Light'}
+                  {locale === 'zh' ? '演说浅色' : 'Daylight'}
                 </button>
               </div>
+
               <div className="pref-toggle" role="group" aria-label={t(ui.langToggle, locale)}>
                 <button
                   type="button"
@@ -74,8 +98,10 @@ export function Layout() {
               </div>
             </div>
           </div>
-          <div className="mx-auto max-w-6xl overflow-x-auto px-4 pb-3">
-            <nav className="flex min-w-max flex-wrap gap-0.5">
+
+          {/* Module Navigation Pill Strip */}
+          <div className="mx-auto max-w-7xl overflow-x-auto px-4 pb-2.5 sm:px-6">
+            <nav className="flex min-w-max items-center gap-1">
               {linkDefs.map((l) => (
                 <NavLink
                   key={l.to}
@@ -83,29 +109,49 @@ export function Layout() {
                   end={l.end}
                   className={({ isActive }) =>
                     [
-                      'rounded-lg px-2.5 py-1.5 text-[13px] font-medium no-underline transition-colors',
+                      'relative rounded-full px-3.5 py-1.5 text-[13px] font-medium no-underline transition-all duration-200',
                       isActive
-                        ? 'bg-copper/12 text-copper'
+                        ? 'bg-gradient-to-r from-[#4285F4]/15 via-[#9B72CF]/15 to-[#34A853]/15 text-paper font-semibold shadow-xs ring-1 ring-copper/40'
                         : 'text-mist hover:bg-panel hover:text-fog',
                     ].join(' ')
                   }
                 >
-                  {t(ui.nav[l.key], locale)}
+                  {({ isActive }) => (
+                    <span className="inline-flex items-center gap-1.5">
+                      {isActive && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#4285F4] shadow-[0_0_6px_#4285F4]" />
+                      )}
+                      {t(ui.nav[l.key], locale)}
+                    </span>
+                  )}
                 </NavLink>
               ))}
             </nav>
           </div>
         </header>
 
-        <main className="mx-auto max-w-6xl px-4 py-9 pb-20">
+        {/* Main Presentation Stage */}
+        <main className="mx-auto max-w-7xl flex-1 w-full px-4 py-10 sm:px-6 pb-24">
           <Outlet />
         </main>
 
-        <footer className="border-t border-line py-7 text-center text-[13px] text-mist">
-          <p>{t(ui.footer1, locale)}</p>
-          {t(ui.footer2, locale) ? (
-            <p className="mt-1 opacity-70">{t(ui.footer2, locale)}</p>
-          ) : null}
+        {/* Keynote Stage Footer */}
+        <footer className="border-t border-line/80 py-10 text-center text-xs text-mist bg-panel/30 backdrop-blur-md">
+          <div className="mx-auto max-w-5xl px-4 space-y-2">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <span className="h-2 w-2 rounded-full bg-[#4285F4]" />
+              <span className="h-2 w-2 rounded-full bg-[#EA4335]" />
+              <span className="h-2 w-2 rounded-full bg-[#FBBC05]" />
+              <span className="h-2 w-2 rounded-full bg-[#34A853]" />
+              <span className="font-semibold text-fog tracking-wide ml-1">
+                Google Keynote Edition · Enterprise Agent Architecture
+              </span>
+            </div>
+            <p className="leading-relaxed">{t(ui.footer1, locale)}</p>
+            {t(ui.footer2, locale) ? (
+              <p className="opacity-75">{t(ui.footer2, locale)}</p>
+            ) : null}
+          </div>
         </footer>
       </div>
     </div>
