@@ -119,9 +119,13 @@ Some easily confused items: a **tool** is a specific capability; an **MCP tool**
 
 **A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an **Agent Card** describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
 
+**AG-UI (Agent-User Interaction)** — an open protocol between an agent and its user-facing front end: the front end sends one request and the agent returns an ordered stream of typed events (streamed text, tool calls, reasoning, shared state, progress, subagents and so on; the 1.0 spec defines 31 event types over HTTP + SSE or Protobuf). Started by CopilotKit; 1.0 was released and frozen in September 2026. Division of labour: MCP is how an agent uses tools, A2A is how agents hand tasks to each other, and AG-UI is how an agent talks to the user interface — including pushing a "needs human confirmation" request to the screen and getting the answer back. Microsoft Agent Framework and Google ADK both have official AG-UI integrations. It only matters when we build our own agent front end.
+
 **Hook** — a program triggered under specific conditions. Typical uses: pre-checks, post-processing (logging, notifications), exception interception, lifecycle actions. Not an AI-specific concept — Git and front-end frameworks have them too.
 
 **Skill** — a reusable capability package. It can be a single instruction document, or that document plus scripts, templates and other resources, so the model performs a class of task to an established standard. Its defining traits are reusability, composability and explicit usage instructions.
+
+**Agent Skills open standard** — the common file format for skills (agentskills.io): a directory with at least a `SKILL.md` (YAML front matter with `name` and `description`, then instructions in Markdown), optionally bundling scripts, references and templates. Agents load only names and descriptions at startup, read the full file when a task matches, then pull in attachments as needed (progressive disclosure), so many skills can be installed without filling the context. Originally developed by Anthropic and released as an open standard; OpenAI (Codex and the API), Google (ADK, Gemini) and GitHub Copilot / VS Code / Visual Studio all support it. Versus MCP: MCP connects callable external systems, while a skill packages "how to do this kind of task" as instructions and scripts; a skill can tell the agent to call a given MCP tool. Bundled scripts execute in the agent environment, so treat third-party skills as supply chain (OWASP ASI04).
 
 **Plugin** — an installable extension package that bundles a set of related capabilities (skills, agent configurations, hooks, MCP servers, tools, prompt templates) into one distributable, manageable unit. Also not AI-specific.
 
@@ -311,7 +315,7 @@ These describe what a product looks like rather than its technical architecture,
 
 ## 1.12 A note on where terms come from
 
-**Skill, Plugin, Harness and Hook** in section 1.4 started mainly in the Claude product vocabulary. The concepts now show up across products (Skill management on some platforms, skills in Microsoft Agent Framework), but **the names are still not unified** — other frameworks do not necessarily use them, and Harness in particular is not standard terminology in general engineering (in testing it means something else).
+**Skill, Plugin, Harness and Hook** in section 1.4 started mainly in the Claude product vocabulary. The concepts now show up across products (Skill management on some platforms, skills in Microsoft Agent Framework), but **the names are still not unified** (the skill file format now has the Agent Skills open standard, see section 1.4, though naming still varies) — other frameworks do not necessarily use them, and Harness in particular is not standard terminology in general engineering (in testing it means something else).
 
 When talking to vendors or writing tender documents, prefer neutral phrasing: say "runtime framework / execution environment" for harness, "reusable capability package / prompt template package" for skill, and "extension package" for plugin. Otherwise the two sides end up talking past each other.
 

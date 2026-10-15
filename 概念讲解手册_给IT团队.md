@@ -119,9 +119,13 @@
 
 **A2A（Agent-to-Agent）**——Agent 之间发现对方、交出任务的协议；**Agent Card** 描述能力、端点和认证。和 MCP 的分工：MCP 管「怎么用工具」，A2A 管「怎么把任务交给另一个 Agent」。两者现同属 Agentic AI Foundation。跨机构协同才需要 A2A；行内单体 Agent 用不到，也不因此放松形态 F 的劝退。
 
+**AG-UI（Agent-User Interaction）**——Agent 与前端界面之间的开放协议：前端发一次请求，Agent 回一串有序的类型化事件（文本流、工具调用、推理过程、共享状态、进度、子 Agent 等，1.0 规范共 31 种事件，走 HTTP + SSE 或 Protobuf）。由 CopilotKit 发起，2026 年 9 月发布并冻结 1.0。三者分工：MCP 管 Agent 怎么用工具，A2A 管 Agent 之间怎么交任务，AG-UI 管 Agent 怎么和用户界面对话——包括把"需要人工确认"的请求推到界面上、拿回确认结果。Microsoft Agent Framework、Google ADK 都有官方 AG-UI 集成。只有要做自建的 Agent 交互界面时才需要关心它。
+
 **Hook（钩子）**——在特定条件下触发的程序。典型用途：前置校验、后置处理（记日志、发通知）、异常拦截、生命周期动作。这不是 AI 独有的概念，Git 和前端框架里都有。
 
 **Skill（技能）**——可复用的能力包。可以是一份说明文档，也可以是说明文档加上脚本、模板等资源，目的是让模型按既定规范高效完成某类任务。特征是可复用、可组合、有明确使用说明。
+
+**Agent Skills 开放标准**——Skill 的通用文件格式（agentskills.io）：一个目录，至少含一个 `SKILL.md`（YAML 头写 `name`、`description`，正文写操作说明），可附脚本、参考资料和模板。Agent 启动时只加载名称和描述，任务匹配时才读全文、再按需读附件（渐进加载），所以装很多个也不占上下文。最初由 Anthropic 制定，后作为开放标准发布；OpenAI（Codex 与 API）、Google（ADK、Gemini）、GitHub Copilot / VS Code / Visual Studio 都已支持。和 MCP 的区别：MCP 接入的是可调用的外部系统，Skill 装的是"怎么做这类事"的说明和脚本；一个 Skill 可以指导 Agent 去调用某个 MCP 工具。Skill 带的脚本会在 Agent 环境里执行，引入外部 Skill 要按供应链审查（对应 OWASP ASI04）。
 
 **Plugin（插件）**——可安装的扩展包，把一组相关能力（Skill、Agent 配置、Hook、MCP Server、Tools、Prompt 模板）打包成一个可分发、可管理的单元。也不是 AI 独有的概念。
 
@@ -311,7 +315,7 @@
 
 ## 1.12 术语来源提醒
 
-上面 1.4 节里的 **Skill、Plugin、Harness、Hook** 这几个词，最早主要来自 Claude 生态。概念已经跨产品出现（部分平台的 Skill 管理、Microsoft Agent Framework 的 skills），但**叫法仍不统一**——别的框架不一定这么称呼，尤其 Harness 在通用工程语境里不是标准术语（在测试领域它指的是另一回事）。
+上面 1.4 节里的 **Skill、Plugin、Harness、Hook** 这几个词，最早主要来自 Claude 生态。概念已经跨产品出现（部分平台的 Skill 管理、Microsoft Agent Framework 的 skills），但**叫法仍不统一**（Skill 的文件格式已有 Agent Skills 开放标准，见 1.4 节，名称本身仍各家不同）——别的框架不一定这么称呼，尤其 Harness 在通用工程语境里不是标准术语（在测试领域它指的是另一回事）。
 
 和供应商沟通、写招标文件时，建议用更中性的表述：Harness 说"运行框架/执行环境"，Skill 说"可复用能力包/提示模板包"，Plugin 说"扩展包"。否则容易出现双方各说各话。
 
