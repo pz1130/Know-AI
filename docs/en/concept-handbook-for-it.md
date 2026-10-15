@@ -113,11 +113,11 @@ In one line: an agent does not answer in a single shot; it works like a person �
 
 **MCP (Model Context Protocol)** — the context protocol standard proposed by Anthropic and now maintained under an independent foundation, letting AI applications recognise and call external services in a uniform way. An MCP server can expose three kinds of thing: **Resources** (readable data sources), **Prompts** (preset templates) and **Tools** (callable functions).
 
-An analogy: MCP is to tool calling what HTTP is to network communication — not the only way, but valuable because it provides a common language. The current spec (2026-07-28) removed protocol-level sessions and the initialize handshake: each request carries protocol version and client capabilities, clients may call `server/discover`, and servers scale like ordinary HTTP. That analogy is now more accurate than the earlier sessionful version. Enterprise rollout also needs the authorization extension (who acts on whose behalf); listing tools is not enough.
+An analogy: MCP is to tool calling what HTTP is to network communication — not the only way, but valuable because it provides a common language. The current spec (2026-07-28) removed protocol-level sessions and the initialize handshake: each request carries protocol version and client capabilities, clients may call `server/discover`, and servers scale like ordinary HTTP. That analogy is now more accurate than the earlier sessionful version. This revision also requires `Mcp-Method` / `Mcp-Name` headers on HTTP requests, so gateways and firewalls can route and rate-limit without parsing bodies; mid-call user confirmation moves to Multi Round-Trip Requests (MRTR) instead of held-open streams; Tasks, MCP Apps and Enterprise-Managed Authorization (EMA) ship as formal extensions. Enterprise rollout also needs the authorization extension (who acts on whose behalf); listing tools is not enough: the spec now requires validating the authorization server `iss` (RFC 9207) and formally deprecates Dynamic Client Registration (DCR) in favour of Client ID Metadata Documents (CIMD). (Source: [MCP 2026-07-28 release notes](https://blog.modelcontextprotocol.io/posts/2026-07-28/))
 
 Some easily confused items: a **tool** is a specific capability; an **MCP tool** is a tool exposed through the MCP protocol; an **MCP server** is the service offering a set of tools, resources and prompts; the **agent** is the thing deciding whether to call them. Note that tools are not the same as MCP — private APIs and function calling connect tools too; MCP is simply one way of standardising it.
 
-**A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an **Agent Card** describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
+**A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an **Agent Card** describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A shipped v1.0, its first stable release, in 2026-03: multiple protocol bindings with version negotiation, multi-tenant endpoints, and **signed Agent Cards** (verify the counterpart before cross-organisation interaction); an Agent Card can advertise 0.3 and 1.0 at once for gradual migration. (Source: [A2A v1.0 announcement](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/)) A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
 
 **Hook** — a program triggered under specific conditions. Typical uses: pre-checks, post-processing (logging, notifications), exception interception, lifecycle actions. Not an AI-specific concept — Git and front-end frameworks have them too.
 
@@ -271,6 +271,21 @@ Required for process automation (Form D) and autonomous agents (Form E).
 
 **Compliance frameworks** — OWASP LLM Top 10 (application security risk list), NIST AI RMF (risk management framework, four functions: GOVERN / MAP / MEASURE / MANAGE), EU AI Act. Use them as checklists, bearing in mind that all of them are oriented to general enterprises; issues specific to international organisations have to be added ourselves.
 
+**OWASP Agentic Top 10** — the OWASP Top 10 for Agentic Applications 2026, released by OWASP in December 2025, covers agents that plan and take actions on their own and fills the gaps the LLM Top 10 leaves. The LLM Top 10 still applies to Forms A–C and to the model layer of every form; from Form D onwards check against this list as well. The ten items map to existing controls in this handbook as follows.
+
+| ID | Risk | Corresponding control in this handbook |
+|---|---|---|
+| ASI01 | Agent Goal Hijack | Indirect-injection defences; permission checks for sensitive actions independent of conversation history; human confirmation gates |
+| ASI02 | Tool Misuse and Exploitation | Tool registry and schema declaration, parameter validation, a bounded tool count, least privilege |
+| ASI03 | Identity and Privilege Abuse | Credential propagation: inherit the requester's identity, never a service account |
+| ASI04 | Agentic Supply Chain Vulnerabilities | Tool registry and MCP server admission; shared registries count toward blast radius |
+| ASI05 | Unexpected Code Execution (RCE) | Container sandboxing; review code-execution sandboxes separately |
+| ASI06 | Memory & Context Poisoning | Long-term memory writes reviewable and deletable; classification-aware retrieval; session isolation |
+| ASI07 | Insecure Inter-Agent Communication | A2A authentication and Agent Card validation; fall back to Form E wherever possible |
+| ASI08 | Cascading Failures | Stop-criteria set (iterations, timeout, cost cap); blast radius; rollback on failure |
+| ASI09 | Human-Agent Trust Exploitation | Do the verification-bottleneck arithmetic; humans make conclusions in accountability-sensitive areas |
+| ASI10 | Rogue Agents | End-to-end tracing, audit logs, evaluation sets, stop criteria |
+
 ## 1.10 Governance, evaluation and cost
 
 **Evaluation set** — a body of test cases with reference answers, used to judge whether a change made things better or worse. See Part 2, Lecture 9.
@@ -392,6 +407,7 @@ By contrast, **MCP, function calling, RAG and ReAct** are used across ecosystems
 | PII / redaction tokenisation | Personal data / same word as LLM tokenisation, different meaning | Security |
 | Data residency and deployment form | Constrains model and framework choice; settle it first | Security |
 | OWASP LLM Top 10 / NIST AI RMF / EU AI Act | Three compliance frameworks to check against | Security |
+| OWASP Agentic Top 10 | Agent-specific top ten risks (ASI01–ASI10); check from Form D | Security |
 | Evaluation set / regression testing | Judging change / re-running after change | Governance |
 | LLM-as-Judge | Model judging model; biased, needs human backing | Governance |
 | Sampling and confidence tiering | Verification method when volume is too high | Governance |
