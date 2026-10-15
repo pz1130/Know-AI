@@ -302,6 +302,8 @@ Required for process automation (Form D) and autonomous agents (Form E).
 
 **Observability and tracing** — recording the input, output, tool calls, duration and cost of every call to form a replayable chain. The standard is OpenTelemetry; tools include Langfuse and Phoenix. See Part 2, Lecture 8.
 
+**OTel GenAI semantic conventions** — OpenTelemetry's standard span, attribute and metric names for model and agent calls (`invoke_agent`, `execute_tool`, `gen_ai.usage.*` and so on). As of 2026-10 they are still at Development (experimental) status with no official release; content such as prompts and tool arguments is not captured by default and must be switched on explicitly. See Lecture 8 for the mapping.
+
 **Cost gates** — ceilings per request, per session and per day, with a circuit breaker when exceeded.
 
 **Three kinds of cache** — **prefix / prompt cache** reuses server-side computation for identical context prefixes and is cheap on a hit; **semantic cache** returns a stored answer based on semantic similarity, and **the risk is that a similar question is not the same question — used on data queries it will go wrong**; an ordinary result cache hits on an exact key. The three are routinely conflated.
@@ -508,6 +510,25 @@ Once this is understood, a whole set of security questions answer themselves: wh
 **Why it matters**: AI is a probabilistic system and the same input can produce different output. If the full context at the time cannot be reproduced when something goes wrong, it cannot be diagnosed, cannot be explained to audit and cannot be improved.
 
 **Where it is misunderstood**: assuming logging is enough. Conventional logs record "what happened"; an AI system needs to record "what the model was looking at" — the complete context, the retrieved passages, the raw tool returns. Without those, an incorrect answer after the fact tells you nothing about whether retrieval failed, context was truncated, or the model reasoned badly.
+
+**Mapping to the OTel GenAI semantic conventions** (checked 2026-10-15). The GenAI conventions have moved out of the core OpenTelemetry conventions repository into a dedicated `semantic-conventions-genai` repository. Status is Development (experimental), schema version `gen-ai-dev/1.42.0-dev`, with no official release yet, so names can still change. In procurement, require "emits OTel GenAI conventions" rather than hard-coding attribute names into a contract.
+
+| Handbook concept | OTel span / attribute / metric | Notes |
+|---|---|---|
+| The full chain of one agent task | span `invoke_agent {gen_ai.agent.name}`; attributes `gen_ai.agent.name`, `gen_ai.conversation.id` | CLIENT kind for a remote agent service, INTERNAL for an in-process agent; creating a remote agent has its own `create_agent` span. Fixed-path multi-step flows use `invoke_workflow` |
+| Each model call | span `{gen_ai.operation.name} {gen_ai.request.model}`, e.g. `chat gpt-4o`; attributes `gen_ai.operation.name`, `gen_ai.provider.name`, `gen_ai.request.model`, `gen_ai.response.finish_reasons` | Tracks which model and version was used; compare evals when models change |
+| Tool calls | span `execute_tool {gen_ai.tool.name}`; attributes `gen_ai.tool.name`, `gen_ai.tool.call.id`, `gen_ai.tool.type`, `error.type` | Aligns with "what action was taken" in the audit log; arguments and results are opt-in (see below) |
+| Cost / token budget | attributes `gen_ai.usage.input_tokens`, `gen_ai.usage.output_tokens` (plus cache and reasoning tokens); metrics `gen_ai.client.inference.usage.*` | Data source for cost gates |
+| Latency and timeouts | metrics `gen_ai.client.operation.duration`, `gen_ai.client.inference.duration`, `gen_ai.invoke_agent.duration` | Timeout stop criteria, SLA monitoring |
+| Iteration count in stop criteria | metrics `gen_ai.invoke_agent.inference_calls`, `gen_ai.invoke_agent.tool_calls` | Spot loops and runaway cost |
+| "What the model was looking at" | attributes `gen_ai.system_instructions`, `gen_ai.input.messages`, `gen_ai.output.messages`, `gen_ai.tool.call.arguments`, `gen_ai.tool.call.result`; or the event `gen_ai.client.inference.operation.details` | All Opt-In; not captured by default |
+| Evaluation results | event `gen_ai.evaluation.result` | Attaches online eval scores to the relevant trace |
+
+**Privacy note**: the conventions mark prompts, system instructions, outputs, tool arguments and results, and retrieval and memory content as Opt-In and "may contain sensitive / personal information"; by default only metadata such as model name, token counts and durations is recorded. That sits in tension with the "complete context" requirement above. Our approach should be: switch on content capture per system, approved against its classification; once on, send trace data only to a backend we control (not an external SaaS), with access rights and retention set by classification; redact personal data first. What audit must keep — input, recommendation, who confirmed — goes into the audit log and does not depend on the tracing system's retention policy.
+
+**Which frameworks emit them natively** (verified only): Microsoft Agent Framework emits `invoke_agent`, `chat` and `execute_tool` spans and metrics under the GenAI conventions, with content gated by `enable_sensitive_data`; Google ADK emits `invoke_agent`, `invoke_workflow`, `execute_tool` and related spans; Strands Agents has built-in OTel and emits `invoke_agent`, `execute_tool` and `chat` spans. The OpenAI Agents SDK uses its own trace format (sent to the OpenAI backend by default, with sensitive-data capture switchable off) and needs OpenTelemetry's official `opentelemetry-instrumentation-openai-agents-v2` to convert to the GenAI conventions. LangSmith can ingest OTel data and recognises `gen_ai.*` attributes; whether LangGraph itself emits GenAI-convention spans natively is not verified.
+
+Sources: https://github.com/open-telemetry/semantic-conventions-genai (gen-ai-spans.md, gen-ai-agent-spans.md, client-inference.md, gen-ai-metrics.md, gen-ai-events.md under docs/gen-ai/), https://github.com/open-telemetry/semantic-conventions/pull/3696 , https://opentelemetry.io/blog/2026/genai-observability/ , https://learn.microsoft.com/en-us/agent-framework/agents/observability , https://adk.dev/observability/traces/ , https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/ , https://openai.github.io/openai-agents-python/tracing/ , https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation-genai/opentelemetry-instrumentation-openai-agents-v2/README.rst , https://docs.langchain.com/langsmith/trace-with-opentelemetry .
 
 ## Lecture 9 · Evaluation sets and LLM-as-Judge
 

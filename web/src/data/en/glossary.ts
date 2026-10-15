@@ -118,6 +118,7 @@ export const termsEn: Term[] = [
   { term: 'Verification bottleneck', def: 'When output exceeds human review capacity, “human confirm” becomes theater. A requirements feasibility issue.', group: 'Governance & cost' },
   { term: 'Audit trail', def: 'Who, when, inputs, advice, confirmer. Production gate.', group: 'Governance & cost' },
   { term: 'Observability & tracing', def: 'Record I/O, tool calls, latency, cost for replay. OpenTelemetry, Langfuse.', group: 'Governance & cost' },
+  { term: 'OTel GenAI semantic conventions', def: 'OpenTelemetry standard names for model and agent calls (invoke_agent, execute_tool, gen_ai.usage.*). Still experimental; prompt content is off by default and must be opted in.', group: 'Governance & cost' },
   { term: 'Cost breaker', def: 'Per-request, per-session, per-day caps that trip open.', group: 'Governance & cost' },
   { term: 'Prefix / prompt cache', def: 'Server reuses compute for identical prefixes—cheaper on hit. Design Form A/C system prompts and retrieval prefixes to hit it.', group: 'Governance & cost' },
   { term: 'Semantic cache', def: 'Return prior answers by embedding similarity. Similar ≠ same—dangerous for data Q&A.', group: 'Governance & cost' },

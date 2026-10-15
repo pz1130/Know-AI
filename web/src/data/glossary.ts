@@ -135,6 +135,7 @@ export const terms: Term[] = [
   { term: '验证瓶颈', def: '产出量超过人能审核的量时，人工确认就是形式主义。这是需求可行性问题。', group: '治理与成本' },
   { term: '审计留痕', def: '谁在什么时候、基于什么输入、得到什么建议、由谁确认。上生产门槛。', group: '治理与成本' },
   { term: '可观测与追踪', def: '记录输入输出、工具调用、耗时、成本，形成可回放链路。OpenTelemetry、Langfuse。', group: '治理与成本' },
+  { term: 'OTel GenAI 语义约定', def: 'OpenTelemetry 为模型与 Agent 调用定的统一命名（invoke_agent、execute_tool、gen_ai.usage.* 等）。仍为实验状态；提示词等内容默认不采集，需显式开启。', group: '治理与成本' },
   { term: '成本闸门', def: '单请求、单会话、单日的消耗上限，超了熔断。', group: '治理与成本' },
   { term: 'Prefix / Prompt Cache', def: '服务端复用相同上下文前缀的计算，命中就便宜。形态 A/C 固定系统提示和检索前缀应设计成能命中。', group: '治理与成本' },
   { term: 'Semantic Cache', def: '按语义相似度直接返回历史答案。相似问题不等于同一答案，用在数据查询上会出事。', group: '治理与成本' },
