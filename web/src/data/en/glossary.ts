@@ -50,7 +50,7 @@ export const termsEn: Term[] = [
   { term: 'Plugin', def: 'Installable bundle of skills, agent config, hooks, MCP servers, etc. Ecosystem term.', group: 'Agent & tools' },
   { term: 'Harness', def: 'Runtime that schedules those components. Ecosystem term; externally say “runtime framework”.', group: 'Agent & tools' },
   { term: 'Sub-agent', def: 'Independent agent spawned for a subtask. Main reason is context isolation, not “smarter”.', group: 'Agent & tools' },
-  { term: 'AG-UI (Agent-User Interaction)', def: 'Event-stream protocol between an agent and its front end; 1.0 released Sept 2026. MCP is tools, A2A is agent-to-agent, AG-UI is agent-to-UI (incl. human confirmation).', group: 'Agent & tools' },
+  { term: 'AG-UI (Agent-User Interaction)', def: 'Event-stream protocol between an agent and its front end; grew out of CopilotKit, now community-maintained; 1.0 released Sept 2026. MCP is tools, A2A is agent-to-agent, AG-UI is agent-to-UI (incl. human confirmation).', group: 'Agent & tools' },
   { term: 'A2A', def: 'Agent-to-Agent protocol: discover peers and hand off tasks. MCP is tools; A2A is agent-to-agent. Both now sit in the Agentic AI Foundation.', group: 'Agent & tools' },
   { term: 'RAG', def: 'Retrieve then generate. Now one technique under context engineering—not a system category.', group: 'Retrieval' },
   { term: 'Embedding model', def: 'Turns text into vectors; foundation of retrieval quality. Multilingual needs real-data tests, not leaderboards alone.', group: 'Retrieval' },

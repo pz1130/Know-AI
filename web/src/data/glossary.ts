@@ -67,7 +67,7 @@ export const terms: Term[] = [
   { term: 'Plugin', def: '把 Skill、Agent 配置、Hook、MCP Server 等打包成可安装单元。生态叫法。', group: 'Agent 与工具' },
   { term: 'Harness', def: '统一调度各组件的运行框架。生态叫法，通用工程语境不这么称呼，对外说“运行框架”。', group: 'Agent 与工具' },
   { term: '子 Agent', def: '主 Agent 派出去处理子任务的独立 Agent。用它的理由是隔离上下文，不是更聪明。', group: 'Agent 与工具' },
-  { term: 'AG-UI（Agent-User Interaction）', def: 'Agent 与前端界面之间的事件流协议，1.0 已发布（2026-09）。MCP 管工具，A2A 管 Agent 之间，AG-UI 管 Agent 与用户界面（含人工确认）。', group: 'Agent 与工具' },
+  { term: 'AG-UI（Agent-User Interaction）', def: 'Agent 与前端界面之间的事件流协议，源自 CopilotKit，现由 ag-ui-protocol 社区维护，1.0 已发布（2026-09）。MCP 管工具，A2A 管 Agent 之间，AG-UI 管 Agent 与用户界面（含人工确认）。', group: 'Agent 与工具' },
   { term: 'A2A', def: 'Agent-to-Agent 协议：发现对方并交出任务。MCP 管工具，A2A 管 Agent 之间交任务；现同属 Agentic AI Foundation。', group: 'Agent 与工具' },
   { term: 'RAG', def: '检索增强生成：提问时递参考资料。现已降级为上下文工程中的一项技术，不是一类系统。', group: '检索' },
   { term: 'Embedding 模型', def: '把文本转成向量的模型，检索质量的地基。多语言场景必须实测，不能看榜单。', group: '检索' },

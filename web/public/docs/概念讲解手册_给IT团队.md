@@ -119,7 +119,7 @@
 
 **A2A（Agent-to-Agent）**——Agent 之间发现对方、交出任务的协议；**Agent Card** 描述能力、端点和认证。和 MCP 的分工：MCP 管「怎么用工具」，A2A 管「怎么把任务交给另一个 Agent」。两者现同属 Agentic AI Foundation。跨机构协同才需要 A2A；行内单体 Agent 用不到，也不因此放松形态 F 的劝退。
 
-**AG-UI（Agent-User Interaction）**——Agent 与前端界面之间的开放协议：前端发一次请求，Agent 回一串有序的类型化事件（文本流、工具调用、推理过程、共享状态、进度、子 Agent 等，1.0 规范共 31 种事件，走 HTTP + SSE 或 Protobuf）。由 CopilotKit 发起，2026 年 9 月发布并冻结 1.0。三者分工：MCP 管 Agent 怎么用工具，A2A 管 Agent 之间怎么交任务，AG-UI 管 Agent 怎么和用户界面对话——包括把"需要人工确认"的请求推到界面上、拿回确认结果。Microsoft Agent Framework、Google ADK 都有官方 AG-UI 集成。只有要做自建的 Agent 交互界面时才需要关心它。
+**AG-UI（Agent-User Interaction）**——Agent 与前端界面之间的开放协议：前端发一次请求，Agent 回一串有序的类型化事件（文本流、工具调用、推理过程、共享状态、进度、子 Agent 等，1.0 规范共 31 种事件，走 HTTP + SSE 或 Protobuf）。源自 CopilotKit 最初与 LangChain、CrewAI 的合作（据官方仓库 https://github.com/ag-ui-protocol/ag-ui ），现由 ag-ui-protocol 社区维护，2026 年 9 月发布并冻结 1.0。三者分工：MCP 管 Agent 怎么用工具，A2A 管 Agent 之间怎么交任务，AG-UI 管 Agent 怎么和用户界面对话——包括把"需要人工确认"的请求推到界面上、拿回确认结果。Microsoft Agent Framework、Google ADK 都有官方 AG-UI 集成。只有要做自建的 Agent 交互界面时才需要关心它。
 
 **Hook（钩子）**——在特定条件下触发的程序。典型用途：前置校验、后置处理（记日志、发通知）、异常拦截、生命周期动作。这不是 AI 独有的概念，Git 和前端框架里都有。
 
