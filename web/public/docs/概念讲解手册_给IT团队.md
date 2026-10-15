@@ -113,11 +113,11 @@
 
 **MCP（Model Context Protocol）**——Anthropic 提出、现由独立基金会维护的上下文协议标准，让 AI 应用以统一方式识别和调用外部服务。MCP Server 可以暴露三类东西：**Resources**（可读取的数据源）、**Prompts**（预设提示模板）、**Tools**（可调用的功能）。
 
-类比：MCP 之于工具调用，类似 HTTP 之于网络通信——不是唯一方式，价值在于提供统一的"对话语言"。现行规范（2026-07-28）已去掉协议级会话和初始化握手：每个请求自带协议版本和客户端能力，可选调用 `server/discover` 探服务器，服务器可以像普通 HTTP 服务一样水平扩展。这个类比现在比早期有会话的版本更准。企业落地还要看授权扩展（谁代表谁调用），不能只接工具列表。
+类比：MCP 之于工具调用，类似 HTTP 之于网络通信——不是唯一方式，价值在于提供统一的"对话语言"。现行规范（2026-07-28）已去掉协议级会话和初始化握手：每个请求自带协议版本和客户端能力，可选调用 `server/discover` 探服务器，服务器可以像普通 HTTP 服务一样水平扩展。这个类比现在比早期有会话的版本更准。这一版还要求 HTTP 请求带 `Mcp-Method` / `Mcp-Name` 头，网关和防火墙不必解析报文就能路由、限流；需要中途向用户确认的场景改用多轮往返请求（MRTR），不再依赖长连接；Tasks、MCP Apps、企业托管授权（EMA）都以正式扩展的形式提供。企业落地还要看授权扩展（谁代表谁调用），不能只接工具列表：本版要求校验授权服务器 `iss`（RFC 9207），并正式弃用动态客户端注册（DCR），改用客户端元数据文档（CIMD）。（来源：[MCP 2026-07-28 发布说明](https://blog.modelcontextprotocol.io/posts/2026-07-28/)）
 
 几个易混的：**Tool** 是一个具体能力；**MCP Tool** 是通过 MCP 协议暴露的 tool；**MCP Server** 是把一组 tools/resources/prompts 提供出来的服务；**Agent** 是决定要不要调用它们的那个东西。注意 Tools 不等于 MCP——通过私有 API、Function Calling 也能接工具，MCP 只是其中一种标准化方式。
 
-**A2A（Agent-to-Agent）**——Agent 之间发现对方、交出任务的协议；**Agent Card** 描述能力、端点和认证。和 MCP 的分工：MCP 管「怎么用工具」，A2A 管「怎么把任务交给另一个 Agent」。两者现同属 Agentic AI Foundation。跨机构协同才需要 A2A；行内单体 Agent 用不到，也不因此放松形态 F 的劝退。
+**A2A（Agent-to-Agent）**——Agent 之间发现对方、交出任务的协议；**Agent Card** 描述能力、端点和认证。和 MCP 的分工：MCP 管「怎么用工具」，A2A 管「怎么把任务交给另一个 Agent」。两者现同属 Agentic AI Foundation。A2A 于 2026-03 发布 v1.0，是首个稳定版：支持多协议绑定与版本协商、单端点多租户、**签名 Agent Card**（跨机构交互前先验证对方身份）；Agent Card 可同时声明 0.3 和 1.0，便于逐步迁移。（来源：[A2A v1.0 发布公告](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/)）跨机构协同才需要 A2A；行内单体 Agent 用不到，也不因此放松形态 F 的劝退。
 
 **AG-UI（Agent-User Interaction）**——Agent 与前端界面之间的开放协议：前端发一次请求，Agent 回一串有序的类型化事件（文本流、工具调用、推理过程、共享状态、进度、子 Agent 等，1.0 规范共 31 种事件，走 HTTP + SSE 或 Protobuf）。源自 CopilotKit 最初与 LangChain、CrewAI 的合作（据官方仓库 https://github.com/ag-ui-protocol/ag-ui ），现由 ag-ui-protocol 社区维护，2026 年 9 月发布并冻结 1.0。三者分工：MCP 管 Agent 怎么用工具，A2A 管 Agent 之间怎么交任务，AG-UI 管 Agent 怎么和用户界面对话——包括把"需要人工确认"的请求推到界面上、拿回确认结果。Microsoft Agent Framework、Google ADK 都有官方 AG-UI 集成。只有要做自建的 Agent 交互界面时才需要关心它。
 
@@ -275,6 +275,21 @@
 
 **合规框架**——OWASP LLM Top 10（应用安全风险清单）、NIST AI RMF（风险管理框架，四项职能 GOVERN / MAP / MEASURE / MANAGE）、EU AI Act（欧盟立法）。作为对照清单用，注意它们都偏通用企业，国际组织特有的问题要自己补。
 
+**OWASP Agentic Top 10**——OWASP 于 2025 年 12 月发布的《OWASP Top 10 for Agentic Applications 2026》，专门针对能自主规划和执行动作的 Agent，补上 LLM Top 10 没覆盖的部分。LLM Top 10 仍适用于形态 A–C 和所有形态的模型层；从形态 D 起再加对照这一份。十项与本手册已有控制的对应如下。
+
+| 编号 | 风险 | 本手册里对应的控制 |
+|---|---|---|
+| ASI01 | Agent Goal Hijack（目标劫持） | 间接提示注入防线；敏感动作的权限判定独立于对话历史；人工确认门 |
+| ASI02 | Tool Misuse and Exploitation（工具滥用与利用） | 工具注册与 Schema 声明、参数校验、工具数量可控、最小权限 |
+| ASI03 | Identity and Privilege Abuse（身份与权限滥用） | 权限传递：继承发起人身份，不用服务账号 |
+| ASI04 | Agentic Supply Chain Vulnerabilities（Agent 供应链漏洞） | 工具注册表与 MCP 服务器准入；共享 registry 计入爆炸半径 |
+| ASI05 | Unexpected Code Execution (RCE)（意外代码执行） | 容器沙箱隔离；代码执行沙箱单独审查 |
+| ASI06 | Memory & Context Poisoning（记忆与上下文投毒） | 长期记忆写入可审、可删；密级感知检索；会话隔离 |
+| ASI07 | Insecure Inter-Agent Communication（不安全的 Agent 间通信） | A2A 鉴权与 Agent Card 校验；多 Agent 能退回 E 就退回 |
+| ASI08 | Cascading Failures（级联故障） | 终止条件组（迭代、超时、成本上限）；爆炸半径；失败可回滚 |
+| ASI09 | Human-Agent Trust Exploitation（利用人对 Agent 的信任） | 验证瓶颈要算账；问责敏感领域的结论必须由人做 |
+| ASI10 | Rogue Agents（失控 Agent） | 全链路追踪、审计日志、评测集、终止条件 |
+
 ## 1.10 治理、评测与成本层
 
 **评测集**——一组带标准答案的测试样例，用来判断改动是变好还是变坏。详见第二部分第 9 讲。
@@ -290,6 +305,8 @@
 **审计留痕**——谁在什么时候、基于什么输入、得到什么建议、由谁确认。我们的上生产门槛。
 
 **可观测与追踪**——记录每次调用的输入、输出、工具调用、耗时、成本，形成可回放的链路。标准是 OpenTelemetry，工具如 Langfuse、Phoenix。详见第二部分第 8 讲。
+
+**OTel GenAI 语义约定**——OpenTelemetry 为大模型和 Agent 调用定的统一 span、属性和指标命名（`invoke_agent`、`execute_tool`、`gen_ai.usage.*` 等）。截至 2026-10 仍是 Development（实验）状态，尚无正式版本；提示词与工具参数等内容默认不采集，需显式开启。对应关系见第 8 讲。
 
 **成本闸门**——单请求、单会话、单日的消耗上限，超了熔断。
 
@@ -394,6 +411,7 @@
 | PII / 脱敏令牌化 | 个人信息 / 注意与 LLM 分词同名不同义 | 安全 |
 | 数据出境与部署形态 | 决定可选模型和框架，必须最先定 | 安全 |
 | OWASP LLM Top 10 / NIST AI RMF / EU AI Act | 三个对照用的合规框架 | 安全 |
+| OWASP Agentic Top 10 | Agent 专用十大风险（ASI01–ASI10），形态 D 起对照 | 安全 |
 | 评测集 / 回归测试 | 判断改动好坏 / 改完重跑 | 治理 |
 | LLM-as-Judge | 模型评模型，有偏差，需人工兜底 | 治理 |
 | 抽检与置信度分层 | 产出量过大时的验证手段 | 治理 |
@@ -496,6 +514,25 @@
 **为什么重要**：AI 是概率系统，同样输入可能给出不同输出。出问题时不能复现当时的完整上下文，就无法定位、无法向审计解释、也无法改进。
 
 **最容易误解的地方**：以为记日志就够了。传统日志记"发生了什么"，AI 系统需要记"当时模型看到了什么"——完整上下文、检索到的片段、工具返回的原始内容。少了这些，事后看到一个错误答案，你无法判断是检索错了、上下文被截断了、还是模型判断错了。
+
+**和 OTel GenAI 语义约定的对应**（核对于 2026-10-15）。GenAI 约定已从 OpenTelemetry 核心约定仓库迁到独立仓库 `semantic-conventions-genai`，状态为 Development（实验），schema 版本 `gen-ai-dev/1.42.0-dev`，尚无正式发布，名字仍可能变。选型时要求"按 OTel GenAI 约定输出"即可，不要把具体属性名写死进合同。
+
+| 手册里的概念 | OTel span / 属性 / 指标 | 说明 |
+|---|---|---|
+| 一次 Agent 任务的完整链路 | span `invoke_agent {gen_ai.agent.name}`；属性 `gen_ai.agent.name`、`gen_ai.conversation.id` | 远程 Agent 服务用 CLIENT 类型，进程内 Agent 用 INTERNAL 类型；创建远程 Agent 另有 `create_agent` span。固定路径的多步流程用 `invoke_workflow` |
+| 每次模型调用 | span `{gen_ai.operation.name} {gen_ai.request.model}`，如 `chat gpt-4o`；属性 `gen_ai.operation.name`、`gen_ai.provider.name`、`gen_ai.request.model`、`gen_ai.response.finish_reasons` | 追踪"用的是哪个模型、哪个版本"，换模型时对比评测 |
+| 工具调用 | span `execute_tool {gen_ai.tool.name}`；属性 `gen_ai.tool.name`、`gen_ai.tool.call.id`、`gen_ai.tool.type`、`error.type` | 与审计日志里的"执行了什么动作"对齐；参数和返回值是可选采集（见下） |
+| 成本 / token 预算 | 属性 `gen_ai.usage.input_tokens`、`gen_ai.usage.output_tokens`（另有缓存、推理 token）；指标 `gen_ai.client.inference.usage.*` | 成本闸门的数据来源 |
+| 耗时与超时 | 指标 `gen_ai.client.operation.duration`、`gen_ai.client.inference.duration`、`gen_ai.invoke_agent.duration` | 终止条件中的超时、SLA 监控 |
+| 终止条件里的迭代次数 | 指标 `gen_ai.invoke_agent.inference_calls`、`gen_ai.invoke_agent.tool_calls` | 发现死循环和成本失控 |
+| "当时模型看到了什么" | 属性 `gen_ai.system_instructions`、`gen_ai.input.messages`、`gen_ai.output.messages`、`gen_ai.tool.call.arguments`、`gen_ai.tool.call.result`；或事件 `gen_ai.client.inference.operation.details` | 全部是 Opt-In，默认不采集 |
+| 评测结果 | 事件 `gen_ai.evaluation.result` | 把在线评测分数挂到对应链路上 |
+
+**隐私提示**：约定明确把提示词、系统指令、输出、工具参数和返回值、检索与记忆内容列为 Opt-In 且"可能含敏感信息 / 个人信息"，默认只记模型名、token 数、耗时等元数据。上面"完整上下文"的要求与此有张力，本行的做法应是：内容采集按系统密级逐个审批开启；开启后链路数据只发往本行可控的后端（不发外部 SaaS），按密级设访问权限和保留期；涉及个人信息的先脱敏。审计必须保留的"输入、建议、确认人"写进审计日志，不依赖追踪系统的保留策略。
+
+**哪些框架原生输出**（只列已核实的）：Microsoft Agent Framework 按 GenAI 约定输出 `invoke_agent`、`chat`、`execute_tool` span 和指标，内容需 `enable_sensitive_data` 开启；Google ADK 输出 `invoke_agent`、`invoke_workflow`、`execute_tool` 等 span；Strands Agents 内置 OTel，输出 `invoke_agent`、`execute_tool`、`chat` span。OpenAI Agents SDK 用自己的追踪格式（默认发往 OpenAI 后台，可关闭敏感数据采集），需加 OpenTelemetry 官方的 `opentelemetry-instrumentation-openai-agents-v2` 才转成 GenAI 约定。LangSmith 能接收 OTel 数据并识别 `gen_ai.*` 属性；LangGraph 本身是否原生输出 GenAI 约定 span 未核实。
+
+来源：https://github.com/open-telemetry/semantic-conventions-genai （docs/gen-ai/ 下的 gen-ai-spans.md、gen-ai-agent-spans.md、client-inference.md、gen-ai-metrics.md、gen-ai-events.md）、https://github.com/open-telemetry/semantic-conventions/pull/3696 、https://opentelemetry.io/blog/2026/genai-observability/ 、https://learn.microsoft.com/en-us/agent-framework/agents/observability 、https://adk.dev/observability/traces/ 、https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/ 、https://openai.github.io/openai-agents-python/tracing/ 、https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation-genai/opentelemetry-instrumentation-openai-agents-v2/README.rst 、https://docs.langchain.com/langsmith/trace-with-opentelemetry 。
 
 ## 第 9 讲 · 评测集与 LLM-as-Judge
 

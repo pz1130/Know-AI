@@ -113,11 +113,11 @@ In one line: an agent does not answer in a single shot; it works like a person �
 
 **MCP (Model Context Protocol)** — the context protocol standard proposed by Anthropic and now maintained under an independent foundation, letting AI applications recognise and call external services in a uniform way. An MCP server can expose three kinds of thing: **Resources** (readable data sources), **Prompts** (preset templates) and **Tools** (callable functions).
 
-An analogy: MCP is to tool calling what HTTP is to network communication — not the only way, but valuable because it provides a common language. The current spec (2026-07-28) removed protocol-level sessions and the initialize handshake: each request carries protocol version and client capabilities, clients may call `server/discover`, and servers scale like ordinary HTTP. That analogy is now more accurate than the earlier sessionful version. Enterprise rollout also needs the authorization extension (who acts on whose behalf); listing tools is not enough.
+An analogy: MCP is to tool calling what HTTP is to network communication — not the only way, but valuable because it provides a common language. The current spec (2026-07-28) removed protocol-level sessions and the initialize handshake: each request carries protocol version and client capabilities, clients may call `server/discover`, and servers scale like ordinary HTTP. That analogy is now more accurate than the earlier sessionful version. This revision also requires `Mcp-Method` / `Mcp-Name` headers on HTTP requests, so gateways and firewalls can route and rate-limit without parsing bodies; mid-call user confirmation moves to Multi Round-Trip Requests (MRTR) instead of held-open streams; Tasks, MCP Apps and Enterprise-Managed Authorization (EMA) ship as formal extensions. Enterprise rollout also needs the authorization extension (who acts on whose behalf); listing tools is not enough: the spec now requires validating the authorization server `iss` (RFC 9207) and formally deprecates Dynamic Client Registration (DCR) in favour of Client ID Metadata Documents (CIMD). (Source: [MCP 2026-07-28 release notes](https://blog.modelcontextprotocol.io/posts/2026-07-28/))
 
 Some easily confused items: a **tool** is a specific capability; an **MCP tool** is a tool exposed through the MCP protocol; an **MCP server** is the service offering a set of tools, resources and prompts; the **agent** is the thing deciding whether to call them. Note that tools are not the same as MCP — private APIs and function calling connect tools too; MCP is simply one way of standardising it.
 
-**A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an **Agent Card** describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
+**A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an **Agent Card** describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A shipped v1.0, its first stable release, in 2026-03: multiple protocol bindings with version negotiation, multi-tenant endpoints, and **signed Agent Cards** (verify the counterpart before cross-organisation interaction); an Agent Card can advertise 0.3 and 1.0 at once for gradual migration. (Source: [A2A v1.0 announcement](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/)) A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
 
 **AG-UI (Agent-User Interaction)** — an open protocol between an agent and its user-facing front end: the front end sends one request and the agent returns an ordered stream of typed events (streamed text, tool calls, reasoning, shared state, progress, subagents and so on; the 1.0 spec defines 31 event types over HTTP + SSE or Protobuf). It grew out of CopilotKit's initial partnership with LangChain and CrewAI (per the official repo, https://github.com/ag-ui-protocol/ag-ui ) and is now maintained by the ag-ui-protocol community; 1.0 was released and frozen in September 2026. Division of labour: MCP is how an agent uses tools, A2A is how agents hand tasks to each other, and AG-UI is how an agent talks to the user interface — including pushing a "needs human confirmation" request to the screen and getting the answer back. Microsoft Agent Framework and Google ADK both have official AG-UI integrations. It only matters when we build our own agent front end.
 
@@ -275,6 +275,21 @@ Required for process automation (Form D) and autonomous agents (Form E).
 
 **Compliance frameworks** — OWASP LLM Top 10 (application security risk list), NIST AI RMF (risk management framework, four functions: GOVERN / MAP / MEASURE / MANAGE), EU AI Act. Use them as checklists, bearing in mind that all of them are oriented to general enterprises; issues specific to international organisations have to be added ourselves.
 
+**OWASP Agentic Top 10** — the OWASP Top 10 for Agentic Applications 2026, released by OWASP in December 2025, covers agents that plan and take actions on their own and fills the gaps the LLM Top 10 leaves. The LLM Top 10 still applies to Forms A–C and to the model layer of every form; from Form D onwards check against this list as well. The ten items map to existing controls in this handbook as follows.
+
+| ID | Risk | Corresponding control in this handbook |
+|---|---|---|
+| ASI01 | Agent Goal Hijack | Indirect-injection defences; permission checks for sensitive actions independent of conversation history; human confirmation gates |
+| ASI02 | Tool Misuse and Exploitation | Tool registry and schema declaration, parameter validation, a bounded tool count, least privilege |
+| ASI03 | Identity and Privilege Abuse | Credential propagation: inherit the requester's identity, never a service account |
+| ASI04 | Agentic Supply Chain Vulnerabilities | Tool registry and MCP server admission; shared registries count toward blast radius |
+| ASI05 | Unexpected Code Execution (RCE) | Container sandboxing; review code-execution sandboxes separately |
+| ASI06 | Memory & Context Poisoning | Long-term memory writes reviewable and deletable; classification-aware retrieval; session isolation |
+| ASI07 | Insecure Inter-Agent Communication | A2A authentication and Agent Card validation; fall back to Form E wherever possible |
+| ASI08 | Cascading Failures | Stop-criteria set (iterations, timeout, cost cap); blast radius; rollback on failure |
+| ASI09 | Human-Agent Trust Exploitation | Do the verification-bottleneck arithmetic; humans make conclusions in accountability-sensitive areas |
+| ASI10 | Rogue Agents | End-to-end tracing, audit logs, evaluation sets, stop criteria |
+
 ## 1.10 Governance, evaluation and cost
 
 **Evaluation set** — a body of test cases with reference answers, used to judge whether a change made things better or worse. See Part 2, Lecture 9.
@@ -290,6 +305,8 @@ Required for process automation (Form D) and autonomous agents (Form E).
 **Audit trail** — who, when, on what input, received what recommendation, and who confirmed it. Our threshold for going to production.
 
 **Observability and tracing** — recording the input, output, tool calls, duration and cost of every call to form a replayable chain. The standard is OpenTelemetry; tools include Langfuse and Phoenix. See Part 2, Lecture 8.
+
+**OTel GenAI semantic conventions** — OpenTelemetry's standard span, attribute and metric names for model and agent calls (`invoke_agent`, `execute_tool`, `gen_ai.usage.*` and so on). As of 2026-10 they are still at Development (experimental) status with no official release; content such as prompts and tool arguments is not captured by default and must be switched on explicitly. See Lecture 8 for the mapping.
 
 **Cost gates** — ceilings per request, per session and per day, with a circuit breaker when exceeded.
 
@@ -394,6 +411,7 @@ By contrast, **MCP, function calling, RAG and ReAct** are used across ecosystems
 | PII / redaction tokenisation | Personal data / same word as LLM tokenisation, different meaning | Security |
 | Data residency and deployment form | Constrains model and framework choice; settle it first | Security |
 | OWASP LLM Top 10 / NIST AI RMF / EU AI Act | Three compliance frameworks to check against | Security |
+| OWASP Agentic Top 10 | Agent-specific top ten risks (ASI01–ASI10); check from Form D | Security |
 | Evaluation set / regression testing | Judging change / re-running after change | Governance |
 | LLM-as-Judge | Model judging model; biased, needs human backing | Governance |
 | Sampling and confidence tiering | Verification method when volume is too high | Governance |
@@ -496,6 +514,25 @@ Once this is understood, a whole set of security questions answer themselves: wh
 **Why it matters**: AI is a probabilistic system and the same input can produce different output. If the full context at the time cannot be reproduced when something goes wrong, it cannot be diagnosed, cannot be explained to audit and cannot be improved.
 
 **Where it is misunderstood**: assuming logging is enough. Conventional logs record "what happened"; an AI system needs to record "what the model was looking at" — the complete context, the retrieved passages, the raw tool returns. Without those, an incorrect answer after the fact tells you nothing about whether retrieval failed, context was truncated, or the model reasoned badly.
+
+**Mapping to the OTel GenAI semantic conventions** (checked 2026-10-15). The GenAI conventions have moved out of the core OpenTelemetry conventions repository into a dedicated `semantic-conventions-genai` repository. Status is Development (experimental), schema version `gen-ai-dev/1.42.0-dev`, with no official release yet, so names can still change. In procurement, require "emits OTel GenAI conventions" rather than hard-coding attribute names into a contract.
+
+| Handbook concept | OTel span / attribute / metric | Notes |
+|---|---|---|
+| The full chain of one agent task | span `invoke_agent {gen_ai.agent.name}`; attributes `gen_ai.agent.name`, `gen_ai.conversation.id` | CLIENT kind for a remote agent service, INTERNAL for an in-process agent; creating a remote agent has its own `create_agent` span. Fixed-path multi-step flows use `invoke_workflow` |
+| Each model call | span `{gen_ai.operation.name} {gen_ai.request.model}`, e.g. `chat gpt-4o`; attributes `gen_ai.operation.name`, `gen_ai.provider.name`, `gen_ai.request.model`, `gen_ai.response.finish_reasons` | Tracks which model and version was used; compare evals when models change |
+| Tool calls | span `execute_tool {gen_ai.tool.name}`; attributes `gen_ai.tool.name`, `gen_ai.tool.call.id`, `gen_ai.tool.type`, `error.type` | Aligns with "what action was taken" in the audit log; arguments and results are opt-in (see below) |
+| Cost / token budget | attributes `gen_ai.usage.input_tokens`, `gen_ai.usage.output_tokens` (plus cache and reasoning tokens); metrics `gen_ai.client.inference.usage.*` | Data source for cost gates |
+| Latency and timeouts | metrics `gen_ai.client.operation.duration`, `gen_ai.client.inference.duration`, `gen_ai.invoke_agent.duration` | Timeout stop criteria, SLA monitoring |
+| Iteration count in stop criteria | metrics `gen_ai.invoke_agent.inference_calls`, `gen_ai.invoke_agent.tool_calls` | Spot loops and runaway cost |
+| "What the model was looking at" | attributes `gen_ai.system_instructions`, `gen_ai.input.messages`, `gen_ai.output.messages`, `gen_ai.tool.call.arguments`, `gen_ai.tool.call.result`; or the event `gen_ai.client.inference.operation.details` | All Opt-In; not captured by default |
+| Evaluation results | event `gen_ai.evaluation.result` | Attaches online eval scores to the relevant trace |
+
+**Privacy note**: the conventions mark prompts, system instructions, outputs, tool arguments and results, and retrieval and memory content as Opt-In and "may contain sensitive / personal information"; by default only metadata such as model name, token counts and durations is recorded. That sits in tension with the "complete context" requirement above. Our approach should be: switch on content capture per system, approved against its classification; once on, send trace data only to a backend we control (not an external SaaS), with access rights and retention set by classification; redact personal data first. What audit must keep — input, recommendation, who confirmed — goes into the audit log and does not depend on the tracing system's retention policy.
+
+**Which frameworks emit them natively** (verified only): Microsoft Agent Framework emits `invoke_agent`, `chat` and `execute_tool` spans and metrics under the GenAI conventions, with content gated by `enable_sensitive_data`; Google ADK emits `invoke_agent`, `invoke_workflow`, `execute_tool` and related spans; Strands Agents has built-in OTel and emits `invoke_agent`, `execute_tool` and `chat` spans. The OpenAI Agents SDK uses its own trace format (sent to the OpenAI backend by default, with sensitive-data capture switchable off) and needs OpenTelemetry's official `opentelemetry-instrumentation-openai-agents-v2` to convert to the GenAI conventions. LangSmith can ingest OTel data and recognises `gen_ai.*` attributes; whether LangGraph itself emits GenAI-convention spans natively is not verified.
+
+Sources: https://github.com/open-telemetry/semantic-conventions-genai (gen-ai-spans.md, gen-ai-agent-spans.md, client-inference.md, gen-ai-metrics.md, gen-ai-events.md under docs/gen-ai/), https://github.com/open-telemetry/semantic-conventions/pull/3696 , https://opentelemetry.io/blog/2026/genai-observability/ , https://learn.microsoft.com/en-us/agent-framework/agents/observability , https://adk.dev/observability/traces/ , https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/ , https://openai.github.io/openai-agents-python/tracing/ , https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation-genai/opentelemetry-instrumentation-openai-agents-v2/README.rst , https://docs.langchain.com/langsmith/trace-with-opentelemetry .
 
 ## Lecture 9 · Evaluation sets and LLM-as-Judge
 

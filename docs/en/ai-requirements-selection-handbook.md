@@ -148,9 +148,22 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 
 **Two under-estimated costs**: (1) tool onboarding = five actions each (register, validate, isolate, normalize results, error return); (2) stop criteria as a *set* (done, max iter, timeout, cost, confidence).
 
-**Products**: LangGraph (default when the path is open and you need resume/approval gates); Microsoft Agent Framework (Microsoft stack, native MCP/A2A). CrewAI is fine for role prototypes—review its code-execution sandbox before production. AutoGen is in maintenance mode; do not start new work on it. MCP (the 2026-07-28 spec removed protocol-level sessions; enterprise auth is the Enterprise-Managed Authorization extension); Langfuse/Phoenix; LiteLLM/Higress; container sandbox—and treat allowlisted proxies, shared registries, and eval fixtures as part of the blast radius.
+**Products**: LangGraph (default when the path is open and you need resume/approval gates); Microsoft Agent Framework (Microsoft stack, native MCP/A2A). CrewAI is fine for role prototypes—review its code-execution sandbox before production. AutoGen is in maintenance mode; do not start new work on it. Four further SDKs can be shortlisted as alternatives (pick by cloud and model stack; see the table below): OpenAI Agents SDK, Google ADK, Claude Agent SDK, AWS Strands Agents. MCP (the 2026-07-28 spec removed protocol-level sessions; enterprise auth is the Enterprise-Managed Authorization extension); Langfuse/Phoenix; LiteLLM/Higress; container sandbox—and treat allowlisted proxies, shared registries, and eval fixtures as part of the blast radius.
 
 **Framework hard questions**: auto context compression strategy; serializable/resumable state granularity; suspend for external events (approval/callback).
+
+**New candidates against the three hard criteria** (versions checked 2026-10-15 on PyPI / npm; capabilities per the official docs listed below the table):
+
+| Framework | Current version | 1. Context compression | 2. State serialise / resume | 3. Suspend for external events | Notes |
+|---|---|---|---|---|---|
+| OpenAI Agents SDK | Python 0.24.0 / JS 0.20.0 (still 0.x) | Yes: `OpenAIResponsesCompactionSession` wraps a session and calls the Responses API `responses.compact` when a trigger fires (default: 10 accumulated non-user items; can be token-based or custom); compaction can also be forced at a phase boundary. OpenAI Responses models only | Yes: `RunState` serialises to JSON and resumes later | Yes: tools set `needs_approval`; the run pauses with pending approvals and resumes after approve/reject; the paused state can be serialised and resumed in another process | Docs warn deserialisation is not authenticated; keep snapshots in trusted storage |
+| Google ADK | Python 2.12.0 / JS 2.3.0 | Yes: `EventsCompactionConfig` with two strategies—sliding-window summaries by invocation count (`compaction_interval` + `overlap_size`), or a token threshold that keeps the last N raw events (`token_threshold` + `event_retention_size`); the summariser model is configurable | Yes (experimental): `ResumabilityConfig(is_resumable=True)` checkpoints per event; on resume it reinstates completed events and successful tool results and re-runs the unfinished step. Docs call it best-effort and at-least-once: unfinished tools may re-run and must be idempotent; in-memory state is lost on resume | Yes: Tool Confirmation; `require_confirmation` can be always-on or decided from arguments (e.g. an amount threshold), and can collect structured input; with Resumability the run can pause and resume | Tightly tied to Gemini / Vertex; assess separately off Google Cloud |
+| Claude Agent SDK | Python 0.2.167 (Alpha) / TS 0.3.300 | Yes: near the context limit it automatically summarises older history and emits a `compact_boundary` system message; a `PreCompact` hook can archive the full transcript first | Yes: `resume` by session ID restores full context; `fork_session` copies the history into a new branch and leaves the original unchanged; a `session_store` adapter mirrors transcripts to your own backend so another host can resume. Granularity is the session (conversation); forks branch the conversation, not file changes | Partial: `canUseTool` is an in-process callback, so a human can confirm while the process waits; the docs describe no way to pause, let the process exit, and continue the same tool call after approval. Across a restart, deny and end the turn, then `resume` the session after approval | Still 0.x Alpha; pin versions before production |
+| AWS Strands Agents | Python 1.61.0 (Production/Stable) / TS 1.21.0 | Yes: three conversation managers—`SlidingWindowConversationManager` (default, keeps the last 40 messages, can truncate oversized tool results), `SummarizingConversationManager` (summarises roughly the oldest 30% of messages, keeps at least the last 10), `NullConversationManager` (no management); proactive compression at 70% context use can be enabled | Yes: session manager persists state, including interrupts | Yes: interrupts raised from hooks or tools; resume by answering the interrupt id; interrupt state persists via the session manager and can be answered in a new session | 1.x stable; AWS-friendly |
+
+Verdict: all four have official support for criteria 1 and 2, with different details—ADK resume is experimental and at-least-once, so tools must be idempotent; Claude Agent SDK resumes at session level. On criterion 3, OpenAI Agents SDK, ADK and Strands can persist a paused-for-approval state and continue later; Claude Agent SDK only offers an in-process approval callback, so long human-approval waits need your own design. Defaults are unchanged—LangGraph stays the default, and Microsoft Agent Framework stays first choice on the Microsoft stack.
+
+Sources: OpenAI https://openai.github.io/openai-agents-python/human_in_the_loop/ , https://openai.github.io/openai-agents-python/sessions/ ; ADK https://adk.dev/tools-custom/confirmation/ , https://adk.dev/context/compaction/ , https://adk.dev/runtime/resume/ , https://adk.dev/api-reference/java/com/google/adk/apps/ResumabilityConfig.html ; Claude https://code.claude.com/docs/en/agent-sdk/sessions , https://code.claude.com/docs/en/agent-sdk/agent-loop , https://code.claude.com/docs/en/agent-sdk/permissions ; Strands https://strandsagents.com/docs/user-guide/sdk/agents/conversation-management/ , https://strandsagents.com/docs/user-guide/concepts/interrupts/ .
 
 **Duration**: 8–16 weeks including eval system.
 
@@ -164,6 +177,8 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 
 **Dissuade first**: most “multi-agent” needs are D or E. Coordination, conflict, debug, cost, and audit explainability usually dominate. Only when subtasks are truly independent/parallel or professional contexts must stay separate.
 
+**Products**: meet every Form E requirement first. Use A2A between agents; the frameworks above all ship multi-agent orchestration (e.g. OpenAI Agents SDK handoffs, ADK agent hierarchies, Strands multi-agent patterns), but inter-agent messages must be authenticated and validated (OWASP ASI07).
+
 **Duration**: 16+ weeks; ship E monolith first.
 
 ---
@@ -173,7 +188,7 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 ## 4.1 General
 
 **Cost breakers** per request/session/day.  
-**Full tracing** (OpenTelemetry + Langfuse-class)—replay is the production/audit gate.  
+**Full tracing** (OpenTelemetry + Langfuse-class)—replay is the production/audit gate. Emit OpenTelemetry GenAI semantic conventions so traces stay portable across tools; for the concept-to-span mapping and content-capture privacy rules, see the concept handbook, Lecture 8.  
 **Outputs are untrusted**—never raw into SQL/DOM/shell.  
 **Injection posture**—assume hostile external content (borrower files, bids, scraped pages, inbound mail); least privilege + action gates, not a system-prompt line.  
 **Version & rollback** for prompts, models, tool schemas.
