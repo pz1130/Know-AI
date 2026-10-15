@@ -271,6 +271,21 @@ Required for process automation (Form D) and autonomous agents (Form E).
 
 **Compliance frameworks** — OWASP LLM Top 10 (application security risk list), NIST AI RMF (risk management framework, four functions: GOVERN / MAP / MEASURE / MANAGE), EU AI Act. Use them as checklists, bearing in mind that all of them are oriented to general enterprises; issues specific to international organisations have to be added ourselves.
 
+**OWASP Agentic Top 10** — the OWASP Top 10 for Agentic Applications 2026, released by OWASP in December 2025, covers agents that plan and take actions on their own and fills the gaps the LLM Top 10 leaves. The LLM Top 10 still applies to Forms A–C and to the model layer of every form; from Form D onwards check against this list as well. The ten items map to existing controls in this handbook as follows.
+
+| ID | Risk | Corresponding control in this handbook |
+|---|---|---|
+| ASI01 | Agent Goal Hijack | Indirect-injection defences; permission checks for sensitive actions independent of conversation history; human confirmation gates |
+| ASI02 | Tool Misuse and Exploitation | Tool registry and schema declaration, parameter validation, a bounded tool count, least privilege |
+| ASI03 | Identity and Privilege Abuse | Credential propagation: inherit the requester's identity, never a service account |
+| ASI04 | Agentic Supply Chain Vulnerabilities | Tool registry and MCP server admission; shared registries count toward blast radius |
+| ASI05 | Unexpected Code Execution (RCE) | Container sandboxing; review code-execution sandboxes separately |
+| ASI06 | Memory & Context Poisoning | Long-term memory writes reviewable and deletable; classification-aware retrieval; session isolation |
+| ASI07 | Insecure Inter-Agent Communication | A2A authentication and Agent Card validation; fall back to Form E wherever possible |
+| ASI08 | Cascading Failures | Stop-criteria set (iterations, timeout, cost cap); blast radius; rollback on failure |
+| ASI09 | Human-Agent Trust Exploitation | Do the verification-bottleneck arithmetic; humans make conclusions in accountability-sensitive areas |
+| ASI10 | Rogue Agents | End-to-end tracing, audit logs, evaluation sets, stop criteria |
+
 ## 1.10 Governance, evaluation and cost
 
 **Evaluation set** — a body of test cases with reference answers, used to judge whether a change made things better or worse. See Part 2, Lecture 9.
@@ -390,6 +405,7 @@ By contrast, **MCP, function calling, RAG and ReAct** are used across ecosystems
 | PII / redaction tokenisation | Personal data / same word as LLM tokenisation, different meaning | Security |
 | Data residency and deployment form | Constrains model and framework choice; settle it first | Security |
 | OWASP LLM Top 10 / NIST AI RMF / EU AI Act | Three compliance frameworks to check against | Security |
+| OWASP Agentic Top 10 | Agent-specific top ten risks (ASI01–ASI10); check from Form D | Security |
 | Evaluation set / regression testing | Judging change / re-running after change | Governance |
 | LLM-as-Judge | Model judging model; biased, needs human backing | Governance |
 | Sampling and confidence tiering | Verification method when volume is too high | Governance |
