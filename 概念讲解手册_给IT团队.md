@@ -113,11 +113,11 @@
 
 **MCP（Model Context Protocol）**——Anthropic 提出、现由独立基金会维护的上下文协议标准，让 AI 应用以统一方式识别和调用外部服务。MCP Server 可以暴露三类东西：**Resources**（可读取的数据源）、**Prompts**（预设提示模板）、**Tools**（可调用的功能）。
 
-类比：MCP 之于工具调用，类似 HTTP 之于网络通信——不是唯一方式，价值在于提供统一的"对话语言"。现行规范（2026-07-28）已去掉协议级会话和初始化握手：每个请求自带协议版本和客户端能力，可选调用 `server/discover` 探服务器，服务器可以像普通 HTTP 服务一样水平扩展。这个类比现在比早期有会话的版本更准。企业落地还要看授权扩展（谁代表谁调用），不能只接工具列表。
+类比：MCP 之于工具调用，类似 HTTP 之于网络通信——不是唯一方式，价值在于提供统一的"对话语言"。现行规范（2026-07-28）已去掉协议级会话和初始化握手：每个请求自带协议版本和客户端能力，可选调用 `server/discover` 探服务器，服务器可以像普通 HTTP 服务一样水平扩展。这个类比现在比早期有会话的版本更准。这一版还要求 HTTP 请求带 `Mcp-Method` / `Mcp-Name` 头，网关和防火墙不必解析报文就能路由、限流；需要中途向用户确认的场景改用多轮往返请求（MRTR），不再依赖长连接；Tasks、MCP Apps、企业托管授权（EMA）都以正式扩展的形式提供。企业落地还要看授权扩展（谁代表谁调用），不能只接工具列表：本版要求校验授权服务器 `iss`（RFC 9207），并正式弃用动态客户端注册（DCR），改用客户端元数据文档（CIMD）。（来源：[MCP 2026-07-28 发布说明](https://blog.modelcontextprotocol.io/posts/2026-07-28/)）
 
 几个易混的：**Tool** 是一个具体能力；**MCP Tool** 是通过 MCP 协议暴露的 tool；**MCP Server** 是把一组 tools/resources/prompts 提供出来的服务；**Agent** 是决定要不要调用它们的那个东西。注意 Tools 不等于 MCP——通过私有 API、Function Calling 也能接工具，MCP 只是其中一种标准化方式。
 
-**A2A（Agent-to-Agent）**——Agent 之间发现对方、交出任务的协议；**Agent Card** 描述能力、端点和认证。和 MCP 的分工：MCP 管「怎么用工具」，A2A 管「怎么把任务交给另一个 Agent」。两者现同属 Agentic AI Foundation。跨机构协同才需要 A2A；行内单体 Agent 用不到，也不因此放松形态 F 的劝退。
+**A2A（Agent-to-Agent）**——Agent 之间发现对方、交出任务的协议；**Agent Card** 描述能力、端点和认证。和 MCP 的分工：MCP 管「怎么用工具」，A2A 管「怎么把任务交给另一个 Agent」。两者现同属 Agentic AI Foundation。A2A 于 2026-03 发布 v1.0，是首个稳定版：支持多协议绑定与版本协商、单端点多租户、**签名 Agent Card**（跨机构交互前先验证对方身份）；Agent Card 可同时声明 0.3 和 1.0，便于逐步迁移。（来源：[A2A v1.0 发布公告](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/)）跨机构协同才需要 A2A；行内单体 Agent 用不到，也不因此放松形态 F 的劝退。
 
 **Hook（钩子）**——在特定条件下触发的程序。典型用途：前置校验、后置处理（记日志、发通知）、异常拦截、生命周期动作。这不是 AI 独有的概念，Git 和前端框架里都有。
 
