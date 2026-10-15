@@ -173,7 +173,7 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 ## 4.1 General
 
 **Cost breakers** per request/session/day.  
-**Full tracing** (OpenTelemetry + Langfuse-class)—replay is the production/audit gate.  
+**Full tracing** (OpenTelemetry + Langfuse-class)—replay is the production/audit gate. Emit OpenTelemetry GenAI semantic conventions so traces stay portable across tools; for the concept-to-span mapping and content-capture privacy rules, see the concept handbook, Lecture 8.  
 **Outputs are untrusted**—never raw into SQL/DOM/shell.  
 **Injection posture**—assume hostile external content (borrower files, bids, scraped pages, inbound mail); least privilege + action gates, not a system-prompt line.  
 **Version & rollback** for prompts, models, tool schemas.
