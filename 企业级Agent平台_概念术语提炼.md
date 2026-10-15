@@ -82,7 +82,7 @@
 
 防御手段包括 **Guardrails（护栏）**（NeMo Guardrails、Llama Guard）对输入输出施加规则约束，以及 **Red Teaming（红队）**通过对抗测试发现漏洞（PyRIT、Garak）。
 
-治理框架列了 **OWASP LLM Top 10**、**NIST AI RMF**（核心职能为 GOVERN / MAP / MEASURE / MANAGE）、**EU AI Act**、中国《生成式 AI 服务管理办法》，以及内容溯源标准 **C2PA**。
+治理框架列了 **OWASP LLM Top 10**、**NIST AI RMF**（核心职能为 GOVERN / MAP / MEASURE / MANAGE）、**EU AI Act**、中国《生成式 AI 服务管理办法》，以及内容溯源标准 **C2PA**。（注：书出版后，OWASP 于 2025 年 12 月另发布了 Agent 专用的 Top 10 for Agentic Applications 2026，见《概念讲解手册》§1.9。）
 
 数据保护概念要注意一个同名陷阱：脱敏语境下的 **Tokenization** 指用令牌不可逆替换敏感数据，与 LLM 的分词完全不同。此外还有 **PII（个人可识别信息）**和 **RBAC（基于角色的访问控制）**。
 

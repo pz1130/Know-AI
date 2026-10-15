@@ -108,6 +108,7 @@ export const termsEn: Term[] = [
   { term: 'Masking / tokenization (PII)', def: 'Irreversible token substitution for sensitive data. Not the same “tokenization” as LLM splitting.', group: 'Security' },
   { term: 'Data egress / deploy form', def: 'Whether data may leave to external model vendors decides self-host, private cloud, or public API. Decide first.', group: 'Security' },
   { term: 'OWASP LLM Top 10', def: 'Top ten LLM application security risks—use as a checklist.', group: 'Security' },
+  { term: 'OWASP Agentic Top 10', def: 'OWASP’s agent-specific top ten risks (ASI01–ASI10, Dec 2025), from goal hijack to rogue agents. Check alongside the LLM Top 10 from Form D.', group: 'Security' },
   { term: 'NIST AI RMF', def: 'AI risk management framework: GOVERN / MAP / MEASURE / MANAGE.', group: 'Security' },
   { term: 'EU AI Act', def: 'EU AI legislation. IOs still need their own supplements.', group: 'Security' },
   { term: 'Eval set', def: 'Gold samples to tell if a change improved or regressed. Build with business at requirements time.', group: 'Governance & cost' },

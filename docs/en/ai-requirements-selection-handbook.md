@@ -148,9 +148,20 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 
 **Two under-estimated costs**: (1) tool onboarding = five actions each (register, validate, isolate, normalize results, error return); (2) stop criteria as a *set* (done, max iter, timeout, cost, confidence).
 
-**Products**: LangGraph (default when the path is open and you need resume/approval gates); Microsoft Agent Framework (Microsoft stack, native MCP/A2A). CrewAI is fine for role prototypes—review its code-execution sandbox before production. AutoGen is in maintenance mode; do not start new work on it. MCP (the 2026-07-28 spec removed protocol-level sessions; enterprise auth is the Enterprise-Managed Authorization extension); Langfuse/Phoenix; LiteLLM/Higress; container sandbox—and treat allowlisted proxies, shared registries, and eval fixtures as part of the blast radius.
+**Products**: LangGraph (default when the path is open and you need resume/approval gates); Microsoft Agent Framework (Microsoft stack, native MCP/A2A). CrewAI is fine for role prototypes—review its code-execution sandbox before production. AutoGen is in maintenance mode; do not start new work on it. Four further SDKs can be shortlisted as alternatives (pick by cloud and model stack; see the table below): OpenAI Agents SDK, Google ADK, Claude Agent SDK, AWS Strands Agents. MCP (the 2026-07-28 spec removed protocol-level sessions; enterprise auth is the Enterprise-Managed Authorization extension); Langfuse/Phoenix; LiteLLM/Higress; container sandbox—and treat allowlisted proxies, shared registries, and eval fixtures as part of the blast radius.
 
 **Framework hard questions**: auto context compression strategy; serializable/resumable state granularity; suspend for external events (approval/callback).
+
+**New candidates against the three hard criteria** (versions checked 2026-10-15 on PyPI / npm and vendor docs; anything marked "to be verified" must get a clear answer during selection):
+
+| Framework | Current version | 1. Context compression | 2. State serialise / resume | 3. Suspend for external events | Notes |
+|---|---|---|---|---|---|
+| OpenAI Agents SDK | Python 0.24.0 / JS 0.20.0 (still 0.x) | To be verified | Yes: `RunState` serialises to JSON and resumes later | Yes: tools set `needs_approval`; the run pauses with pending approvals and resumes after approve/reject | Docs warn deserialisation is not authenticated; keep snapshots in trusted storage |
+| Google ADK | Python 2.12.0 / JS 2.3.0 | To be verified | Yes: resumable runs (`ResumabilityConfig`); granularity to be verified | Yes: Tool Confirmation; `require_confirmation` can be always-on or decided from arguments (e.g. an amount threshold), and can collect structured input | Tightly tied to Gemini / Vertex; assess separately off Google Cloud |
+| Claude Agent SDK | Python 0.2.167 (Alpha) / TS 0.3.300 | Automatic compaction; strategy details to be verified | Sessions can be resumed; granularity to be verified | Tool permission callback can gate on a human; long cross-process suspension to be verified | Still 0.x Alpha; pin versions before production |
+| AWS Strands Agents | Python 1.61.0 (Production/Stable) / TS 1.21.0 | Conversation managers exist; strategy to be verified | Yes: session manager persists state, including interrupts | Yes: interrupts raised from hooks or tools; resume by answering the interrupt id | 1.x stable; AWS-friendly |
+
+Verdict: all four support criterion 3 (suspend for approval) natively; criteria 1 and 2 vary in how they are documented, so ask about every "to be verified" cell. Defaults are unchanged—LangGraph stays the default, and Microsoft Agent Framework stays first choice on the Microsoft stack.
 
 **Duration**: 8–16 weeks including eval system.
 
@@ -163,6 +174,8 @@ If no authoritative definitions, this is a data-governance project, not AI. Stat
 **Patterns**: fan-out, pipeline, manager–worker, debate.
 
 **Dissuade first**: most “multi-agent” needs are D or E. Coordination, conflict, debug, cost, and audit explainability usually dominate. Only when subtasks are truly independent/parallel or professional contexts must stay separate.
+
+**Products**: meet every Form E requirement first. Use A2A between agents; the frameworks above all ship multi-agent orchestration (e.g. OpenAI Agents SDK handoffs, ADK agent hierarchies, Strands multi-agent patterns), but inter-agent messages must be authenticated and validated (OWASP ASI07).
 
 **Duration**: 16+ weeks; ship E monolith first.
 

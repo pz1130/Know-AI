@@ -164,9 +164,20 @@
 
 二是**终止条件**。Agent 靠什么停下来，要在需求阶段定成一组而不是一个：任务完成判据、最大迭代次数、超时、成本上限、置信度阈值。这就是上面四个前提里"有明确完成判据"的具体化。业务方说不出"什么情况下它该停"，项目不能启动。
 
-**产品候选**：编排 LangGraph（路径不定、要断点与审批门时的默认）、Microsoft Agent Framework（微软栈，原生 MCP / A2A）。CrewAI 适合角色原型，生产环境要单独审查其代码执行沙箱。AutoGen 已进维护模式，不接新项目。工具接入协议 MCP（现行规范 2026-07-28 已去掉协议级会话，企业落地看 Enterprise-Managed Authorization）；追踪 Langfuse、Phoenix；模型网关 LiteLLM、Higress AI Gateway；沙箱用容器隔离，且白名单上的代理、共享 registry、评测夹具也算爆炸半径。
+**产品候选**：编排 LangGraph（路径不定、要断点与审批门时的默认）、Microsoft Agent Framework（微软栈，原生 MCP / A2A）。CrewAI 适合角色原型，生产环境要单独审查其代码执行沙箱。AutoGen 已进维护模式，不接新项目。另有四个 SDK 可列为备选（按所在云和模型栈挑，按下方三个硬指标的初评见表）：OpenAI Agents SDK、Google ADK、Claude Agent SDK、AWS Strands Agents。工具接入协议 MCP（现行规范 2026-07-28 已去掉协议级会话，企业落地看 Enterprise-Managed Authorization）；追踪 Langfuse、Phoenix；模型网关 LiteLLM、Higress AI Gateway；沙箱用容器隔离，且白名单上的代理、共享 registry、评测夹具也算爆炸半径。
 
 **框架选型的三个硬指标**（问不出明确答案就别选）：能不能自动压缩上下文、用什么策略；执行状态能不能序列化和恢复、粒度多细；支不支持挂起等待外部事件（人工审批、外部回调）再继续。带审批门的流程必然中断，等人的这段时间状态必须存得住。
+
+**新增候选按三个硬指标的初评**（版本查于 2026-10-15，来源 PyPI / npm 与各家官方文档；标"待核实"的项选型时必须问到明确答案）：
+
+| 框架 | 现行版本 | 一、上下文压缩 | 二、状态序列化与恢复 | 三、挂起等外部事件 | 备注 |
+|---|---|---|---|---|---|
+| OpenAI Agents SDK | Python 0.24.0 / JS 0.20.0（仍为 0.x） | 待核实 | 有：`RunState` 可序列化为 JSON，之后恢复续跑 | 有：工具设 `needs_approval`，运行暂停并返回待批项，批准或拒绝后续跑 | 官方提示反序列化不做鉴权，快照必须放可信存储 |
+| Google ADK | Python 2.12.0 / JS 2.3.0 | 待核实 | 有：可恢复运行（`ResumabilityConfig`），恢复粒度待核实 | 有：Tool Confirmation，`require_confirmation` 可设为恒需确认或按参数判断（如金额阈值），也支持带结构化数据的确认 | 与 Gemini / Vertex 结合深，非谷歌云要单独评估 |
+| Claude Agent SDK | Python 0.2.167（Alpha）/ TS 0.3.300 | 有自动压缩，策略细节待核实 | 会话可续接，粒度待核实 | 工具权限回调可做人工确认；跨进程长时间挂起待核实 | 仍是 0.x Alpha，生产前锁定版本 |
+| AWS Strands Agents | Python 1.61.0（Production/Stable）/ TS 1.21.0 | 有对话管理器，策略待核实 | 有：session manager 持久化，含中断状态 | 有：interrupts，从 hook 或工具发起，按中断 id 回应后续跑 | 1.x 稳定版，AWS 栈友好 |
+
+结论：第三条（挂起等审批）四个都有原生支持；第一、二条文档表述不一，按表中"待核实"逐项问。默认选择不变——LangGraph 仍是默认，微软栈仍优先 Microsoft Agent Framework。
 
 **工期**：8 到 16 周，且必须单独留出评测体系的建设时间。没有评测集就上线的自主 Agent，等于没有回归测试的核心系统。
 
@@ -181,6 +192,8 @@
 **先看劝退**：**绝大多数号称需要多 Agent 的需求，其实是形态 D 或 E。** 多 Agent 带来的成本——协调开销、结论冲突、调试困难、token 成本失控、故障归因几乎不可能——通常远超收益。在本行还多一层问题：多 Agent 系统的决策链路很难向审计和独立评价解释清楚。
 
 真正适合的只有两种情况：子任务确实互相独立且能并行；或者不同子任务需要完全不同的专业上下文（比如宏观经济、行业技术、保障政策），混在一个上下文里会互相干扰。除此之外都应该退回 E。
+
+**产品候选**：先满足形态 E 的全部要求。Agent 之间通信用 A2A；上面几个框架都自带多 Agent 编排（如 OpenAI Agents SDK 的 handoff、ADK 的多 Agent 层级、Strands 的多 Agent 模式），但 Agent 间消息必须鉴权和校验（对应 OWASP ASI07）。
 
 **工期**：16 周起，且建议先用 E 做出单体版本跑通业务，再考虑拆分。
 

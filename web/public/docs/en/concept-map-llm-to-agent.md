@@ -145,7 +145,7 @@ Not layers; required from the first project.
 
 **Evaluation**—eval sets, Ragas/DeepEval, LLM-as-Judge. Above L2, no eval set means no production.
 
-**Security**—injection, guardrails, red team, OWASP LLM Top 10, NIST AI RMF, identity propagation. Surface grows with layer.
+**Security**—injection, guardrails, red team, OWASP LLM Top 10 (plus the OWASP Agentic Top 10 2026 from L3), NIST AI RMF, identity propagation. Surface grows with layer.
 
 **Cost & deploy**—caches, gateways, routing, budget breakers. L1 is one call; L5 may be hundreds.
 

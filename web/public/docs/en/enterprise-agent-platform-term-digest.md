@@ -60,7 +60,7 @@ As of 2026-09: MCP spec 2026-07-28 is sessionless and scales as ordinary HTTP; A
 
 ## 7. Security & compliance
 
-**Prompt Injection**, **Indirect Prompt Injection**. **Guardrails**, **Red Teaming**. Frameworks: **OWASP LLM Top 10**, **NIST AI RMF**, **EU AI Act**, China generative-AI rules, **C2PA**. Homonym trap: privacy **Tokenization** ≠ LLM tokenization. **PII**, **RBAC**.
+**Prompt Injection**, **Indirect Prompt Injection**. **Guardrails**, **Red Teaming**. Frameworks: **OWASP LLM Top 10**, **NIST AI RMF**, **EU AI Act**, China generative-AI rules, **C2PA**. (Note: after the book, OWASP released the agent-specific Top 10 for Agentic Applications 2026 in December 2025; see the concept handbook §1.9.) Homonym trap: privacy **Tokenization** ≠ LLM tokenization. **PII**, **RBAC**.
 
 ---
 

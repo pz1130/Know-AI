@@ -125,6 +125,7 @@ export const terms: Term[] = [
   { term: '脱敏 / 令牌化', def: '用不可逆令牌替换敏感数据。注意与 LLM 分词的 tokenization 同名不同义。', group: '安全' },
   { term: '数据出境 / 部署形态', def: '数据能否发往外部模型服务商，决定自建推理、专属云还是公有 API。必须最先定。', group: '安全' },
   { term: 'OWASP LLM Top 10', def: '大模型应用的十大安全风险清单，作对照用。', group: '安全' },
+  { term: 'OWASP Agentic Top 10', def: 'OWASP 2025 年 12 月发布的 Agent 专用十大风险（ASI01–ASI10），从目标劫持到失控 Agent。形态 D 起与 LLM Top 10 一起对照。', group: '安全' },
   { term: 'NIST AI RMF', def: 'AI 风险管理框架，四项职能 GOVERN / MAP / MEASURE / MANAGE。', group: '安全' },
   { term: 'EU AI Act', def: '欧盟人工智能立法。注意国际组织特有问题需自行补充。', group: '安全' },
   { term: '评测集', def: '带标准答案的测试样例，判断改动是变好还是变坏。应在需求阶段与业务共建。', group: '治理与成本' },

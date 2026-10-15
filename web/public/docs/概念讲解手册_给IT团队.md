@@ -271,6 +271,21 @@
 
 **合规框架**——OWASP LLM Top 10（应用安全风险清单）、NIST AI RMF（风险管理框架，四项职能 GOVERN / MAP / MEASURE / MANAGE）、EU AI Act（欧盟立法）。作为对照清单用，注意它们都偏通用企业，国际组织特有的问题要自己补。
 
+**OWASP Agentic Top 10**——OWASP 于 2025 年 12 月发布的《OWASP Top 10 for Agentic Applications 2026》，专门针对能自主规划和执行动作的 Agent，补上 LLM Top 10 没覆盖的部分。LLM Top 10 仍适用于形态 A–C 和所有形态的模型层；从形态 D 起再加对照这一份。十项与本手册已有控制的对应如下。
+
+| 编号 | 风险 | 本手册里对应的控制 |
+|---|---|---|
+| ASI01 | Agent Goal Hijack（目标劫持） | 间接提示注入防线；敏感动作的权限判定独立于对话历史；人工确认门 |
+| ASI02 | Tool Misuse and Exploitation（工具滥用与利用） | 工具注册与 Schema 声明、参数校验、工具数量可控、最小权限 |
+| ASI03 | Identity and Privilege Abuse（身份与权限滥用） | 权限传递：继承发起人身份，不用服务账号 |
+| ASI04 | Agentic Supply Chain Vulnerabilities（Agent 供应链漏洞） | 工具注册表与 MCP 服务器准入；共享 registry 计入爆炸半径 |
+| ASI05 | Unexpected Code Execution (RCE)（意外代码执行） | 容器沙箱隔离；代码执行沙箱单独审查 |
+| ASI06 | Memory & Context Poisoning（记忆与上下文投毒） | 长期记忆写入可审、可删；密级感知检索；会话隔离 |
+| ASI07 | Insecure Inter-Agent Communication（不安全的 Agent 间通信） | A2A 鉴权与 Agent Card 校验；多 Agent 能退回 E 就退回 |
+| ASI08 | Cascading Failures（级联故障） | 终止条件组（迭代、超时、成本上限）；爆炸半径；失败可回滚 |
+| ASI09 | Human-Agent Trust Exploitation（利用人对 Agent 的信任） | 验证瓶颈要算账；问责敏感领域的结论必须由人做 |
+| ASI10 | Rogue Agents（失控 Agent） | 全链路追踪、审计日志、评测集、终止条件 |
+
 ## 1.10 治理、评测与成本层
 
 **评测集**——一组带标准答案的测试样例，用来判断改动是变好还是变坏。详见第二部分第 9 讲。
@@ -390,6 +405,7 @@
 | PII / 脱敏令牌化 | 个人信息 / 注意与 LLM 分词同名不同义 | 安全 |
 | 数据出境与部署形态 | 决定可选模型和框架，必须最先定 | 安全 |
 | OWASP LLM Top 10 / NIST AI RMF / EU AI Act | 三个对照用的合规框架 | 安全 |
+| OWASP Agentic Top 10 | Agent 专用十大风险（ASI01–ASI10），形态 D 起对照 | 安全 |
 | 评测集 / 回归测试 | 判断改动好坏 / 改完重跑 | 治理 |
 | LLM-as-Judge | 模型评模型，有偏差，需人工兜底 | 治理 |
 | 抽检与置信度分层 | 产出量过大时的验证手段 | 治理 |
