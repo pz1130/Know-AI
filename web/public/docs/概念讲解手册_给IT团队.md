@@ -515,14 +515,14 @@
 
 **最容易误解的地方**：以为记日志就够了。传统日志记"发生了什么"，AI 系统需要记"当时模型看到了什么"——完整上下文、检索到的片段、工具返回的原始内容。少了这些，事后看到一个错误答案，你无法判断是检索错了、上下文被截断了、还是模型判断错了。
 
-**和 OTel GenAI 语义约定的对应**（核对于 2026-10-15）。GenAI 约定已从 OpenTelemetry 核心约定仓库迁到独立仓库 `semantic-conventions-genai`，状态为 Development（实验），schema 版本 `gen-ai-dev/1.42.0-dev`，尚无正式发布，名字仍可能变。选型时要求"按 OTel GenAI 约定输出"即可，不要把具体属性名写死进合同。
+**和 OTel GenAI 语义约定的对应**（核对于 2026-10-19）。GenAI 约定已从 OpenTelemetry 核心约定仓库迁到独立仓库 `semantic-conventions-genai`，状态为 Development（实验），schema 版本 `gen-ai-dev/1.42.0-dev`，尚无正式发布，名字仍可能变。选型时要求"按 OTel GenAI 约定输出"即可，不要把具体属性名写死进合同。
 
 | 手册里的概念 | OTel span / 属性 / 指标 | 说明 |
 |---|---|---|
 | 一次 Agent 任务的完整链路 | span `invoke_agent {gen_ai.agent.name}`；属性 `gen_ai.agent.name`、`gen_ai.conversation.id` | 远程 Agent 服务用 CLIENT 类型，进程内 Agent 用 INTERNAL 类型；创建远程 Agent 另有 `create_agent` span。固定路径的多步流程用 `invoke_workflow` |
 | 每次模型调用 | span `{gen_ai.operation.name} {gen_ai.request.model}`，如 `chat gpt-4o`；属性 `gen_ai.operation.name`、`gen_ai.provider.name`、`gen_ai.request.model`、`gen_ai.response.finish_reasons` | 追踪"用的是哪个模型、哪个版本"，换模型时对比评测 |
-| 工具调用 | span `execute_tool {gen_ai.tool.name}`；属性 `gen_ai.tool.name`、`gen_ai.tool.call.id`、`gen_ai.tool.type`、`error.type` | 与审计日志里的"执行了什么动作"对齐；参数和返回值是可选采集（见下） |
-| 成本 / token 预算 | 属性 `gen_ai.usage.input_tokens`、`gen_ai.usage.output_tokens`（另有缓存、推理 token）；指标 `gen_ai.client.inference.usage.*` | 成本闸门的数据来源 |
+| 工具调用 | span `execute_tool {gen_ai.tool.name}`；属性 `gen_ai.tool.name`、`gen_ai.tool.call.id`、`gen_ai.tool.type`、`error.type` | 与审计日志里的"执行了什么动作"对齐；参数和返回值是可选采集（见下）。2026-10-17 起，模型或提供方给出了调用 ID 时，`gen_ai.tool.call.id` 在 `execute_tool` span 上为条件必需，且应填该原始 ID，便于把工具执行和模型发起的调用对上 |
+| 成本 / token 预算 | 属性 `gen_ai.usage.input_tokens`、`gen_ai.usage.output_tokens`（另有缓存、推理 token，2026-10-17 起改为仅在有值且非零时推荐记录；两个总数仍照记，可以是 0）；指标 `gen_ai.client.inference.usage.*` | 成本闸门的数据来源 |
 | 耗时与超时 | 指标 `gen_ai.client.operation.duration`、`gen_ai.client.inference.duration`、`gen_ai.invoke_agent.duration` | 终止条件中的超时、SLA 监控 |
 | 终止条件里的迭代次数 | 指标 `gen_ai.invoke_agent.inference_calls`、`gen_ai.invoke_agent.tool_calls` | 发现死循环和成本失控 |
 | "当时模型看到了什么" | 属性 `gen_ai.system_instructions`、`gen_ai.input.messages`、`gen_ai.output.messages`、`gen_ai.tool.call.arguments`、`gen_ai.tool.call.result`；或事件 `gen_ai.client.inference.operation.details` | 全部是 Opt-In，默认不采集 |
@@ -532,7 +532,7 @@
 
 **哪些框架原生输出**（只列已核实的）：Microsoft Agent Framework 按 GenAI 约定输出 `invoke_agent`、`chat`、`execute_tool` span 和指标，内容需 `enable_sensitive_data` 开启；Google ADK 输出 `invoke_agent`、`invoke_workflow`、`execute_tool` 等 span；Strands Agents 内置 OTel，输出 `invoke_agent`、`execute_tool`、`chat` span。OpenAI Agents SDK 用自己的追踪格式（默认发往 OpenAI 后台，可关闭敏感数据采集），需加 OpenTelemetry 官方的 `opentelemetry-instrumentation-openai-agents-v2` 才转成 GenAI 约定。LangSmith 能接收 OTel 数据并识别 `gen_ai.*` 属性；LangGraph 本身是否原生输出 GenAI 约定 span 未核实。
 
-来源：https://github.com/open-telemetry/semantic-conventions-genai （docs/gen-ai/ 下的 gen-ai-spans.md、gen-ai-agent-spans.md、client-inference.md、gen-ai-metrics.md、gen-ai-events.md）、https://github.com/open-telemetry/semantic-conventions/pull/3696 、https://opentelemetry.io/blog/2026/genai-observability/ 、https://learn.microsoft.com/en-us/agent-framework/agents/observability 、https://adk.dev/observability/traces/ 、https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/ 、https://openai.github.io/openai-agents-python/tracing/ 、https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation-genai/opentelemetry-instrumentation-openai-agents-v2/README.rst 、https://docs.langchain.com/langsmith/trace-with-opentelemetry 。
+来源：https://github.com/open-telemetry/semantic-conventions-genai （docs/gen-ai/ 下的 gen-ai-spans.md、gen-ai-agent-spans.md、client-inference.md、gen-ai-metrics.md、gen-ai-events.md）、https://github.com/open-telemetry/semantic-conventions/pull/3696 、https://github.com/open-telemetry/semantic-conventions-genai/pull/525 、https://github.com/open-telemetry/semantic-conventions-genai/pull/548 、https://opentelemetry.io/blog/2026/genai-observability/ 、https://learn.microsoft.com/en-us/agent-framework/agents/observability 、https://adk.dev/observability/traces/ 、https://strandsagents.com/docs/user-guide/sdk/observability-evaluation/traces/ 、https://openai.github.io/openai-agents-python/tracing/ 、https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation-genai/opentelemetry-instrumentation-openai-agents-v2/README.rst 、https://docs.langchain.com/langsmith/trace-with-opentelemetry 。
 
 ## 第 9 讲 · 评测集与 LLM-as-Judge
 
