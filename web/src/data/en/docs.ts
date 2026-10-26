@@ -24,6 +24,13 @@ export const docsEn: DocMeta[] = [
     audience: 'Solution architects',
   },
   {
+    id: 'cost',
+    title: 'Cost & capacity estimation (forms A–F)',
+    file: 'en/cost-capacity-estimation.md',
+    blurb: 'Rough formulas and worked examples for tokens, latency, cost, concurrency; cost-gate values.',
+    audience: 'Solution architects · budget review',
+  },
+  {
     id: 'handbook',
     title: 'Concept handbook for IT teams',
     file: 'en/concept-handbook-for-it.md',
