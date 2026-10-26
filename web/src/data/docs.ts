@@ -30,6 +30,13 @@ export const docs: DocMeta[] = [
     audience: '方案架构师',
   },
   {
+    id: 'cost',
+    title: '成本与容量估算（形态 A–F）',
+    file: '成本与容量估算.md',
+    blurb: 'token / 延迟 / 成本 / 并发的粗算公式与示例算例；成本闸门取值。',
+    audience: '方案架构师 · 预算评审',
+  },
+  {
     id: 'handbook',
     title: '概念讲解手册（给 IT 团队）',
     file: '概念讲解手册_给IT团队.md',
