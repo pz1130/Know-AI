@@ -7,7 +7,7 @@ export const layersEn: Layer[] = [
     subtitle: 'Text in, text out',
     solves: 'A function: text in, text out. No memory, no network, no actions.',
     insight:
-      'Parametric knowledge is frozen at training time with a cutoff. When unsure it still answers fluently and confidently—that is how it works, not a bug to “fix”. Every higher layer patches this fact.',
+      'Parametric knowledge is frozen at training time with a cutoff. When unsure it still answers fluently and confidently; that is how it works, not a bug to “fix”. Every higher layer patches this fact.',
     failures: ['Hallucinated clauses and numbers', 'Stale knowledge', 'Unreliable arithmetic'],
     concepts: ['LLM', 'Transformer', 'KV Cache', 'Quantization', 'Fine-tune / LoRA / DPO', 'vLLM / SGLang'],
     morphologies: [],
@@ -17,7 +17,7 @@ export const layersEn: Layer[] = [
     id: 'L1',
     name: 'Conversation',
     subtitle: 'Remember this turn',
-    solves: 'Wrap the stateless function so multi-turn chat feels continuous—the ChatGPT leap was interaction design.',
+    solves: 'Wrap the stateless function so multi-turn chat feels continuous; the ChatGPT leap was interaction design.',
     insight:
       'Multi-turn memory is an illusion. The model does not remember; the app resends history each turn. Longer chats cost more; beyond the window you must truncate or compress.',
     failures: ['“Amnesia” after overflow', 'Middle-context dilution', 'Cost grows with history'],
@@ -32,7 +32,7 @@ export const layersEn: Layer[] = [
     solves:
       'The model knows nothing internal. At ask time, inject relevant material. Two very different technical paths.',
     insight:
-      'RAG does not make the model smarter—it hands references. Answer quality is capped by retrieval. Industry now treats RAG as one technique under context engineering. L2-A (unstructured) and L2-B (structured) barely share a stack—do not merge projects.',
+      'RAG does not make the model smarter; it hands references. Answer quality is capped by retrieval. Industry now treats RAG as one technique under context engineering. L2-A (unstructured) and L2-B (structured) barely share a stack; do not merge projects.',
     failures: [
       'Missed retrieval / bad chunking',
       'Stale versions retrieved',
@@ -98,7 +98,7 @@ export const layersEn: Layer[] = [
     subtitle: 'One is not enough',
     solves: 'When one agent cannot hold context/tools, split roles and add coordination.',
     insight:
-      'Problems become organizational: who supervises, conflict resolution, failure cleanup, explainable chains. MCP is tools; A2A is agent-to-agent handoff; both now share a foundation. Benefits are often overrated—many “multi-agent” needs are L3 or L5.',
+      'Problems become organizational: who supervises, conflict resolution, failure cleanup, explainable chains. MCP is tools; A2A is agent-to-agent handoff; both now share a foundation. Benefits are often overrated; many “multi-agent” needs are L3 or L5.',
     failures: ['Coordination > parallel gain', 'Error amplification', 'Multiplied cost', 'Near-impossible attribution'],
     concepts: ['A2A', 'Agent Card', 'Fan-out / pipeline', 'Manager–worker', 'Debate'],
     morphologies: ['Form F · Multi-agent (mostly dissuade)'],

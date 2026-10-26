@@ -35,7 +35,7 @@ export const morphologiesEn: Morphology[] = [
     duration: '4–8 weeks if semantic layer ready; else 3–6 months metrics governance first',
     dissuade: ['Fixed reports → parameterized templates in a week', 'No field docs / migration mess → fix metadata'],
     notes: [
-      'Highest failure rate among six forms—almost always metrics',
+      'Highest failure rate among six forms; almost always metrics',
       'Five metric conflicts: amount / FX / time / ownership / status',
       'External materials must be firewalled and marked internal',
     ],
@@ -52,7 +52,7 @@ export const morphologiesEn: Morphology[] = [
     products: ['Model API + gateway', 'Dify-style quick UI'],
     duration: '1–3 weeks',
     dissuade: [],
-    notes: ['Ideal first AI project', 'Inputs may be highly classified—settle deploy/egress first'],
+    notes: ['Ideal first AI project', 'Inputs may be highly classified; settle deploy/egress first'],
     layer: 'L1 (+L2)',
   },
   {

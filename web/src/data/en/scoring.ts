@@ -92,7 +92,7 @@ export function evaluateScoresEn(
   if (d('verify') === 3) {
     out.push({
       severity: 'block',
-      text: 'Dim 7=3 → requirement invalid. Output volume exceeds review capacity—errors go unseen.',
+      text: 'Dim 7=3 → requirement invalid. Output volume exceeds review capacity; errors go unseen.',
     })
   }
   if (d('decision') === 3 && d('domain') === 3) {

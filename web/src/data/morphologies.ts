@@ -72,7 +72,7 @@ export const morphologies: Morphology[] = [
     short: '路径固定 · 会写业务数据',
     typical: ['提款单据完整性核对与录入', '采购公告分类归档', '合同要素抽取入库'],
     must: ['触发器', '流程编排', '接口封装', '幂等键', '重试/告警', '审计日志'],
-    optional: ['大模型——仅个别节点'],
+    optional: ['大模型，仅个别节点'],
     products: ['Temporal / Camunda / n8n / Airflow', '抽取节点调模型 API'],
     duration: '3–8 周（主要在对接老系统）',
     dissuade: ['借款国材料格式不可控 → 先真实样本测试', '无 API 只能爬界面 → 评估维护与审计'],

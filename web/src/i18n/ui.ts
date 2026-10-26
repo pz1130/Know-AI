@@ -65,7 +65,7 @@ const ui = {
     stance: { zh: '核心立场', en: 'Core stance' },
     stanceBody: {
       zh: 'RAG / Copilot / Workflow / Agent 不在同一层面，不能拿来选型。改问两件事：输出是信息还是动作？路径事先能画出来吗？',
-      en: 'RAG / Copilot / Workflow / Agent are not the same axis—do not use them for selection. Ask two things: is the output information or action? Can the path be drawn in advance?',
+      en: 'RAG / Copilot / Workflow / Agent are not the same axis; do not use them for selection. Ask two things: is the output information or action? Can the path be drawn in advance?',
     },
     hard: { zh: '本行硬约束（摘要）', en: 'Hard constraints (summary)' },
     hardBody: {
@@ -164,7 +164,7 @@ const ui = {
     title: { zh: '概念电梯：从 LLM 到 Agent', en: 'Concept Elevator: LLM → Agent' },
     desc: {
       zh: '这些层不是互相取代，是叠加。今天一个生产 Agent 里，从 L0 到 L5 往往同时在跑。理解每层解决了什么、又留下了什么问题，比记住术语重要。',
-      en: 'Layers stack, they do not replace each other. A production Agent often runs L0–L5 at once. What each layer fixes—and leaves broken—matters more than jargon.',
+      en: 'Layers stack, they do not replace each other. A production Agent often runs L0–L5 at once. What each layer fixes, and what it leaves broken, matters more than jargon.',
     },
     stackOn: { zh: '叠加视图 · 开', en: 'Stack view · On' },
     stackOff: { zh: '叠加视图 · 关', en: 'Stack view · Off' },
@@ -237,7 +237,7 @@ const ui = {
     bankFlags: { zh: '本行专用判定（不打分）', en: 'Bank-specific flags (no score)' },
     bankFlagsIntro: {
       zh: '这两项不计入七维总分，是“有没有”的硬开关：勾上后直接收紧合规与问责底线，而不是多扣几分。',
-      en: 'These are yes/no hard gates, not scored. Checking either tightens compliance/accountability rules—it is not “a few more points”.',
+      en: 'These are yes/no hard gates, not scored. Checking either tightens compliance/accountability rules; it is not “a few more points”.',
     },
     classified: { zh: '密级触及', en: 'Classification touch' },
     classifiedHint: {
@@ -254,8 +254,8 @@ const ui = {
       en: 'Sanctions, integrity, grievances, safeguard determinations',
     },
     accountabilityHelp: {
-      zh: '落在这些领域时，机构必须说清“谁做决定、依据是什么”。AI 上限是检索、汇总、初步标注；不得产出结论性判定或风险评级，结论须由授权人员做出。设计上要避免“模型先下结论、再让人复核”——理由容易变成围着结论圆场。',
-      en: 'In these domains the institution must answer who decides and on what basis. AI may only retrieve, summarize, and lightly label—no conclusive judgments or risk ratings; authorized staff decide. Avoid “model concludes first, human reviews later”—reasons then become post-hoc rationalization.',
+      zh: '落在这些领域时，机构必须说清“谁做决定、依据是什么”。AI 上限是检索、汇总、初步标注；不得产出结论性判定或风险评级，结论须由授权人员做出。设计上要避免“模型先下结论、再让人复核”，理由容易变成围着结论圆场。',
+      en: 'In these domains the institution must answer who decides and on what basis. AI may only retrieve, summarize, and lightly label. It must not make conclusive judgments or risk ratings; authorized staff decide. Avoid “model concludes first, human reviews later”, because the reasons then become post-hoc rationalization.',
     },
     total: { zh: '总分', en: 'Total' },
     rules: { zh: '规则读出', en: 'Rule readout' },
@@ -275,7 +275,7 @@ const ui = {
     },
     empty: {
       zh: '没有匹配场景，试试别的关键词。',
-      en: 'No matches—try other keywords.',
+      en: 'No matches; try other keywords.',
     },
     danger: { zh: '危险信号清单', en: 'Red-flag list' },
     dangerHint: {

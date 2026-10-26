@@ -73,7 +73,7 @@ export const triageStepsEn: Record<string, TriageStep> = {
         id: 'open',
         label: 'Open (free NL questions)',
         result: 'B',
-        resultNote: 'Form B: data Q&A. First confirm authoritative metrics—if missing, it is a governance project.',
+        resultNote: 'Form B: data Q&A. First confirm authoritative metrics; if missing, it is a governance project.',
       },
     ],
   },
@@ -161,7 +161,7 @@ export const hardConstraintsEn = [
   'Classification & ACL before features; filter at retrieval, not display',
   'Data egress & deploy model fixed before kickoff',
   'Accountable trail: who / when / inputs / advice / confirmer',
-  'No AI conclusive judgments (sanctions, integrity, grievances, safeguards)—retrieve & summarize only',
+  'No AI conclusive judgments (sanctions, integrity, grievances, safeguards); retrieve & summarize only',
   'External publish firewalled; default “internal reference”',
   'Official multilingual texts require human review',
 ]

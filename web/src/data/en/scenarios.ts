@@ -4,7 +4,7 @@ export const scenariosEn: Scenario[] = [
   {
     quote: 'Make the procurement guide askable',
     result: 'Form A',
-    note: 'Confirm which version is effective and financing-type exceptions—classic wrong-answer traps.',
+    note: 'Confirm which version is effective and financing-type exceptions; classic wrong-answer traps.',
     tags: ['knowledge', 'procurement'],
   },
   {
@@ -40,7 +40,7 @@ export const scenariosEn: Scenario[] = [
   {
     quote: 'Draft supervision mission report for task leads',
     result: 'Form C',
-    note: 'Value is pulling prior missions and project basics—not model prose style.',
+    note: 'Value is pulling prior missions and project basics; not model prose style.',
     tags: ['drafting', 'supervision'],
   },
   {
@@ -76,7 +76,7 @@ export const scenariosEn: Scenario[] = [
   {
     quote: 'Auto-classify and publish procurement notices',
     result: 'Form D',
-    note: 'Classify can be auto; publish is irreversible external action—human confirm.',
+    note: 'Classify can be auto; publish is irreversible external action; human confirm.',
     tags: ['workflow', 'procurement'],
   },
   {
@@ -86,15 +86,15 @@ export const scenariosEn: Scenario[] = [
     tags: ['knowledge', 'HR'],
   },
   {
-    quote: 'Disbursement lagging—let AI find why',
+    quote: 'Disbursement lagging; let AI find why',
     result: 'Form E',
     note: 'Good fit: mostly read-only, safe failure, clear done criterion. Writes (rating changes, letters) need gates.',
     tags: ['agent', 'disbursement'],
   },
   {
-    quote: 'Procurement complaint arrived—auto preliminary judgment?',
+    quote: 'Procurement complaint arrived; auto preliminary judgment?',
     result: 'Form E retrieval only',
-    note: 'Precedents and applicable clauses OK; preliminary judgment is accountability-sensitive—no.',
+    note: 'Precedents and applicable clauses OK; preliminary judgment is accountability-sensitive; no.',
     tags: ['agent', 'procurement'],
   },
   {
@@ -112,11 +112,11 @@ export const scenariosEn: Scenario[] = [
   {
     quote: 'Search old scanned archives too',
     result: 'OCR pilot first',
-    note: 'Legacy scan quality varies wildly—do not estimate duration from experience alone.',
+    note: 'Legacy scan quality varies wildly; do not estimate duration from experience alone.',
     tags: ['knowledge', 'OCR'],
   },
   {
-    quote: 'See how other MDBs do it—let AI research the web',
+    quote: 'See how other MDBs do it; let AI research the web',
     result: 'High injection exposure',
     note: 'Consuming external pages is injection-prone; minimize tool rights; humans verify sources.',
     tags: ['security'],
@@ -124,7 +124,7 @@ export const scenariosEn: Scenario[] = [
   {
     quote: 'Retrieve similar cases for the grievance mechanism',
     result: 'Form A · highly sensitive',
-    note: 'Redact complainants, scope visibility, never output case conclusions—set first.',
+    note: 'Redact complainants, scope visibility, never output case conclusions; set first.',
     tags: ['knowledge', 'compliance'],
   },
   {
@@ -134,13 +134,13 @@ export const scenariosEn: Scenario[] = [
     tags: ['platform'],
   },
   {
-    quote: 'Org X already went live—we need the same',
+    quote: 'Org X already went live; we need the same',
     result: 'Pilot vs production first',
-    note: 'Gap is often ~10×: ACL, audit, failure recovery, cost control—where bank bars are highest.',
+    note: 'Gap is often ~10×: ACL, audit, failure recovery, cost control; where bank bars are highest.',
     tags: ['governance'],
   },
   {
-    quote: 'Too much data—let AI find portfolio anomalies',
+    quote: 'Too much data; let AI find portfolio anomalies',
     result: 'Likely classic anomaly detection',
     note: 'Stats/ML cheaper and more explainable; models only narrate conclusions.',
     tags: ['data'],
@@ -151,12 +151,12 @@ export const dangerSignalsEn = [
   'Business cannot define “done right”—no acceptance criteria, do not start',
   'Demands “100% accuracy”—reset expectations or use deterministic designs',
   'Scope words like “all / any / fully automatic”—not converged; split',
-  'Funds, external publish, board, sanctions/integrity—human gate mandatory',
-  'Restricted+ materials but unclear who may see what—ACL before features',
-  'Process or metrics already messy—AI only spreads divergence faster',
-  'Depends on borrower submissions of uncontrolled quality—sample first',
+  'Funds, external publish, board, sanctions/integrity; human gate mandatory',
+  'Restricted+ materials but unclear who may see what; ACL before features',
+  'Process or metrics already messy; AI only spreads divergence faster',
+  'Depends on borrower submissions of uncontrolled quality; sample first',
   'Pointing at a demo video “we want that”—confirm production vs pilot',
-  'No business owner, only IT pushing—dies within six months',
+  'No business owner, only IT pushing; dies within six months',
 ]
 
 export const buildOrderEn = [
