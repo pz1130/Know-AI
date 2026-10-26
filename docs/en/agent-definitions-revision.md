@@ -2,21 +2,23 @@
 
 An alternative to the four-way taxonomy in Chapter 1, Part I of *Enterprise Agent Platform Engineering*.
 
-The book’s problem is not that the definitions are factually wrong, but that it places four concepts from different layers on a single axis. The revision is: split a mixed classification into three layers; one root definition, two orthogonal axes, and five adjustable dimensions; so each term returns to its proper layer.
+The book’s problem is not that the definitions are factually wrong, but that it places four concepts from different layers on a single axis. The revision splits a mixed classification into three layers—one root definition, two orthogonal axes, and five adjustable dimensions—so each term returns to its proper layer.
 
 ---
 
 ## 1. Root definition: from “closed loop” to “runtime decision rights”
 
-The book defines Agent as “a system closed loop that organizes perception, decision, action, and feedback around a task goal.” The direction is right (define by function, not stack), but too wide; a thermostat also senses, decides, acts, and feedbacks. It is also untestable: the definition alone cannot tell you whether *this* system qualifies.
+The book defines Agent as “a system closed loop that organizes perception, decision, action, and feedback around a task goal.” The direction is right (define by function, not stack), but too wide: a thermostat also senses, decides, acts, and feedbacks. It is also untestable: the definition alone cannot tell you whether *this* system qualifies.
 
 Tightened wording:
 
 > An Agent is a system that decides its next action at runtime, and whose actions change state outside the system.
 
-Both constraints are required. Only the first is a reasoner; only the second is an automation script. Together they create the Agent-specific engineering burden; you cannot enumerate everything it will do before deploy, and what it does cannot always be undone.
+Both constraints are required. Only the first is a reasoner; only the second is an automation script. Together they create the Agent-specific engineering burden: you cannot enumerate everything it will do before deploy, and what it does often cannot be undone.
 
 This definition also decomposes cleanly: each constraint maps to one axis.
+
+In a multilateral development bank, a few familiar asks make the cut clearer. “Procurement guide Q&A” is read-only with humans choosing the next step—neither constraint, not an Agent. “Auto-approve a withdrawal once attachments are complete” changes business state on a fixed path—only the second constraint: automation. “Diagnose why a payment is stuck, deciding which systems to query next” satisfies both, and enters the high-governance cell discussed below.
 
 ---
 
@@ -31,7 +33,7 @@ This definition also decomposes cleanly: each constraint maps to one axis.
 | A2 | System decides, but only among predefined branches | Yes |
 | A3 | System generates paths the developer never listed | No |
 
-The A2–A3 line is the most important in this system. It is not “how smart,” but predictability: A2’s behavior space is finite and can be tested and approved line by line; A3 cannot; you need boundary constraints and post-hoc audit.
+The A2–A3 line is the most important in this system. It is not “how smart,” but predictability: A2’s behavior space is finite and can be tested and approved line by line; A3 cannot—you need boundary constraints and post-hoc audit.
 
 ### Axis B · Scope (what actions touch)
 
@@ -42,7 +44,7 @@ The A2–A3 line is the most important in this system. It is not “how smart,�
 | B2 | Writes own state (drafts, memory, session context) |
 | B3 | Writes external business state (orders, refunds, config, messages, tickets) |
 
-Axis B is the degree of irreversible consequence; how much the platform must invest in ACL, idempotency, compensation, and audit.
+Axis B is the degree of irreversible consequence—how much the platform must invest in ACL, idempotency, compensation, and audit. Saving a supervision-report draft into the session (B2) and writing a disbursement instruction into the payment system (B3) are both “writes,” but an order of magnitude apart in governance intensity.
 
 ### Where the book’s four words sit on the grid
 
@@ -60,15 +62,15 @@ The grid exposes what the four-way split hides: most products branded “Agent�
 
 These are design dials. Any A×B combination can tune them independently; they are not categories:
 
-**1. Human-in-the-loop (HITL)**: placement (pre-auth / mid-confirm / final review), granularity (per action / per session / threshold), hardness (hard gate / soft hint). An A3 system with approval gates is still A3; it does not become a Copilot. Baking “needs user confirm” into Copilot’s definition welds a knob into a class.
+1. Human-in-the-loop (HITL). Placement (pre-auth / mid-confirm / final review), granularity (per action / per session / threshold), and hardness (hard gate / soft hint) are all tunable. An A3 system with approval gates is still A3; it does not become a Copilot. Baking “needs user confirm” into Copilot’s definition welds a knob into a class. The hard gate before sending an award notice externally is HITL; the system can still be rated on Axis A on its own.
 
-**2. Reversibility**: can actions undo, how long is the window, is there compensation. This predicts real risk better than “is it an Agent”: a DB-writing system that rolls back every step is safer than an email-only system that cannot recall a send.
+2. Reversibility. Can actions undo, how long is the window, is there compensation. This predicts real risk better than “is it an Agent”: a DB-writing system that rolls back every step is safer than an email-only system that cannot recall a send. Award notices and sanctions-confirmation emails are the latter—once out, nearly irreversible.
 
-**3. State lifetime**: stateless single turn / in-session / long-term across sessions. Drives memory architecture, tenant isolation, retention, and forgetting duties.
+3. State lifetime. Stateless single turn / in-session / long-term across sessions. Drives memory architecture, tenant isolation, retention, and forgetting duties.
 
-**4. Acting identity**: act as the user, as the system, or with delegated credentials. This is the real security watershed; the book barely treats it as definitional. At A3×B3, “act for the user with inherited ACL” and “service account = union of all users” are different orders of magnitude.
+4. Acting identity. Act as the user, as the system, or with delegated credentials. This is the real security watershed; the book barely treats it as definitional. At A3×B3, “act for the user with inherited ACL” and “service account = union of all users” are different orders of magnitude. When staff probe beyond their clearance, inherited initiator ACL can stop them; a union service account cannot.
 
-**5. Orchestration source**: paths from developers, from the model, or fixed skeleton + local generation. Production design is usually the third; binary frames leave no room for it.
+5. Orchestration source. Paths from developers, from the model, or fixed skeleton + local generation. Production design is usually the third; binary frames leave no room for it.
 
 ---
 
@@ -76,34 +78,34 @@ These are design dials. Any A×B combination can tune them independently; they a
 
 A definition is done only when it fits a review form. To rate A and B, ask:
 
-**“If you turn off the LLM, can the system still complete the task?”**: If yes, it is essentially Workflow; the LLM is interface sugar. If no, you are in A2+.
+“If you turn off the LLM, can the system still complete the task?” If yes, it is essentially Workflow; the LLM is interface sugar. If no, you are in A2+.
 
-**“Without code changes, can it produce an action sequence the developer never listed?”**: The operational A2 vs A3 test, and the only truly actionable line.
+“Can it produce an action sequence the developer never listed, without a code change?” That is the A2 vs A3 test—the only truly operable line.
 
-**“If any step fails, can business state stop mid-way?”**: If yes, you are at B3; you need compensation/sagas, not only retries.
+“If any step fails, can business state stop mid-way?” If yes, you are at B3 and need compensating transactions or a saga, not retries alone. A disbursement instruction that times out halfway leaves half-written state without compensation.
 
-**“Can action logs be replayed and each action attributed to a decision basis?”**: If no, regardless of A/B level, you lack the audit prerequisite for production.
+“Can action logs be replayed and each action attributed to a concrete decision basis?” If not, then regardless of how low A/B look, you lack the audit premise for production.
 
 ---
 
-## 5. Put the four words back on their own layers
+## 5. Put the four words back on their layers
 
-Repair is not rewriting four definitions, but admitting they should never have been peers:
+Repairing the four-way split is not rewriting four definitions; it is admitting they should never have been peers:
 
-**Agent** stays an autonomy attribute, bounded by A3. It describes how the system decides what to do.
+Agent stays an autonomy property, bounded by A3. It describes how the system decides what to do.
 
-**Workflow** stays a control-flow structure, i.e. A2. Critical correction: it is not the opposite of Agent, but often Agent’s implementation skeleton. Mature systems are Workflow-heavy with A3 openings only at a few nodes.
+Workflow stays a control-flow structure, i.e. A2. One change: it is not opposed to Agent; many Agents sit on a Workflow skeleton. Mature systems are usually Workflow-led, with A3 openings only at a few nodes.
 
-**RAG** demotes to a context-supply mechanism, peer to Tool Use and Memory. It answers “where does the model get information,” not “who decides,” so it should never sit beside Agent.
+RAG demotes to a context-supply mechanism, peer to Tool Use and Memory. It answers “where does the model get information,” not “who decides,” so it should never have sat beside Agent.
 
-**Copilot** demotes to a delivery shape, peer to Standalone Agent and Background Agent. It describes where the system is embedded and how users reach it; product/UX layer, fully orthogonal to A/B. A Copilot UI can run A3×B3 behind it.
+Copilot demotes to a delivery shape, peer to Standalone Agent and Background Agent. It describes where the system is embedded and how users reach it—product and interaction layer, fully orthogonal to A/B. A Copilot UI can absolutely run A3×B3 behind it.
 
 ---
 
 ## 6. Why this definition is more useful
 
-The cost of the four-way split is that it does not map to platform components; knowing “this is Agent not Copilot” does not tell you what to build. After the revision, each item maps:
+The four-way split’s biggest cost is that it does not map to platform components: knowing “this is an Agent, not a Copilot” does not tell you what to build. Every item in the revised system has a counterpart:
 
-Axis A shapes orchestration and approval; Axis B shapes ACL, idempotency keys, compensation, audit investment; reversibility shapes rollback; identity shapes credential design; state lifetime shapes memory and retention.
+Axis A shapes orchestration and approval; Axis B drives investment in ACL, idempotency keys, compensation, and audit trails; reversibility drives rollback and undo; acting identity drives identity and credential design; state lifetime drives memory architecture and retention.
 
-Also, the book’s Chapter 2 “low/medium/high risk” stratification is actually the best definition content, but buried under platform duties. Under this system it is not separate; it is the composite of Axis B and reversibility, computable without a subjective extra ladder. Promote it as Chapter 1’s main frame; demote the four-way split to an introductory example.
+Separately, the book’s Chapter 2 “low / medium / high risk” tiers are actually the best definitional material in the book, but they sit inside a platform-duties discussion—wrong place. Under this system they are no longer a separate thing; they are the product of Axis B and reversibility, and can be computed rather than graded subjectively. Bring them forward as Chapter 1’s main frame; demote the four-way split to an introductory example.

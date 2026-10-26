@@ -1,6 +1,6 @@
 # 协议对照表：MCP · A2A · AG-UI · Agent Skills
 
-> 配套《概念层级图谱：从 LLM 到 Agent》L4–L6。四样东西经常被并列成"Agent 协议"，但它们管的是不同的连接：MCP 管 Agent ↔ 工具，A2A 管 Agent ↔ Agent，AG-UI 管 Agent ↔ 用户界面，Agent Skills 根本不是线上协议，而是一种给 Agent 装"做事方法"的文件格式。 状态与版本核对于 2026-10-26，来源见文末。
+> 配套《概念层级图谱：从 LLM 到 Agent》L4–L6。四样东西经常被并列成「Agent 协议」，但它们管的是不同的连接：MCP 管 Agent 与工具，A2A 管 Agent 与 Agent，AG-UI 管 Agent 与用户界面，Agent Skills 根本不是线上协议，而是一种给 Agent 装「做事方法」的文件格式。选型会上有人说「我们要上 Agent 协议」，先问清楚指的是哪一段连接。状态与版本核对于 2026-10-26，来源见文末。
 
 ---
 
@@ -31,18 +31,18 @@ L3 函数调用        ── 各家模型 API 的 tool calling（MCP 建在它�
 
 三条判断：
 
-1. **只做单体 Agent（形态 E）**：MCP 必看；Skills 可选；AG-UI 只在自建界面时看；A2A 用不到。
-2. **MCP 和 Skills 不是二选一**：MCP 接入"能调用的外部系统"，Skill 装"怎么做这类事"的说明和脚本；一个 Skill 可以写明去调哪个 MCP 工具。
-3. **A2A 和 MCP 的边界**：对方是"一个能自己决策的 Agent、你看不到它的内部"（用 A2A；对方是"一个按参数执行的工具"）用 MCP。行内能直接调的系统都应作为 MCP 工具暴露，不要包成 Agent 再走 A2A。
+1. 只做单体 Agent（形态 E）：MCP 必看；Skills 可选；AG-UI 只在自建界面时看；A2A 用不到。行内支付停滞排查这类需求，通常停在这一条。
+2. MCP 和 Skills 不是二选一：MCP 接入「能调用的外部系统」，Skill 装「怎么做这类事」的说明和脚本；一个 Skill 可以写明去调哪个 MCP 工具。
+3. A2A 和 MCP 的边界：对方是「一个能自己决策的 Agent、你看不到它的内部」，用 A2A；对方是「一个按参数执行的工具」，用 MCP。行内能直接调的贷款、采购、财务系统都应作为 MCP 工具暴露，不要包成 Agent 再走 A2A。
 
 ---
 
 # 三、选型时该问供应商的问题
 
-- **MCP**：支持哪一版规范？还停在有会话的旧规范吗？授权是否支持 Enterprise-Managed Authorization、以发起人身份访问业务系统？
-- **A2A**：是否支持 v1.0 的签名 Agent Card？Agent 间消息怎么鉴权、怎么留痕？
-- **AG-UI**：人工确认事件怎么落审计日志？界面断线后长任务能否恢复？
-- **Agent Skills**：Skill 从哪里来、谁审核、脚本在什么沙箱里执行？
+- MCP：支持哪一版规范？还停在有会话的旧规范吗？授权是否支持 Enterprise-Managed Authorization、以发起人身份访问业务系统？
+- A2A：是否支持 v1.0 的签名 Agent Card？Agent 间消息怎么鉴权、怎么留痕？
+- AG-UI：人工确认事件怎么落审计日志？界面断线后长任务能否恢复？
+- Agent Skills：Skill 从哪里来、谁审核、脚本在什么沙箱里执行？
 
 ---
 

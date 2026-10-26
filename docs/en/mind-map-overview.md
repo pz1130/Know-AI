@@ -4,10 +4,10 @@
 
 ## How to read it
 
-1. **Center outwards**: the center is the project, ring one is the five docs, ring two their main chapters, ring three key sections.
-2. **Pick a branch by role**: newcomers start with the Concept map, then the Concept handbook; architects go to the Selection handbook's five triage questions and six forms; reviewers aligning vocabulary read the Agent definitions revision.
-3. **Stuck on a term**: check the ten domains of the Term digest, or the site's Lexicon.
-4. **Want detail**: open the site's Mind Map page and click any node to jump to that section.
+1. Read center outwards: the center is the project, ring one is the five docs, ring two their main chapters, ring three key sections.
+2. Pick a branch by role: newcomers start with the Concept map, then the Concept handbook; architects go to the Selection handbook's five triage questions and six forms; reviewers aligning vocabulary read the Agent definitions revision.
+3. Stuck on a term: check the ten domains of the Term digest, or the site's Lexicon.
+4. Want detail: open the site's Mind Map page and click any node to jump to that section.
 
 ## Overview
 
