@@ -14,51 +14,51 @@ Grouped by layer. One or two sentences each, answering only "what does this word
 
 ## 1.1 The model layer
 
-**AI (Artificial Intelligence)**: a branch of computer science studying how to simulate, extend and expand human intelligence. It is a discipline, not a product.
+**AI (Artificial Intelligence)** — a branch of computer science studying how to simulate, extend and expand human intelligence. It is a discipline, not a product.
 
-**Large models**: AI made concrete as a product: neural networks trained on vast data, turning theoretical capability into something callable and deployable.
+**Large models** — AI made concrete as a product: neural networks trained on vast data, turning theoretical capability into something callable and deployable.
 
 By the type of information they process:
 
-- **LLM (Large Language Model)**: understands and generates text.
-- **VLM (Vision-Language Model)**: understands images and text together, e.g. answering questions about a picture.
-- **MLLM (Multimodal Large Language Model)**: handles text, images, audio and other inputs.
+- **LLM (Large Language Model)** — understands and generates text.
+- **VLM (Vision-Language Model)** — understands images and text together, e.g. answering questions about a picture.
+- **MLLM (Multimodal Large Language Model)** — handles text, images, audio and other inputs.
 
-**MoE (Mixture of Experts)**: note that this is *not* a classification by modality. It is an architectural technique: split the model into multiple "expert sub-networks" and activate only the ones needed each time, expanding capacity without a proportional increase in compute. It sits on a different axis from the three above and should be explained separately.
+**MoE (Mixture of Experts)** — note that this is *not* a classification by modality. It is an architectural technique: split the model into multiple "expert sub-networks" and activate only the ones needed each time, expanding capacity without a proportional increase in compute. It sits on a different axis from the three above and should be explained separately.
 
-**Reasoning model**: a class of model trained to strengthen multi-step reasoning; it works through an extended internal deliberation before answering. Accuracy on complex tasks is higher, but latency and cost are markedly higher too. Allocate by task: ordinary models for simple extraction, reasoning models only for complex judgement.
+**Reasoning model** — a class of model trained to strengthen multi-step reasoning; it works through an extended internal deliberation before answering. Accuracy on complex tasks is higher, but latency and cost are markedly higher too. Allocate by task: ordinary models for simple extraction, reasoning models only for complex judgement.
 
-**Base model vs fine-tuned model**: a base model is the product of general pre-training; a fine-tuned model continues training on top of it with specific data. We are not fine-tuning at this stage (see Part 4).
+**Base model vs fine-tuned model** — a base model is the product of general pre-training; a fine-tuned model continues training on top of it with specific data. We are not fine-tuning at this stage (see Part 4).
 
-**LoRA (Low-Rank Adaptation)**: a low-cost fine-tuning method: freeze the base model's parameters and train only a small set of side matrices. The artefact is typically tens to hundreds of MB, can be attached or detached at will, and one base model can carry several. Note that we are not fine-tuning at this stage (see Part 4): for the overwhelming majority of cases, good retrieval and good prompting are enough, and fine-tuning adds version-management and re-evaluation overhead.
+**LoRA (Low-Rank Adaptation)** — a low-cost fine-tuning method: freeze the base model's parameters and train only a small set of side matrices. The artefact is typically tens to hundreds of MB, can be attached or detached at will, and one base model can carry several. Note that we are not fine-tuning at this stage (see Part 4): for the overwhelming majority of cases, good retrieval and good prompting are enough, and fine-tuning adds version-management and re-evaluation overhead.
 
-**Knowledge cutoff**: the time boundary of the model's training data. It does not know what happened afterwards, but it will not tell you that it does not know; it will produce a fluent wrong answer instead.
+**Knowledge cutoff** — the time boundary of the model's training data. It does not know what happened afterwards, but it will not tell you that it does not know; it will produce a fluent wrong answer instead.
 
-**Hallucination**: output that looks plausible but is factually wrong or entirely invented. This is not an occasional fault; it is part of how these models work: they make probabilistic predictions, they do not fact-check. Hallucination is reduced by supplying correct context (retrieval) and narrowing the task (prompting), not by "reminding the model not to make things up".
+**Hallucination** — output that looks plausible but is factually wrong or entirely invented. This is not an occasional fault; it is part of how these models work: they make probabilistic predictions, they do not fact-check. Hallucination is reduced by supplying correct context (retrieval) and narrowing the task (prompting), not by "reminding the model not to make things up".
 
-**What a large model fundamentally is**: statistics. It learns from vast human documents, vectorises text, and trains a high-dimensional mathematical matrix. At inference it predicts what follows from the current input and its trained parameters. It has no subjective consciousness in the human sense, and it does not modify its own parameters during a conversation. What we perceive as "reasoning", "reflection" and "self-checking" is behaviour elicited by particular prompts, context and tool flows; not self-awareness.
+**What a large model fundamentally is** — statistics. It learns from vast human documents, vectorises text, and trains a high-dimensional mathematical matrix. At inference it predicts what follows from the current input and its trained parameters. It has no subjective consciousness in the human sense, and it does not modify its own parameters during a conversation. What we perceive as "reasoning", "reflection" and "self-checking" is behaviour elicited by particular prompts, context and tool flows; not self-awareness.
 
 ## 1.2 Numbers inside the model
 
 This group is the easiest to confuse, and confusing it leads directly to errors in cost estimation and selection.
 
-**Token**: the smallest unit of text the model processes. A tokenizer cuts a passage into tokens.
+**Token** — the smallest unit of text the model processes. A tokenizer cuts a passage into tokens.
 
-**Token ID**: the numeric identifier for each token, drawn from the tokenizer's vocabulary.
+**Token ID** — the numeric identifier for each token, drawn from the tokenizer's vocabulary.
 
-**Embedding**: the multi-dimensional float vector a token ID is converted into once inside the model; it carries semantic information.
+**Embedding** — the multi-dimensional float vector a token ID is converted into once inside the model; it carries semantic information.
 
-**Parameter**: the weights and biases the model has learned. Parameter count (e.g. "tens of billions") determines the model's capacity and expressive power.
+**Parameter** — the weights and biases the model has learned. Parameter count (e.g. "tens of billions") determines the model's capacity and expressive power.
 
-**Vocabulary size**: how many distinct token types the tokenizer supports; for some models this is in the hundred-thousand range.
+**Vocabulary size** — how many distinct token types the tokenizer supports; for some models this is in the hundred-thousand range.
 
-**Context window**: the token ceiling for a single pass, commonly 200K to 1M. A larger window does not retire retrieval: classification filtering, citation grounding, and long-task compression still have to be done.
+**Context window** — the token ceiling for a single pass, commonly 200K to 1M. A larger window does not retire retrieval: classification filtering, citation grounding, and long-task compression still have to be done.
 
-**Training tokens**: how many tokens the model saw in total during training; a measure of training data scale.
+**Training tokens** — how many tokens the model saw in total during training; a measure of training data scale.
 
-**Input vs output tokens**: two different things for billing, and output is typically several times more expensive than input. Estimate them separately, especially where the model generates long documents.
+**Input vs output tokens** — two different things for billing, and output is typically several times more expensive than input. Estimate them separately, especially where the model generates long documents.
 
-**Temperature**: the parameter controlling randomness in generation. Lower is more deterministic and conservative; higher is more divergent. Cases that need stability and reproducibility (extraction, classification, SQL generation) should run low; only creative work should run high. This parameter is overlooked in many projects and is a common cause of unstable output.
+**Temperature** — the parameter controlling randomness in generation. Lower is more deterministic and conservative; higher is more divergent. Cases that need stability and reproducibility (extraction, classification, SQL generation) should run low; only creative work should run high. This parameter is overlooked in many projects and is a common cause of unstable output.
 
 **The point that must be made clear**: parameter count, vocabulary size and context window are three unrelated numbers. Parameter count does not determine how many word types can be handled (that is the vocabulary. Nor does it determine how much can be read at once) that is the context window. Sales material and technical articles routinely blur the three, which leads to comparing the wrong things during selection.
 
@@ -66,33 +66,33 @@ This group is the easiest to confuse, and confusing it leads directly to errors 
 
 ## 1.3 Interacting with the model
 
-**Prompt**: the instruction given to the model. Its core purpose is to narrow the range and reduce hallucination, and it usually does three things: set the role (who you are), set the task boundary (what to do) and set the target (to what standard).
+**Prompt** — the instruction given to the model. Its core purpose is to narrow the range and reduce hallucination, and it usually does three things: set the role (who you are), set the task boundary (what to do) and set the target (to what standard).
 
-**System prompt vs user prompt**: the system prompt is the framing instruction set by developers and carried into every turn; the user prompt is what the user actually typed this turn. Permissions and constraints belong in the system prompt, but be aware that long conversations dilute its force; critical constraints need repeating.
+**System prompt vs user prompt** — the system prompt is the framing instruction set by developers and carried into every turn; the user prompt is what the user actually typed this turn. Permissions and constraints belong in the system prompt, but be aware that long conversations dilute its force; critical constraints need repeating.
 
-**Few-shot**: including a handful of input-output examples in the prompt. In practice, two or three real examples often beat a long block of explanation, especially where output format matters.
+**Few-shot** — including a handful of input-output examples in the prompt. In practice, two or three real examples often beat a long block of explanation, especially where output format matters.
 
-**Context**: everything the model can see for this task: the user's question, system instructions, conversation history, retrieved documents, tool results. It is temporary; once the session ends it is no longer in the model.
+**Context** — everything the model can see for this task: the user's question, system instructions, conversation history, retrieved documents, tool results. It is temporary; once the session ends it is no longer in the model.
 
-**Memory**: information persisted across sessions and retrievable later: user preferences, project background, past decisions.
+**Memory** — information persisted across sessions and retrievable later: user preferences, project background, past decisions.
 
 **How context and memory relate**: model parameters never change because of a conversation. Memory is implemented by storing history in an external system and retrieving it back into the context when needed. So fundamentally, memory is a persisted fragment of context. Context determines "what can be seen now"; memory determines "whether what came before can be found again".
 
-**Structured output / JSON Schema**: requiring the model to return a specified data structure rather than free text. Wherever output feeds a system rather than a human, use structured output plus validation; do not parse free text with regular expressions.
+**Structured output / JSON Schema** — requiring the model to return a specified data structure rather than free text. Wherever output feeds a system rather than a human, use structured output plus validation; do not parse free text with regular expressions.
 
-**Streaming**: returning each character as it is generated rather than waiting for the whole response. It does not reduce total time, but it markedly improves perceived speed and is standard for interactive use.
+**Streaming** — returning each character as it is generated rather than waiting for the whole response. It does not reduce total time, but it markedly improves perceived speed and is standard for interactive use.
 
 ## 1.4 Agents and tools
 
-**Agent**: a large model configured with instructions and tools, able to decide for itself whether to call a tool, which path to take and how to combine steps.
+**Agent** — a large model configured with instructions and tools, able to decide for itself whether to call a tool, which path to take and how to combine steps.
 
-**Function Calling / Tool Use**: the mechanism that lets a model express "I want to call this tool with these arguments". The key point: the model only emits a structured request; the host program is what actually executes. This is the single most important idea in this handbook; see Part 2, Lecture 7.
+**Function Calling / Tool Use** — the mechanism that lets a model express "I want to call this tool with these arguments". The key point: the model only emits a structured request; the host program is what actually executes. This is the single most important idea in this handbook; see Part 2, Lecture 7.
 
-**Tool call**: the structured request itself, containing the tool name and arguments.
+**Tool call** — the structured request itself, containing the tool name and arguments.
 
-**Observation**: the result returned by the tool and injected back into context. The ReAct loop relies on it for feedback.
+**Observation** — the result returned by the tool and injected back into context. The ReAct loop relies on it for feedback.
 
-**Agent runtime**: the dynamic loop an agent runs while executing a task. The mainstream pattern is ReAct (Reason + Act), in six stages:
+**Agent runtime** — the dynamic loop an agent runs while executing a task. The mainstream pattern is ReAct (Reason + Act), in six stages:
 
 1. **Observe**: receive the task, current context, memory retrieval results and tool returns.
 2. **Reason / plan**: analyse the current state and decide the next step.
@@ -103,39 +103,39 @@ This group is the easiest to confuse, and confusing it leads directly to errors 
 
 In one line: an agent does not answer in a single shot; it works like a person; think a step, do a step, look at the result, think about the next step.
 
-**ReAct / Plan-and-Execute / Reflexion**: three loop paradigms. ReAct thinks and acts alternately; Plan-and-Execute produces a full plan first and then executes step by step; Reflexion reviews the trajectory after failure and retries. They are not mutually exclusive and real systems often mix them.
+**ReAct / Plan-and-Execute / Reflexion** — three loop paradigms. ReAct thinks and acts alternately; Plan-and-Execute produces a full plan first and then executes step by step; Reflexion reviews the trajectory after failure and retries. They are not mutually exclusive and real systems often mix them.
 
-**Termination conditions**: what makes the agent loop stop. It is a set, not a single item: a completion criterion, a maximum iteration count, a timeout, a cost ceiling and a confidence threshold. This is the item most often glossed over during requirement review.
+**Termination conditions** — what makes the agent loop stop. It is a set, not a single item: a completion criterion, a maximum iteration count, a timeout, a cost ceiling and a confidence threshold. This is the item most often glossed over during requirement review.
 
-**Tools**: external capabilities the model can call: query data, call APIs, execute code, send messages. Tools are what let the model act beyond itself.
+**Tools** — external capabilities the model can call: query data, call APIs, execute code, send messages. Tools are what let the model act beyond itself.
 
-**Tool registry**: a service that centrally records which tools exist, their schemas, versions and permissions. Once tool count grows, there is no controlling it without one.
+**Tool registry** — a service that centrally records which tools exist, their schemas, versions and permissions. Once tool count grows, there is no controlling it without one.
 
-**MCP (Model Context Protocol)**: the context protocol standard proposed by Anthropic and now maintained under an independent foundation, letting AI applications recognise and call external services in a uniform way. An MCP server can expose three kinds of thing: Resources (readable data sources), Prompts (preset templates) and Tools (callable functions).
+**MCP (Model Context Protocol)** — the context protocol standard proposed by Anthropic and now maintained under an independent foundation, letting AI applications recognise and call external services in a uniform way. An MCP server can expose three kinds of thing: Resources (readable data sources), Prompts (preset templates) and Tools (callable functions).
 
 An analogy: MCP is to tool calling what HTTP is to network communication; not the only way, but valuable because it provides a common language. The current spec (2026-07-28) removed protocol-level sessions and the initialize handshake: each request carries protocol version and client capabilities, clients may call `server/discover`, and servers scale like ordinary HTTP. That analogy is now more accurate than the earlier sessionful version. This revision also requires `Mcp-Method` / `Mcp-Name` headers on HTTP requests, so gateways and firewalls can route and rate-limit without parsing bodies; mid-call user confirmation moves to Multi Round-Trip Requests (MRTR) instead of held-open streams; Tasks, MCP Apps and Enterprise-Managed Authorization (EMA) ship as formal extensions. Enterprise rollout also needs the authorization extension (who acts on whose behalf); listing tools is not enough: the spec now requires validating the authorization server `iss` (RFC 9207) and formally deprecates Dynamic Client Registration (DCR) in favour of Client ID Metadata Documents (CIMD). (Source: [MCP 2026-07-28 release notes](https://blog.modelcontextprotocol.io/posts/2026-07-28/))
 
 Some easily confused items: a tool is a specific capability; an MCP tool is a tool exposed through the MCP protocol; an MCP server is the service offering a set of tools, resources and prompts; the agent is the thing deciding whether to call them. Note that tools are not the same as MCP; private APIs and function calling connect tools too; MCP is simply one way of standardising it.
 
-**A2A (Agent-to-Agent)**: the protocol for agents to discover each other and hand off tasks; an Agent Card describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A shipped v1.0, its first stable release, in 2026-03: multiple protocol bindings with version negotiation, multi-tenant endpoints, and signed Agent Cards (verify the counterpart before cross-organisation interaction); an Agent Card can advertise 0.3 and 1.0 at once for gradual migration. (Source: [A2A v1.0 announcement](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/)) A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
+**A2A (Agent-to-Agent)** — the protocol for agents to discover each other and hand off tasks; an Agent Card describes capabilities, endpoints and auth. Division of labour: MCP is how an agent uses tools; A2A is how it hands a task to another agent. Both now sit in the Agentic AI Foundation. A2A shipped v1.0, its first stable release, in 2026-03: multiple protocol bindings with version negotiation, multi-tenant endpoints, and signed Agent Cards (verify the counterpart before cross-organisation interaction); an Agent Card can advertise 0.3 and 1.0 at once for gradual migration. (Source: [A2A v1.0 announcement](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/)) A2A is for cross-institution collaboration; a bank-internal single agent does not need it, and Form F remains mostly dissuasive.
 
-**AG-UI (Agent-User Interaction)**: an open protocol between an agent and its user-facing front end: the front end sends one request and the agent returns an ordered stream of typed events (streamed text, tool calls, reasoning, shared state, progress, subagents and so on; the 1.0 spec defines 31 event types over HTTP + SSE or Protobuf). It grew out of CopilotKit's initial partnership with LangChain and CrewAI (per the official repo, https://github.com/ag-ui-protocol/ag-ui ) and is now maintained by the ag-ui-protocol community; 1.0 was released and frozen in September 2026. Division of labour: MCP is how an agent uses tools, A2A is how agents hand tasks to each other, and AG-UI is how an agent talks to the user interface; including pushing a "needs human confirmation" request to the screen and getting the answer back. Microsoft Agent Framework and Google ADK both have official AG-UI integrations. It only matters when we build our own agent front end.
+**AG-UI (Agent-User Interaction)** — an open protocol between an agent and its user-facing front end: the front end sends one request and the agent returns an ordered stream of typed events (streamed text, tool calls, reasoning, shared state, progress, subagents and so on; the 1.0 spec defines 31 event types over HTTP + SSE or Protobuf). It grew out of CopilotKit's initial partnership with LangChain and CrewAI (per the official repo, https://github.com/ag-ui-protocol/ag-ui ) and is now maintained by the ag-ui-protocol community; 1.0 was released and frozen in September 2026. Division of labour: MCP is how an agent uses tools, A2A is how agents hand tasks to each other, and AG-UI is how an agent talks to the user interface; including pushing a "needs human confirmation" request to the screen and getting the answer back. Microsoft Agent Framework and Google ADK both have official AG-UI integrations. It only matters when we build our own agent front end.
 
-**Hook**: a program triggered under specific conditions. Typical uses: pre-checks, post-processing (logging, notifications), exception interception, lifecycle actions. Not an AI-specific concept; Git and front-end frameworks have them too.
+**Hook** — a program triggered under specific conditions. Typical uses: pre-checks, post-processing (logging, notifications), exception interception, lifecycle actions. Not an AI-specific concept; Git and front-end frameworks have them too.
 
-**Skill**: a reusable capability package. It can be a single instruction document, or that document plus scripts, templates and other resources, so the model performs a class of task to an established standard. Its defining traits are reusability, composability and explicit usage instructions.
+**Skill** — a reusable capability package. It can be a single instruction document, or that document plus scripts, templates and other resources, so the model performs a class of task to an established standard. Its defining traits are reusability, composability and explicit usage instructions.
 
-**Agent Skills open standard**: the common file format for skills (agentskills.io): a directory with at least a `SKILL.md` (YAML front matter with `name` and `description`, then instructions in Markdown), optionally bundling scripts, references and templates. Agents load only names and descriptions at startup, read the full file when a task matches, then pull in attachments as needed (progressive disclosure), so many skills can be installed without filling the context. Originally developed by Anthropic and released as an open standard; OpenAI (Codex and the API), Google (ADK, Gemini) and GitHub Copilot / VS Code / Visual Studio all support it. Versus MCP: MCP connects callable external systems, while a skill packages "how to do this kind of task" as instructions and scripts; a skill can tell the agent to call a given MCP tool. Bundled scripts execute in the agent environment, so treat third-party skills as supply chain (OWASP ASI04).
+**Agent Skills open standard** — the common file format for skills (agentskills.io): a directory with at least a `SKILL.md` (YAML front matter with `name` and `description`, then instructions in Markdown), optionally bundling scripts, references and templates. Agents load only names and descriptions at startup, read the full file when a task matches, then pull in attachments as needed (progressive disclosure), so many skills can be installed without filling the context. Originally developed by Anthropic and released as an open standard; OpenAI (Codex and the API), Google (ADK, Gemini) and GitHub Copilot / VS Code / Visual Studio all support it. Versus MCP: MCP connects callable external systems, while a skill packages "how to do this kind of task" as instructions and scripts; a skill can tell the agent to call a given MCP tool. Bundled scripts execute in the agent environment, so treat third-party skills as supply chain (OWASP ASI04).
 
-**Plugin**: an installable extension package that bundles a set of related capabilities (skills, agent configurations, hooks, MCP servers, tools, prompt templates) into one distributable, manageable unit. Also not AI-specific.
+**Plugin** — an installable extension package that bundles a set of related capabilities (skills, agent configurations, hooks, MCP servers, tools, prompt templates) into one distributable, manageable unit. Also not AI-specific.
 
-**Harness**: the unified runtime environment that schedules and orchestrates all of the above so they work together.
+**Harness** — the unified runtime environment that schedules and orchestrates all of the above so they work together.
 
-**Sub-agent**: an independent agent dispatched by a main agent to handle a subtask, with its own context and tool set. The main reason to use one is context isolation, not "being smarter".
+**Sub-agent** — an independent agent dispatched by a main agent to handle a subtask, with its own context and tool set. The main reason to use one is context isolation, not "being smarter".
 
 ## 1.5 How workflow and agent relate (important correction)
 
-**Workflow**: a pre-designed process with fixed steps, a clear path and strong controllability. For example: read the order, evaluate the refund rules, call the refund API, send the notification; every step defined in advance. A workflow may use a large model, or none at all.
+**Workflow** — a pre-designed process with fixed steps, a clear path and strong controllability. For example: read the order, evaluate the refund rules, call the refund API, send the notification; every step defined in advance. A workflow may use a large model, or none at all.
 
 **A common diagram needs correcting here**: many concept maps draw workflow as a component of an agent system. That classification misleads. Workflow and agent are two parallel modes of control, not a containment relationship, and the difference is who decides the path; a workflow's path is written in advance by a person or a program; an agent's path is decided dynamically by the model at run time. Anthropic puts it the same way: workflows orchestrate LLMs and tools through predefined code paths, while agents have the LLM dynamically direct its own process and tool usage.
 
@@ -145,137 +145,137 @@ Some easily confused items: a tool is a specific capability; an MCP tool is a to
 
 Required for knowledge Q&A (Form A).
 
-**RAG (Retrieval-Augmented Generation)**: retrieve relevant material before answering and hand it to the model along with the question. Note its current standing: the industry has demoted it to one technique under "context engineering" rather than a class of system.
+**RAG (Retrieval-Augmented Generation)** — retrieve relevant material before answering and hand it to the model along with the question. Note its current standing: the industry has demoted it to one technique under "context engineering" rather than a class of system.
 
-**Context engineering**: the whole body of work deciding "what the model sees this time": what to retrieve, what to compress, what to remember, how to lay it out, how to allocate the token budget. Retrieval is only one part.
+**Context engineering** — the whole body of work deciding "what the model sees this time": what to retrieve, what to compress, what to remember, how to lay it out, how to allocate the token budget. Retrieval is only one part.
 
-**Embedding model**: the model that turns text into vectors; the foundation of retrieval quality. For multilingual cases, test on your own material; do not go by leaderboards.
+**Embedding model** — the model that turns text into vectors; the foundation of retrieval quality. For multilingual cases, test on your own material; do not go by leaderboards.
 
-**Vector database**: stores vectors and supports similarity search. Milvus, Qdrant, Weaviate; pgvector is enough at smaller volumes.
+**Vector database** — stores vectors and supports similarity search. Milvus, Qdrant, Weaviate; pgvector is enough at smaller volumes.
 
-**Chunking**: splitting long documents into retrievable fragments. Chunking strategy usually affects retrieval quality more than swapping the model does, yet it is often the last thing considered.
+**Chunking** — splitting long documents into retrievable fragments. Chunking strategy usually affects retrieval quality more than swapping the model does, yet it is often the last thing considered.
 
-**Dense retrieval**: matches by vector similarity; good at finding semantically close content phrased differently.
+**Dense retrieval** — matches by vector similarity; good at finding semantically close content phrased differently.
 
-**Sparse retrieval / BM25**: matches by keyword; good at proper nouns, reference numbers and clause numbers.
+**Sparse retrieval / BM25** — matches by keyword; good at proper nouns, reference numbers and clause numbers.
 
-**Hybrid search / RRF**: fuses dense and sparse results. Given our material (many clause numbers, project codes and proper nouns) we almost certainly need hybrid search; pure vector retrieval will miss exact matches.
+**Hybrid search / RRF** — fuses dense and sparse results. Given our material (many clause numbers, project codes and proper nouns) we almost certainly need hybrid search; pure vector retrieval will miss exact matches.
 
-**Reranker**: a model that rescores and reorders the initial result set, trading speed for precision. Adding one is usually the highest-return single optimisation.
+**Reranker** — a model that rescores and reorders the initial result set, trading speed for precision. Adding one is usually the highest-return single optimisation.
 
-**Vector indexes (HNSW / IVF / PQ)**: algorithms that make search over huge vector sets fast, trading recall against latency. Not worth agonising over at small volumes.
+**Vector indexes (HNSW / IVF / PQ)** — algorithms that make search over huge vector sets fast, trading recall against latency. Not worth agonising over at small volumes.
 
-**Recall and precision**: recall is "how much of what should have been found was found"; precision is "how much of what was found is correct". In knowledge Q&A recall usually matters more, because anything not retrieved cannot possibly be answered correctly.
+**Recall and precision** — recall is "how much of what should have been found was found"; precision is "how much of what was found is correct". In knowledge Q&A recall usually matters more, because anything not retrieved cannot possibly be answered correctly.
 
-**Document parsing and OCR**: converting PDFs, scans and tables into processable text. For older archives, recognition quality must be tested on real samples.
+**Document parsing and OCR** — converting PDFs, scans and tables into processable text. For older archives, recognition quality must be tested on real samples.
 
-**Citation traceability**: the answer can be traced back to a specific location in the source. See Part 2, Lecture 3.
+**Citation traceability** — the answer can be traced back to a specific location in the source. See Part 2, Lecture 3.
 
-**Knowledge base versioning**: where several revisions of the same policy coexist, retrieval must distinguish which one is in force. This is where we are most likely to come unstuck.
+**Knowledge base versioning** — where several revisions of the same policy coexist, retrieval must distinguish which one is in force. This is where we are most likely to come unstuck.
 
 ## 1.7 The data layer
 
 Required for data Q&A (Form B).
 
-**OLTP vs OLAP**: OLTP is the transactional database business systems run on, good at single-record reads and writes; OLAP is the analytical engine, good at wide scans and aggregation. Running analytical queries directly against the business database will drag the business system down, which is the fundamental reason for building a warehouse. Common OLAP engines: Doris, StarRocks, ClickHouse, DuckDB.
+**OLTP vs OLAP** — OLTP is the transactional database business systems run on, good at single-record reads and writes; OLAP is the analytical engine, good at wide scans and aggregation. Running analytical queries directly against the business database will drag the business system down, which is the fundamental reason for building a warehouse. Common OLAP engines: Doris, StarRocks, ClickHouse, DuckDB.
 
-**Data warehouse / lakehouse**: centralising, cleaning and reorganising data scattered across business systems for analysis. A lakehouse (open table formats such as Iceberg, Hudi, Delta, Paimon) combines the cheap storage of a data lake with the transactional query capability of a warehouse.
+**Data warehouse / lakehouse** — centralising, cleaning and reorganising data scattered across business systems for analysis. A lakehouse (open table formats such as Iceberg, Hudi, Delta, Paimon) combines the cheap storage of a data lake with the transactional query capability of a warehouse.
 
-**MPP (Massively Parallel Processing)**: an architecture that splits one query across multiple nodes for parallel execution.
+**MPP (Massively Parallel Processing)** — an architecture that splits one query across multiple nodes for parallel execution.
 
-**Time travel**: querying the state of a table at a past point in time. Genuinely useful for us, since we often need to answer "what was this figure when last quarter's report was issued".
+**Time travel** — querying the state of a table at a past point in time. Genuinely useful for us, since we often need to answer "what was this figure when last quarter's report was issued".
 
-**CDC (Change Data Capture)**: capturing inserts, updates and deletes from the business database in real time and syncing them to the warehouse, rather than a full daily pull.
+**CDC (Change Data Capture)** — capturing inserts, updates and deletes from the business database in real time and syncing them to the warehouse, rather than a full daily pull.
 
-**ETL vs ELT**: ETL extracts, transforms and then loads; ELT loads the raw data into the platform first and transforms it there. ELT is now the mainstream.
+**ETL vs ELT** — ETL extracts, transforms and then loads; ELT loads the raw data into the platform first and transforms it there. ELT is now the mainstream.
 
-**Scheduling and DAGs**: the dependency graph between data processing tasks and their timed execution. Airflow, Dagster and similar.
+**Scheduling and DAGs** — the dependency graph between data processing tasks and their timed execution. Airflow, Dagster and similar.
 
-**Metadata**: data describing the data itself: what this table is, what the fields mean, who maintains it, how often it updates.
+**Metadata** — data describing the data itself: what this table is, what the fields mean, who maintains it, how often it updates.
 
-**Data catalogue**: a central register of what data assets exist, who owns them, what they mean and what condition they are in.
+**Data catalogue** — a central register of what data assets exist, who owns them, what they mean and what condition they are in.
 
-**Data layering**: organising into raw, detail and summary tiers so that processing logic is reusable and traceable.
+**Data layering** — organising into raw, detail and summary tiers so that processing logic is reusable and traceable.
 
-**Semantic layer / metric definitions**: the definition layer connecting business terminology to physical data. It specifies which tables and fields "commitment amount" maps to, what filters apply and how it aggregates. This is what makes or breaks data Q&A projects; see Part 2, Lecture 1.
+**Semantic layer / metric definitions** — the definition layer connecting business terminology to physical data. It specifies which tables and fields "commitment amount" maps to, what filters apply and how it aggregates. This is what makes or breaks data Q&A projects; see Part 2, Lecture 1.
 
-**Metrics and dimensions**: metrics are the numbers being measured (commitment amount, disbursement); dimensions are the angles they are cut by (country, sector, fiscal year). The semantic layer must define both.
+**Metrics and dimensions** — metrics are the numbers being measured (commitment amount, disbursement); dimensions are the angles they are cut by (country, sector, fiscal year). The semantic layer must define both.
 
-**NL2SQL (Text-to-SQL)**: translating "signings in the East Asia region this fiscal year" into a SQL statement.
+**NL2SQL (Text-to-SQL)** — translating "signings in the East Asia region this fiscal year" into a SQL statement.
 
-**Schema linking**: the core sub-problem within NL2SQL: mapping business nouns in the user's phrasing to actual tables and columns.
+**Schema linking** — the core sub-problem within NL2SQL: mapping business nouns in the user's phrasing to actual tables and columns.
 
-**Query sandbox**: the isolated environment where model-generated SQL executes, with mandatory limits on timeout, scan volume, accessible tables and permissions. Model-generated SQL must never run directly against a production database.
+**Query sandbox** — the isolated environment where model-generated SQL executes, with mandatory limits on timeout, scan volume, accessible tables and permissions. Model-generated SQL must never run directly against a production database.
 
-**Lineage**: which sources a figure came from and which processing steps it passed through. Under our accountability requirements this is a necessity.
+**Lineage** — which sources a figure came from and which processing steps it passed through. Under our accountability requirements this is a necessity.
 
-**Data contract**: a formal agreement between data producer and consumer covering structure, definitions, timeliness and change process.
+**Data contract** — a formal agreement between data producer and consumer covering structure, definitions, timeliness and change process.
 
-**Quality gate**: checks applied before data is consumed downstream; on failure it blocks or degrades, and records the outcome and the responsible owner.
+**Quality gate** — checks applied before data is consumed downstream; on failure it blocks or degrades, and records the outcome and the responsible owner.
 
 ## 1.8 Engineering and runtime
 
 Required for process automation (Form D) and autonomous agents (Form E).
 
-**Orchestration engine**: the component driving multi-step execution. Two kinds: workflow engines (Temporal, Camunda, n8n) solve the fixed-path problem; agent frameworks (LangGraph and similar) solve the open-path problem. Choosing the wrong kind is expensive.
+**Orchestration engine** — the component driving multi-step execution. Two kinds: workflow engines (Temporal, Camunda, n8n) solve the fixed-path problem; agent frameworks (LangGraph and similar) solve the open-path problem. Choosing the wrong kind is expensive.
 
-**State persistence and resumption**: execution state can be saved and continued from where it stopped rather than re-run from the beginning. Any process with human approval will be interrupted, so this is a hard requirement.
+**State persistence and resumption** — execution state can be saved and continued from where it stopped rather than re-run from the beginning. Any process with human approval will be interrupted, so this is a hard requirement.
 
-**Context compression**: content accumulated by a long task will eventually overflow the context window; before it does, material must be summarised, folded or dropped. Compress too hard and information is lost; too little and it overflows.
+**Context compression** — content accumulated by a long task will eventually overflow the context window; before it does, material must be summarised, folded or dropped. Compress too hard and information is lost; too little and it overflows.
 
-**Session isolation**: state must not leak between sessions.
+**Session isolation** — state must not leak between sessions.
 
-**Idempotency key**: the identifier guaranteeing that repeating an operation produces the same result as performing it once. Agents retry frequently; without it you get duplicate records. See Part 2, Lecture 4.
+**Idempotency key** — the identifier guaranteeing that repeating an operation produces the same result as performing it once. Agents retry frequently; without it you get duplicate records. See Part 2, Lecture 4.
 
-**Compensating transaction**: using a reverse action to cancel out a completed erroneous one.
+**Compensating transaction** — using a reverse action to cancel out a completed erroneous one.
 
-**Retry and backoff**: retrying after failure at increasing intervals so downstream systems are not overwhelmed.
+**Retry and backoff** — retrying after failure at increasing intervals so downstream systems are not overwhelmed.
 
-**Timeout, rate limiting and circuit breaking**: the time ceiling on a single call, and the gate on overall traffic.
+**Timeout, rate limiting and circuit breaking** — the time ceiling on a single call, and the gate on overall traffic.
 
-**Event-driven design**: components communicating through publish and subscribe. Two uses: hook points for observability, and asynchronous human approval (an approver acting three days later is event-driven by nature, not a synchronous wait).
+**Event-driven design** — components communicating through publish and subscribe. Two uses: hook points for observability, and asynchronous human approval (an approver acting three days later is event-driven by nature, not a synchronous wait).
 
-**The five actions in connecting a tool**: registration and schema declaration, argument validation, execution isolation, result normalisation, error propagation. "Connect ten tools" has to be multiplied by five to get the real workload.
+**The five actions in connecting a tool** — registration and schema declaration, argument validation, execution isolation, result normalisation, error propagation. "Connect ten tools" has to be multiplied by five to get the real workload.
 
-**Loop engineering**: designing the execution loop itself: what gets fed back into context each turn, when to stop, how to recover from failure, what the per-step budget is. The point is that this loop is not a default the framework hands you; it is something to be designed per task. Default loops run nicely in a demo and then, in production, spin, burn money and hang.
+**Loop engineering** — designing the execution loop itself: what gets fed back into context each turn, when to stop, how to recover from failure, what the per-step budget is. The point is that this loop is not a default the framework hands you; it is something to be designed per task. Default loops run nicely in a demo and then, in production, spin, burn money and hang.
 
-**Graph engineering**: modelling the execution explicitly as a graph: nodes are steps, edges are transition conditions, state flows between nodes, with LangGraph as the representative. It takes "where to go next" back from being a free model decision and turns it into an enumerable transition.
+**Graph engineering** — modelling the execution explicitly as a graph: nodes are steps, edges are transition conditions, state flows between nodes, with LangGraph as the representative. It takes "where to go next" back from being a free model decision and turns it into an enumerable transition.
 
 **How the two relate**: a loop buys flexibility, a graph buys predictability. Enumerable means testable case by case, auditable and resumable (which is exactly what we need. The mature pattern is usually a graph as the skeleton with loops only at particular nodes) in the terms used in Part 2, Form D as the body with Form E openings at a few points. This is also a good angle for questioning vendors: is your orchestration a free loop or an explicit graph, and if a graph, how is state stored and how are transitions tested?
 
-**Sandbox and blast radius**: what environment the agent acts in, and the worst outcome it can cause. Two systems with identical autonomy (one in an isolated environment, one holding production credentials) differ in risk by orders of magnitude.
+**Sandbox and blast radius** — what environment the agent acts in, and the worst outcome it can cause. Two systems with identical autonomy (one in an isolated environment, one holding production credentials) differ in risk by orders of magnitude.
 
 ## 1.9 Security and permissions
 
-**Prompt injection**: an attacker embeds instructions in the input to divert the model from its intended task.
+**Prompt injection** — an attacker embeds instructions in the input to divert the model from its intended task.
 
-**Indirect prompt injection**: the instruction does not come from the user but is hidden in external content the system consumes: documents, web pages, emails. This is our main exposure, because we consume material submitted by borrowers, implementing agencies and bidders.
+**Indirect prompt injection** — the instruction does not come from the user but is hidden in external content the system consumes: documents, web pages, emails. This is our main exposure, because we consume material submitted by borrowers, implementing agencies and bidders.
 
-**Multi-turn accumulative injection**: it does not rely on a single message but builds up over several turns, steering the conversation in a direction until the model develops path dependence and can then be carried across a boundary. What makes it dangerous is that each turn looks harmless on its own, so guardrails that filter message by message cannot stop it. The defence belongs at session level: monitor the trajectory of the whole session, make permission decisions on sensitive actions independently of conversation history, and cap session length and turn count. See Part 2, Lecture 6.
+**Multi-turn accumulative injection** — it does not rely on a single message but builds up over several turns, steering the conversation in a direction until the model develops path dependence and can then be carried across a boundary. What makes it dangerous is that each turn looks harmless on its own, so guardrails that filter message by message cannot stop it. The defence belongs at session level: monitor the trajectory of the whole session, make permission decisions on sensitive actions independently of conversation history, and cap session length and turn count. See Part 2, Lecture 6.
 
-**Guardrails**: components applying rule-based constraints to model input and output. A supplementary measure, not the main line of defence.
+**Guardrails** — components applying rule-based constraints to model input and output. A supplementary measure, not the main line of defence.
 
-**Red teaming**: actively probing the system's boundaries with adversarial input to surface weaknesses. It should be done before go-live, especially for systems opened to the whole institution.
+**Red teaming** — actively probing the system's boundaries with adversarial input to surface weaknesses. It should be done before go-live, especially for systems opened to the whole institution.
 
-**Principle of least privilege**: grant the model only the tools and data access the task requires. This is the primary architectural defence against injection.
+**Principle of least privilege** — grant the model only the tools and data access the task requires. This is the primary architectural defence against injection.
 
-**Credential propagation**: whose identity an agent uses when it accesses business systems. It must be the requester's identity, not a service account; otherwise its permissions equal the union of everyone's. See Part 2, Lecture 10.
+**Credential propagation** — whose identity an agent uses when it accesses business systems. It must be the requester's identity, not a service account; otherwise its permissions equal the union of everyone's. See Part 2, Lecture 10.
 
-**RBAC (Role-Based Access Control)**: the general model for assigning permissions by role.
+**RBAC (Role-Based Access Control)** — the general model for assigning permissions by role.
 
-**Classification tiers and classification-aware retrieval**: documents and data are graded public, internal, restricted and confidential; permission filtering must happen at the retrieval stage rather than the display stage, otherwise confidential content has already passed through the model's context.
+**Classification tiers and classification-aware retrieval** — documents and data are graded public, internal, restricted and confidential; permission filtering must happen at the retrieval stage rather than the display stage, otherwise confidential content has already passed through the model's context.
 
-**Privilege escalation (horizontal and vertical)**: a user obtaining content at the same or a higher classification than they are entitled to. In AI systems this rarely looks like "opening a page they should not have"; it looks like "asking a question and getting an answer they should not have", which is far harder to detect.
+**Privilege escalation (horizontal and vertical)** — a user obtaining content at the same or a higher classification than they are entitled to. In AI systems this rarely looks like "opening a page they should not have"; it looks like "asking a question and getting an answer they should not have", which is far harder to detect.
 
-**PII (Personally Identifiable Information)**: personal fields protected by privacy regulation.
+**PII (Personally Identifiable Information)** — personal fields protected by privacy regulation.
 
-**Redaction and tokenisation**: replacing sensitive data with irreversible tokens. Note the ambiguity: tokenisation in the redaction sense and tokenisation in the LLM sense are entirely different things, and documents must state which is meant.
+**Redaction and tokenisation** — replacing sensitive data with irreversible tokens. Note the ambiguity: tokenisation in the redaction sense and tokenisation in the LLM sense are entirely different things, and documents must state which is meant.
 
-**Data residency and deployment form**: whether data may be sent to an external model provider determines which deployment options are available (self-hosted inference, dedicated cloud, public API). That decision then constrains which models and frameworks can be considered, so it must be settled first.
+**Data residency and deployment form** — whether data may be sent to an external model provider determines which deployment options are available (self-hosted inference, dedicated cloud, public API). That decision then constrains which models and frameworks can be considered, so it must be settled first.
 
-**Compliance frameworks**: OWASP LLM Top 10 (application security risk list), NIST AI RMF (risk management framework, four functions: GOVERN / MAP / MEASURE / MANAGE), EU AI Act. Use them as checklists, bearing in mind that all of them are oriented to general enterprises; issues specific to international organisations have to be added ourselves.
+**Compliance frameworks** — OWASP LLM Top 10 (application security risk list), NIST AI RMF (risk management framework, four functions: GOVERN / MAP / MEASURE / MANAGE), EU AI Act. Use them as checklists, bearing in mind that all of them are oriented to general enterprises; issues specific to international organisations have to be added ourselves.
 
-**OWASP Agentic Top 10**: the OWASP Top 10 for Agentic Applications 2026, released by OWASP in December 2025, covers agents that plan and take actions on their own and fills the gaps the LLM Top 10 leaves. The LLM Top 10 still applies to Forms A–C and to the model layer of every form; from Form D onwards check against this list as well. The ten items map to existing controls in this handbook as follows.
+**OWASP Agentic Top 10** — the OWASP Top 10 for Agentic Applications 2026, released by OWASP in December 2025, covers agents that plan and take actions on their own and fills the gaps the LLM Top 10 leaves. The LLM Top 10 still applies to Forms A–C and to the model layer of every form; from Form D onwards check against this list as well. The ten items map to existing controls in this handbook as follows.
 
 | ID | Risk | Corresponding control in this handbook |
 |---|---|---|
@@ -292,43 +292,43 @@ Required for process automation (Form D) and autonomous agents (Form E).
 
 ## 1.10 Governance, evaluation and cost
 
-**Evaluation set**: a body of test cases with reference answers, used to judge whether a change made things better or worse. See Part 2, Lecture 9.
+**Evaluation set** — a body of test cases with reference answers, used to judge whether a change made things better or worse. See Part 2, Lecture 9.
 
-**LLM-as-Judge**: using a model to assess another model's output. Suitable for large-scale coarse filtering, carries preference bias, and key metrics still need a human-labelled set underneath.
+**LLM-as-Judge** — using a model to assess another model's output. Suitable for large-scale coarse filtering, carries preference bias, and key metrics still need a human-labelled set underneath.
 
-**Regression testing**: re-running the evaluation set after changing a prompt or a model version to confirm nothing has degraded.
+**Regression testing** — re-running the evaluation set after changing a prompt or a model version to confirm nothing has degraded.
 
-**Sampling and confidence tiering**: when volume is too high to review everything, tier by confidence: sample the high-confidence output, review all of the low-confidence output. This is the main answer to the verification bottleneck.
+**Sampling and confidence tiering** — when volume is too high to review everything, tier by confidence: sample the high-confidence output, review all of the low-confidence output. This is the main answer to the verification bottleneck.
 
-**Verification bottleneck**: once AI output exceeds what people can review, the "a human confirms it" gate is a formality. This is a question of requirement feasibility, not technology.
+**Verification bottleneck** — once AI output exceeds what people can review, the "a human confirms it" gate is a formality. This is a question of requirement feasibility, not technology.
 
-**Audit trail**: who, when, on what input, received what recommendation, and who confirmed it. Our threshold for going to production.
+**Audit trail** — who, when, on what input, received what recommendation, and who confirmed it. Our threshold for going to production.
 
-**Observability and tracing**: recording the input, output, tool calls, duration and cost of every call to form a replayable chain. The standard is OpenTelemetry; tools include Langfuse and Phoenix. See Part 2, Lecture 8.
+**Observability and tracing** — recording the input, output, tool calls, duration and cost of every call to form a replayable chain. The standard is OpenTelemetry; tools include Langfuse and Phoenix. See Part 2, Lecture 8.
 
-**OTel GenAI semantic conventions**: OpenTelemetry's standard span, attribute and metric names for model and agent calls (`invoke_agent`, `execute_tool`, `gen_ai.usage.*` and so on). As of 2026-10 they are still at Development (experimental) status with no official release; content such as prompts and tool arguments is not captured by default and must be switched on explicitly. See Lecture 8 for the mapping.
+**OTel GenAI semantic conventions** — OpenTelemetry's standard span, attribute and metric names for model and agent calls (`invoke_agent`, `execute_tool`, `gen_ai.usage.*` and so on). As of 2026-10 they are still at Development (experimental) status with no official release; content such as prompts and tool arguments is not captured by default and must be switched on explicitly. See Lecture 8 for the mapping.
 
-**Cost gates**: ceilings per request, per session and per day, with a circuit breaker when exceeded.
+**Cost gates** — ceilings per request, per session and per day, with a circuit breaker when exceeded.
 
-**Three kinds of cache**: prefix / prompt cache reuses server-side computation for identical context prefixes and is cheap on a hit; semantic cache returns a stored answer based on semantic similarity, and the risk is that a similar question is not the same question; used on data queries it will go wrong; an ordinary result cache hits on an exact key. The three are routinely conflated.
+**Three kinds of cache** — prefix / prompt cache reuses server-side computation for identical context prefixes and is cheap on a hit; semantic cache returns a stored answer based on semantic similarity, and the risk is that a similar question is not the same question; used on data queries it will go wrong; an ordinary result cache hits on an exact key. The three are routinely conflated.
 
-**Model routing and fallback**: allocating models of different tiers by task difficulty, plus an alternative when the primary model is unavailable. The main lever for both cost control and availability.
+**Model routing and fallback** — allocating models of different tiers by task difficulty, plus an alternative when the primary model is unavailable. The main lever for both cost control and availability.
 
-**SLO and TTFT (time to first token)**: in interactive systems, perceived speed is driven mainly by time to first token, not total duration. Look at P95 and P99 rather than the mean; latency tails in AI systems are heavy.
+**SLO and TTFT (time to first token)** — in interactive systems, perceived speed is driven mainly by time to first token, not total duration. Look at P95 and P99 rather than the mean; latency tails in AI systems are heavy.
 
-**Model version drift**: a provider updates a model version, behaviour changes, and you are not necessarily told. This requires prompts, model versions and evaluation sets to be managed together.
+**Model version drift** — a provider updates a model version, behaviour changes, and you are not necessarily told. This requires prompts, model versions and evaluation sets to be managed together.
 
 ## 1.11 Product-form terms
 
 These describe what a product looks like rather than its technical architecture, and are easily muddled into the discussion above.
 
-**Copilot**: an assistive form embedded in an existing product where the human is the author and the system offers suggestions. Note that this is a delivery form, not a system category; an autonomous agent can perfectly well be running behind a Copilot interface.
+**Copilot** — an assistive form embedded in an existing product where the human is the author and the system offers suggestions. Note that this is a delivery form, not a system category; an autonomous agent can perfectly well be running behind a Copilot interface.
 
-**ChatBI / DataAgent**: the product form for querying and analysing data through conversation. ChatBI is the earlier subset.
+**ChatBI / DataAgent** — the product form for querying and analysing data through conversation. ChatBI is the earlier subset.
 
-**Generative UI**: front-end components rendered under the direction of model output (charts, forms, tables). On the security side, model output must not be written directly into the page; it needs escaping or sandboxing.
+**Generative UI** — front-end components rendered under the direction of model output (charts, forms, tables). On the security side, model output must not be written directly into the page; it needs escaping or sandboxing.
 
-**Knowledge Q&A / intelligent customer service**: the most common phrasing for a request, corresponding to Form A. Establish whether it is "answer only" or "also take action"; the latter is in an entirely different risk class.
+**Knowledge Q&A / intelligent customer service** — the most common phrasing for a request, corresponding to Form A. Establish whether it is "answer only" or "also take action"; the latter is in an entirely different risk class.
 
 ## 1.12 A note on where terms come from
 
@@ -556,31 +556,31 @@ Sources: https://github.com/open-telemetry/semantic-conventions-genai (gen-ai-sp
 
 Not everyone needs these, but whoever leads the relevant area does.
 
-**Hybrid search, reranking, chunking strategy**: required for knowledge Q&A. The usual order for improving retrieval quality is: fix chunking first, then add a reranker, and only then consider changing the embedding model. Many teams do this backwards and get little for the effort of swapping models.
+**Hybrid search, reranking, chunking strategy** — required for knowledge Q&A. The usual order for improving retrieval quality is: fix chunking first, then add a reranker, and only then consider changing the embedding model. Many teams do this backwards and get little for the effort of swapping models.
 
-**The three kinds of cache**: a prefix / prompt cache reuses server-side computation for identical context prefixes and is cheap on a hit; a semantic cache returns a stored answer by semantic similarity, and the risk is that a similar question is not the same question; used on data queries it will go wrong. The two are routinely conflated.
+**The three kinds of cache** — a prefix / prompt cache reuses server-side computation for identical context prefixes and is cheap on a hit; a semantic cache returns a stored answer by semantic similarity, and the risk is that a similar question is not the same question; used on data queries it will go wrong. The two are routinely conflated.
 
-**Deciding on MCP**: it determines whether connecting a tool is one-off development or a reusable asset. For an institution like ours, connecting several ageing lending, procurement and finance systems, the long-term impact is large, and it should be settled before the first agent project. The current spec is sessionless; confirm the SDK tracks 2026-07-28 or later. Identity propagation (the agent inherits the initiator’s permissions) should align with the enterprise authorization extension; do not only check that tools can be listed. Progressive discovery will help large catalogs; Form E’s “no more than 15 tools” remains a governance cap.
+**Deciding on MCP** — it determines whether connecting a tool is one-off development or a reusable asset. For an institution like ours, connecting several ageing lending, procurement and finance systems, the long-term impact is large, and it should be settled before the first agent project. The current spec is sessionless; confirm the SDK tracks 2026-07-28 or later. Identity propagation (the agent inherits the initiator’s permissions) should align with the enterprise authorization extension; do not only check that tools can be listed. Progressive discovery will help large catalogs; Form E’s “no more than 15 tools” remains a governance cap.
 
-**The five actions required to connect a tool**: "connect a tool" sounds like one thing and is actually five. Registration and schema declaration (what the tool is called, what its arguments are, when it should be used; note that this description is itself part of the prompt, and vague wording makes the model choose wrongly). Argument validation (the model invents argument values, so validate before executing). Execution isolation (timeouts, rate limits, sandboxing). Result normalisation (turning the assorted return formats of different systems into something the model can digest). Error propagation (failure information has to come back in a form the model can act on, so it corrects rather than repeats the mistake).
+**The five actions required to connect a tool** — "connect a tool" sounds like one thing and is actually five. Registration and schema declaration (what the tool is called, what its arguments are, when it should be used; note that this description is itself part of the prompt, and vague wording makes the model choose wrongly). Argument validation (the model invents argument values, so validate before executing). Execution isolation (timeouts, rate limits, sandboxing). Result normalisation (turning the assorted return formats of different systems into something the model can digest). Error propagation (failure information has to come back in a form the model can act on, so it corrects rather than repeats the mistake).
 
 For an architect this is two things: a checklist for assessing any framework, and a basis for estimating effort; "connect ten tools" has to be multiplied by five to be realistic, and the fourth and fifth items are missing from most quotations.
 
-**Designing termination conditions**: what makes the agent loop stop. A complete termination condition is a set, not a single item: a completion criterion, a maximum iteration count, a timeout, a cost ceiling and a confidence threshold. This is the item most often glossed over at requirement review, yet it is the concrete form of "has a clear completion criterion", one of the four preconditions for Form E. If the business cannot say under what circumstances it should stop, the project is not ready to start.
+**Designing termination conditions** — what makes the agent loop stop. A complete termination condition is a set, not a single item: a completion criterion, a maximum iteration count, a timeout, a cost ceiling and a confidence threshold. This is the item most often glossed over at requirement review, yet it is the concrete form of "has a clear completion criterion", one of the four preconditions for Form E. If the business cannot say under what circumstances it should stop, the project is not ready to start.
 
-**Two uses for event-driven design**: first, hook points for observability (every loop iteration and every tool call can emit an event for tracing and alerting to subscribe to); second, asynchronous human approval. An approver acting three days later is event-driven by nature rather than a synchronous wait, and selection should confirm the framework supports this suspend-and-resume pattern.
+**Two uses for event-driven design** — first, hook points for observability (every loop iteration and every tool call can emit an event for tracing and alerting to subscribe to); second, asynchronous human approval. An approver acting three days later is event-driven by nature rather than a synchronous wait, and selection should confirm the framework supports this suspend-and-resume pattern.
 
-**CDC and lakehouse table formats**: relevant when building the data foundation. Time travel is genuinely valuable for us, since we frequently need to answer "what was this figure when last quarter's report was issued".
+**CDC and lakehouse table formats** — relevant when building the data foundation. Time travel is genuinely valuable for us, since we frequently need to answer "what was this figure when last quarter's report was issued".
 
-**OLAP architectural roles**: building a warehouse in-house means understanding the FE / BE / CN division of labour and the trade-offs of separating storage from compute. With a managed service, the concepts are enough.
+**OLAP architectural roles** — building a warehouse in-house means understanding the FE / BE / CN division of labour and the trade-offs of separating storage from compute. With a managed service, the concepts are enough.
 
-**The divide between orchestration frameworks**: workflow engines (Temporal, Camunda) solve the fixed-path problem; agent frameworks (LangGraph, Microsoft Agent Framework and similar) solve the open-path problem. Choosing the wrong side is expensive. AutoGen is in maintenance mode; do not start new work on it.
+**The divide between orchestration frameworks** — workflow engines (Temporal, Camunda) solve the fixed-path problem; agent frameworks (LangGraph, Microsoft Agent Framework and similar) solve the open-path problem. Choosing the wrong side is expensive. AutoGen is in maintenance mode; do not start new work on it.
 
-**Context compression and long-task state management**: long-running tasks overflow the context. The compression strategy (summarisation, tiered memory, external state) determines whether long tasks are viable at all.
+**Context compression and long-task state management** — long-running tasks overflow the context. The compression strategy (summarisation, tiered memory, external state) determines whether long tasks are viable at all.
 
-**How multilingual embeddings actually perform**: where member-country languages are involved, retrieval quality varies considerably between languages. This must be tested on real documents, not taken from leaderboards.
+**How multilingual embeddings actually perform** — where member-country languages are involved, retrieval quality varies considerably between languages. This must be tested on real documents, not taken from leaderboards.
 
-**SLO and time to first token**: in interactive systems, perceived speed is driven mainly by time to first token, not total duration. Watch P95 and P99 rather than the mean; latency tails in AI systems are heavy.
+**SLO and time to first token** — in interactive systems, perceived speed is driven mainly by time to first token, not total duration. Watch P95 and P99 rather than the mean; latency tails in AI systems are heavy.
 
 ---
 
@@ -588,17 +588,17 @@ For an architect this is two things: a checklist for assessing any framework, an
 
 This list exists to keep the team from drowning in terminology, and to stop vendors setting the agenda with these words. They are not unimportant; they are simply not useful at our current stage.
 
-**Fine-tuning and related methods**: LoRA, DPO, quantisation techniques. A team starting from zero should not touch fine-tuning; for the overwhelming majority of cases good retrieval and good prompting are sufficient. Revisit once there is clear evidence that both have been exhausted.
+**Fine-tuning and related methods** — LoRA, DPO, quantisation techniques. A team starting from zero should not touch fine-tuning; for the overwhelming majority of cases good retrieval and good prompting are sufficient. Revisit once there is clear evidence that both have been exhausted.
 
-**Inference engines and deployment optimisation**: vLLM, SGLang, speculative decoding, KV cache internals. Only needed if running a GPU inference cluster in-house. With an API or managed service, knowing these exist is enough.
+**Inference engines and deployment optimisation** — vLLM, SGLang, speculative decoding, KV cache internals. Only needed if running a GPU inference cluster in-house. With an API or managed service, knowing these exist is enough.
 
-**GPU cluster scheduling**: device plugins, gang scheduling, MIG, KServe, Volcano. As above, it depends on whether we self-host. Do not invest study time before the deployment form is settled.
+**GPU cluster scheduling** — device plugins, gang scheduling, MIG, KServe, Volcano. As above, it depends on whether we self-host. Do not invest study time before the deployment form is settled.
 
-**Knowledge graphs and GraphRAG**: the area most easily hijacked by sales narrative. They genuinely work in specific cases (multi-hop relational reasoning, global summarisation), but construction and maintenance costs are high and most Q&A requirements do not need them. A working test: if users' questions do not include many of the "what is the relationship between A and B" or "list every project affected by this policy" kind requiring cross-document linking, leave it alone for now. Some integrated platforms have already dropped GraphRAG from the default UI, which is further evidence it is not a knowledge-Q&A default.
+**Knowledge graphs and GraphRAG** — the area most easily hijacked by sales narrative. They genuinely work in specific cases (multi-hop relational reasoning, global summarisation), but construction and maintenance costs are high and most Q&A requirements do not need them. A working test: if users' questions do not include many of the "what is the relationship between A and B" or "list every project affected by this policy" kind requiring cross-document linking, leave it alone for now. Some integrated platforms have already dropped GraphRAG from the default UI, which is further evidence it is not a knowledge-Q&A default.
 
-**Multi-agent coordination patterns**: fan-out, debate, swarm and the rest. Revisit after completing at least one single-agent project.
+**Multi-agent coordination patterns** — fan-out, debate, swarm and the rest. Revisit after completing at least one single-agent project.
 
-**Leaderboards and benchmarks**: MTEB, Spider and similar. Knowing they exist is enough. What actually matters is building an evaluation set from our own data; leaderboard position correlates with real-world performance far less than people assume, particularly in Chinese and multilingual settings.
+**Leaderboards and benchmarks** — MTEB, Spider and similar. Knowing they exist is enough. What actually matters is building an evaluation set from our own data; leaderboard position correlates with real-world performance far less than people assume, particularly in Chinese and multilingual settings.
 
 ---
 
@@ -646,7 +646,7 @@ Providers update versions, the same prompt may behave differently, and you are n
 
 **Area leads, as needed**: the items in Part 3 relevant to their area.
 
-**No session for Part 4**: circulate the list and explain why we are not learning these now. That in itself has value: it deflects a good deal of "everyone else is doing it, so should we" pressure.
+**No session for Part 4** — circulate the list and explain why we are not learning these now. That in itself has value: it deflects a good deal of "everyone else is doing it, so should we" pressure.
 
 ---
 
