@@ -1,6 +1,6 @@
 # Protocol comparison: MCP · A2A · AG-UI · Agent Skills
 
-> Companion to *Concept map: from LLM to agent*, L4–L6. These four are often lumped together as "agent protocols", but they cover different connections: **MCP is agent ↔ tools, A2A is agent ↔ agent, AG-UI is agent ↔ user interface, and Agent Skills is not a wire protocol at all but a file format for giving an agent "how-to" capabilities.** Status and versions checked 2026-10-26; sources at the end.
+> Companion to *Concept map: from LLM to agent*, L4–L6. These four are often lumped together as "agent protocols", but they cover different connections: MCP is agent to tools, A2A is agent to agent, AG-UI is agent to user interface, and Agent Skills is not a wire protocol at all but a file format for giving an agent "how-to" capabilities. When someone says "we need an agent protocol" in a selection meeting, ask which connection they mean. Status and versions checked 2026-10-26; sources at the end.
 
 ---
 
@@ -31,18 +31,18 @@ L3 Function calling       ── each model API's tool calling (MCP sits on top)
 
 Three rules of thumb:
 
-1. **Single agent only (form E)**: MCP is a must; Skills optional; AG-UI only if you build your own UI; A2A not needed.
-2. **MCP and Skills are not either/or**: MCP connects callable external systems; a skill packages instructions and scripts for a kind of task, and can name which MCP tool to call.
-3. **A2A vs MCP boundary**: the other side is "an agent that decides for itself and whose internals you can't see"—use A2A; it is "a tool that executes on parameters"—use MCP. Systems you can call directly should be exposed as MCP tools, not wrapped as agents behind A2A.
+1. Single agent only (form E): MCP is a must; Skills optional; AG-UI only if you build your own UI; A2A not needed. In-bank payment-stuck diagnosis usually stops at this line.
+2. MCP and Skills are not either/or: MCP connects callable external systems; a skill packages instructions and scripts for a kind of task, and can name which MCP tool to call.
+3. A2A vs MCP boundary: if the other side is an agent that decides for itself and whose internals you cannot see, use A2A; if it is a tool that executes on parameters, use MCP. Loan, procurement, and finance systems you can call directly should be exposed as MCP tools, not wrapped as agents behind A2A.
 
 ---
 
 # 3. Questions for vendors
 
-- **MCP**: which spec version? Still on the old session-based spec? Does auth support Enterprise-Managed Authorization and access business systems as the initiator?
-- **A2A**: v1.0 signed Agent Cards? How are inter-agent messages authenticated and logged?
-- **AG-UI**: how do approval events reach the audit log? Can long tasks resume after the UI disconnects?
-- **Agent Skills**: where do skills come from, who reviews them, and in what sandbox do their scripts run?
+- MCP: which spec version? Still on the old session-based spec? Does auth support Enterprise-Managed Authorization and access business systems as the initiator?
+- A2A: v1.0 signed Agent Cards? How are inter-agent messages authenticated and logged?
+- AG-UI: how do approval events reach the audit log? Can long tasks resume after the UI disconnects?
+- Agent Skills: where do skills come from, who reviews them, and in what sandbox do their scripts run?
 
 ---
 

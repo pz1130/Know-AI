@@ -6,20 +6,20 @@
 
 # 1. Pre-launch gate (all items required)
 
-- [ ] **Version manifest frozen**: model (exact vendor version or snapshot, never "latest"), prompt version, tool-schema version, retrieval-index version, eval-set version—all five on the release ticket.
-- [ ] **Eval baseline**: run the eval set on the frozen versions and record scores as the rollback reference.
-- [ ] **Tracing ready**: spans follow OTel GenAI conventions and can be filtered by release version (Lecture 8); content capture approved per system classification.
-- [ ] **Cost breakers configured**: per-request, per-session, per-day caps and alert recipients.
-- [ ] **Rollback rehearsed**: at least one real rollback in staging, with the time it took.
-- [ ] **Human fallback**: how business continues if the system is switched off (form D falls back to a manual queue; forms A/B show "service paused", not an error page).
-- [ ] **§4.2 hard constraints re-checked**: classification filtering, data residency, accountability trail, no conclusive determinations, external-publication firewall—signed off at review.
-- [ ] **On-call and escalation**: who receives alerts, response time, when to call the business owner and information security.
+- [ ] Version manifest frozen: model (exact vendor version or snapshot, never "latest"), prompt version, tool-schema version, retrieval-index version, eval-set version; all five on the release ticket.
+- [ ] Eval baseline: run the eval set on the frozen versions and record scores as the rollback reference.
+- [ ] Tracing ready: spans follow OTel GenAI conventions and can be filtered by release version (Lecture 8); content capture approved per system classification.
+- [ ] Cost breakers configured: per-request, per-session, per-day caps and alert recipients.
+- [ ] Rollback rehearsed: at least one real rollback in staging, with the time it took.
+- [ ] Human fallback: how business continues if the system is switched off (form D falls back to a manual queue; forms A/B show "service paused", not an error page).
+- [ ] §4.2 hard constraints re-checked: classification filtering, data residency, accountability trail, no conclusive determinations, external-publication firewall; signed off at review.
+- [ ] On-call and escalation: who receives alerts, response time, when to call the business owner and information security.
 
 ---
 
 # 2. Gray (staged) release
 
-**Principle**: "correct" is statistical for AI systems—widen only when small traffic shows no problems, with explicit promote and roll-back criteria at each stage.
+**Principle**: "correct" is statistical for AI systems; widen only when small traffic shows no problems, with explicit promote and roll-back criteria at each stage.
 
 | Stage | Traffic / scope | Suggested duration | Promote when | Roll back immediately when |
 |---|---|---|---|---|
@@ -29,7 +29,7 @@
 | 3 Wider | 50% | 1 week | As above | As above |
 | 4 Full | 100% | — | — | As above |
 
-- **Forms D, E, F write business data**: stage by *action*, not just by user—read-only first, then low-risk writes, then all; every write uses an idempotency key (Lecture 4).
+- **Forms D, E, F write business data**: stage by *action*, not just by user; read-only first, then low-risk writes, then all; every write uses an idempotency key (Lecture 4).
 - **Tag traces with the release**: every trace carries the release version so metrics can be split new vs old.
 - **Change one thing at a time**: don't ship a model swap, prompt change and retrieval change together, or you can't tell which caused a regression.
 
@@ -39,7 +39,7 @@
 
 - **The rollback unit is the five-version combination**, not a single file. The release ticket records the "last known good combination"; rollback = switch back to it.
 - **Config-driven switch**: model name and prompt version switch via config centre or gateway routing, with no redeploy; target minutes.
-- **When a vendor retires a model** you cannot go back—register retirement dates and finish evaluating and switching before then (section 4).
+- **When a vendor retires a model** you cannot go back; register retirement dates and finish evaluating and switching before then (section 4).
 - **Business data**: writes already executed by forms D/E/F are not undone by switching versions; they need compensating transactions (Lecture 4). The runbook must say how to find written data, how to compensate, and who confirms.
 - **Index rollback**: keep the previous index snapshot; run old and new side by side during rebuild and keep the old one for at least one release cycle.
 
@@ -49,19 +49,13 @@
 
 The *Concept handbook* "model version drift" section notes vendors update versions, quality may change, and they may not tell you. Monitor three kinds of signal:
 
-**1. Version signals (hard)**
-- Record the requested model (`gen_ai.request.model`) and the model actually returned (`gen_ai.response.model`); alert on mismatch or when the response model name changes. Attribute names follow OTel GenAI conventions, still in Development status and subject to change (Lecture 8).
-- Track vendor version announcements and retirement schedules; log them quarterly in the ops register.
+1. Version signals (hard). Record the requested model (`gen_ai.request.model`) and the model actually returned (`gen_ai.response.model`); alert on mismatch or when the response model name changes. Attribute names follow OTel GenAI conventions, still in Development status and subject to change (Lecture 8). Track vendor version announcements and retirement schedules; log them quarterly in the ops register.
 
-**2. Quality signals (soft, scheduled)**
-- **Scheduled regression**: weekly run of the fixed eval set on the live configuration vs the launch baseline; alert on drops beyond threshold (e.g. 3–5 points, set per business).
-- **Online sampling**: weekly sample scored by humans or LLM-as-Judge (Lecture 9), attached to the trace (OTel event `gen_ai.evaluation.result`).
-- **User feedback**: week-on-week thumbs-down rate, human rewrite rate (form C), human rejection rate (form D confirmation nodes).
+2. Quality signals (soft, scheduled). Weekly run of the fixed eval set on the live configuration vs the launch baseline; alert on drops beyond threshold (e.g. 3–5 points, set per business). Weekly sample scored by humans or LLM-as-Judge (Lecture 9), attached to the trace (OTel event `gen_ai.evaluation.result`). Also watch week-on-week thumbs-down rate, human rewrite rate (form C), and human rejection rate (form D confirmation nodes).
 
-**3. Behavioural signals (indirect)**
-- Sudden shifts in output length, refusal rate, tool calls (`gen_ai.invoke_agent.tool_calls`), average steps, token usage (`gen_ai.usage.*`). These often show up before quality drops.
+3. Behavioural signals (indirect). Sudden shifts in output length, refusal rate, tool calls (`gen_ai.invoke_agent.tool_calls`), average steps, token usage (`gen_ai.usage.*`). These often show up before quality drops.
 
-**Response**: any hard or quality alert → freeze other changes to the system → run the full eval → decide to roll back, adjust prompts, or accept the new version and update the baseline.
+Response: any hard or quality alert, freeze other changes to the system first, run the full eval, then decide to roll back, adjust prompts, or accept the new version and update the baseline.
 
 ---
 
@@ -73,7 +67,7 @@ The *Concept handbook* "model version drift" section notes vendors update versio
 | P2 | Wrong key figure used by the business; agent wrote bad but compensable data; widespread outage | Roll back or degrade same day; compensate data; postmortem within a week |
 | P3 | Individual wrong answers, latency over target, rising thumbs-down | Log, add to eval set, fix in iteration |
 
-**Every P1/P2 adds its triggering samples to the eval set** so the same error can't recur.
+Every P1/P2 adds its triggering samples to the eval set so the same error cannot recur. A classification leak or a wrong externally published figure should enter the eval set the day of the postmortem, not only the incident ticket.
 
 ---
 
@@ -118,6 +112,6 @@ The *Concept handbook* "model version drift" section notes vendors update versio
 - Report to audit / independent evaluation: yes / no
 ```
 
-Postmortems chase which defence failed, not individuals; but the §4.2 trail of "who confirmed what, based on which input" must be reconstructable from audit logs—if it isn't, that is itself a follow-up.
+Postmortems chase which defence failed, not individuals; but the §4.2 trail of "who confirmed what, based on which input" must be reconstructable from audit logs; if it isn't, that is itself a follow-up.
 
 Sources (OTel attribute and event names): https://github.com/open-telemetry/semantic-conventions-genai (docs/gen-ai/ gen-ai-spans.md, gen-ai-agent-spans.md, gen-ai-metrics.md, gen-ai-events.md), checked 2026-10-26.

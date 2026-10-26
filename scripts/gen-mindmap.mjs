@@ -39,10 +39,10 @@ const zh = `# 思维导图：Know-Your-AI 全景
 
 ## 怎么读
 
-1. **从中心往外**：中心是整个项目，第一圈是五份文档，第二圈是各文档的大章节，第三圈是关键小节。
-2. **按角色挑分支**：新同事先看「概念层级图谱」→「概念讲解手册」；架构师接需求直接看「AI 需求技术选型手册」的分诊 5 问和六形态；评审对齐用语看「Agent 术语定义修订提案」。
-3. **术语卡住时**：去「企业级 Agent 平台术语提炼」的 10 个领域或站点「术语馆」查。
-4. **想看细节**：在站点打开「思维导图」页，点任意节点跳到原文库对应章节。
+1. 从中心往外看：中心是整个项目，第一圈是五份文档，第二圈是各文档的大章节，第三圈是关键小节。
+2. 按角色挑分支：新同事先看「概念层级图谱」，再看「概念讲解手册」；架构师接需求直接看「AI 需求技术选型手册」的分诊 5 问和六形态；评审对齐用语看「Agent 术语定义修订提案」。
+3. 术语卡住时，去「企业级 Agent 平台术语提炼」的 10 个领域或站点「术语馆」查。
+4. 想看细节，在站点打开「思维导图」页，点任意节点跳到原文库对应章节。
 
 ## 全景图
 
@@ -60,10 +60,10 @@ const en = `# Mind Map: Know-Your-AI Overview
 
 ## How to read it
 
-1. **Center outwards**: the center is the project, ring one is the five docs, ring two their main chapters, ring three key sections.
-2. **Pick a branch by role**: newcomers start with the Concept map, then the Concept handbook; architects go to the Selection handbook's five triage questions and six forms; reviewers aligning vocabulary read the Agent definitions revision.
-3. **Stuck on a term**: check the ten domains of the Term digest, or the site's Lexicon.
-4. **Want detail**: open the site's Mind Map page and click any node to jump to that section.
+1. Read center outwards: the center is the project, ring one is the five docs, ring two their main chapters, ring three key sections.
+2. Pick a branch by role: newcomers start with the Concept map, then the Concept handbook; architects go to the Selection handbook's five triage questions and six forms; reviewers aligning vocabulary read the Agent definitions revision.
+3. Stuck on a term: check the ten domains of the Term digest, or the site's Lexicon.
+4. Want detail: open the site's Mind Map page and click any node to jump to that section.
 
 ## Overview
 
