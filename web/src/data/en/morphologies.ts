@@ -16,7 +16,7 @@ export const morphologiesEn: Morphology[] = [
     optional: ['Query rewrite', 'Multilingual', 'KG (relational reasoning)'],
     products: ['Milvus / Qdrant / pgvector', 'BGE / Conan', 'MinerU / PaddleOCR', 'Dify / RAGFlow'],
     duration: '2–6 weeks (excludes doc cleanup & classification)',
-    dissuade: ['<100 rarely updated docs → stuff full context', 'Multi-version policies unclear → fix records first'],
+    dissuade: ['Fewer than a hundred rarely updated docs: stuffing full context is enough', 'Multi-version policies with no clear effective edition: fix records first'],
     notes: [
       'Time sinks are cleanup & classification labels, not tech',
       'RAGFlow for parse and citations; do not plan around old GraphRAG buttons',
@@ -33,9 +33,9 @@ export const morphologiesEn: Morphology[] = [
     optional: ['Auto EDA', 'Attribution', 'Anomaly detect'],
     products: ['Doris / StarRocks / ClickHouse / DuckDB', 'Cube / MetricFlow', 'Vanna / DB-GPT / WrenAI'],
     duration: '4–8 weeks if semantic layer ready; else 3–6 months metrics governance first',
-    dissuade: ['Fixed reports → parameterized templates in a week', 'No field docs / migration mess → fix metadata'],
+    dissuade: ['Fixed reports: parameterized templates in a week', 'No field docs or a migration mess: fix metadata first'],
     notes: [
-      'Highest failure rate among six forms—almost always metrics',
+      'Highest failure rate among six forms; almost always metrics',
       'Five metric conflicts: amount / FX / time / ownership / status',
       'External materials must be firewalled and marked internal',
     ],
@@ -52,7 +52,7 @@ export const morphologiesEn: Morphology[] = [
     products: ['Model API + gateway', 'Dify-style quick UI'],
     duration: '1–3 weeks',
     dissuade: [],
-    notes: ['Ideal first AI project', 'Inputs may be highly classified—settle deploy/egress first'],
+    notes: ['Ideal first AI project', 'Inputs may be highly classified; settle deploy/egress first'],
     layer: 'L1 (+L2)',
   },
   {
@@ -65,7 +65,7 @@ export const morphologiesEn: Morphology[] = [
     optional: ['LLM—only on a few nodes'],
     products: ['Temporal / Camunda / n8n / Airflow', 'Extract nodes via model API'],
     duration: '3–8 weeks (mostly legacy integration)',
-    dissuade: ['Borrower-submitted messy formats → sample first', 'No API / UI scrape → maintenance & audit risk'],
+    dissuade: ['Borrower-submitted formats are messy: test on real samples first', 'No API and only UI scraping: weigh maintenance and audit risk'],
     notes: ['LLM usually on 1–2 nodes only', 'Do not start with Agent frameworks'],
     layer: 'L3–L4',
   },
@@ -89,9 +89,9 @@ export const morphologiesEn: Morphology[] = [
     products: ['LangGraph / Microsoft Agent Framework', 'MCP (sessionless spec)', 'Langfuse', 'LiteLLM'],
     duration: '8–16 weeks (includes eval system)',
     dissuade: [
-      '“Handles anything” → must narrow scope',
-      'Cannot define “done right” → define acceptance first',
-      'Sanctions/integrity/grievances → summarize only; humans conclude',
+      'When someone says it “handles anything”, narrow the scope first',
+      'If you cannot define “done right”, write acceptance criteria first',
+      'On sanctions, integrity or grievances: summarize only; humans conclude',
     ],
     notes: [
       'Four prerequisites: ≤15 tools, single domain, rollback-tolerant, clear stop criteria',

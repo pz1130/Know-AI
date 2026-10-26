@@ -18,7 +18,7 @@ export const triageSteps: Record<string, TriageStep> = {
   q1: {
     id: 'q1',
     question: '这个需求最终产出的是「信息」还是「动作」？',
-    hint: '信息＝给人看的答案/报表/草稿；动作＝系统真的改了什么（批准提款、发公告、写贷款系统…）',
+    hint: '信息是给人看的答案、报表或草稿；动作是系统真的改了状态，比如批准提款、发公告、回写贷款系统。',
     options: [
       { id: 'info', label: '输出信息', detail: '人看完自己决定', next: 'q2' },
       { id: 'action', label: '输出动作', detail: '系统改状态或对外发出', next: 'q4' },
@@ -27,14 +27,14 @@ export const triageSteps: Record<string, TriageStep> = {
         label: '说不清',
         detail: '通常是两件事打包了',
         result: 'split',
-        resultNote: '拆开做，先做信息那半。这是最常见的救项目手段。',
+        resultNote: '拆开做，先做信息那半。比如既要答采购条款又要代发授标通知，就先做问答。这是最常见的救项目手段。',
       },
     ],
   },
   q2: {
     id: 'q2',
     question: '答案的来源是什么？',
-    hint: '两种来源都要 → 不要当一个项目做。A 和 B 技术栈几乎没有重叠。',
+    hint: '两种来源都要时，不要当一个项目做。知识问答和数据问答的技术栈几乎没有重叠。',
     options: [
       {
         id: 'unstructured',
@@ -53,7 +53,7 @@ export const triageSteps: Record<string, TriageStep> = {
         label: '需要产出新内容',
         detail: '起草概念说明、督导报告、国别简报…',
         result: 'C',
-        resultNote: '形态 C：辅助生成。人在终点确认。建议作为第一个 AI 项目。',
+        resultNote: '形态 C：辅助生成。人在终点确认。国别简报或督导报告初稿很适合当第一个 AI 项目。',
       },
       {
         id: 'both',
@@ -66,13 +66,13 @@ export const triageSteps: Record<string, TriageStep> = {
   q3a: {
     id: 'q3a',
     question: '问题的范围是封闭的还是开放的？（知识问答）',
-    hint: '若能列完且不超过约 50 种问题类型 → 封闭需求，不要上检索。',
+    hint: '若能列完且不超过大约 50 种问题类型，就是封闭需求，不要上检索。',
     options: [
       {
         id: 'closed',
         label: '封闭（可列完）',
         result: 'closed',
-        resultNote: '分类路由 + 参数化模板。成本低一个数量级，准确率更高。',
+        resultNote: '用分类路由加参数化模板即可。成本往往低一个数量级，准确率也更高。',
       },
       {
         id: 'open',
@@ -85,19 +85,19 @@ export const triageSteps: Record<string, TriageStep> = {
   q3b: {
     id: 'q3b',
     question: '问题的范围是封闭的还是开放的？（数据问答）',
-    hint: '固定几张组合报表 → 参数化模板，别上 NL2SQL。',
+    hint: '若只是固定几张组合报表，用参数化模板，别上 NL2SQL。',
     options: [
       {
         id: 'closed',
         label: '封闭（固定报表/问题）',
         result: 'closed',
-        resultNote: '参数化模板 + 预计算。管理层也不会等 30 秒。',
+        resultNote: '参数化模板加预计算即可。管理层也不会干等三十秒出一张数。',
       },
       {
         id: 'open',
         label: '开放（自然语言随意问）',
         result: 'B',
-        resultNote: '形态 B：数据问答。先确认有没有权威口径——没有就转口径治理项目。',
+        resultNote: '形态 B：数据问答。先确认金额、币种、时间这类权威口径在不在；没有就先做口径治理，不要直接开 NL2SQL。',
       },
     ],
   },
@@ -110,7 +110,7 @@ export const triageSteps: Record<string, TriageStep> = {
         id: 'drawable',
         label: '能画出来，分支可穷举',
         next: 'q5',
-        detail: '→ 倾向形态 D',
+        detail: '倾向形态 D',
       },
       {
         id: 'narrow',
@@ -128,73 +128,73 @@ export const triageSteps: Record<string, TriageStep> = {
   q5: {
     id: 'q5',
     question: '动作可逆吗？（形态 D）',
-    hint: '资金支付、对外公告、董事会文件、制裁廉政判定 → 强制人工确认门。',
+    hint: '资金支付、对外公告、董事会文件、制裁或廉政判定，一律强制人工确认门。',
     options: [
       {
         id: 'rev',
         label: '完全可逆',
         result: 'D',
-        resultNote: '形态 D：流程自动化。可自动执行，留回滚。LLM 只在个别节点。',
+        resultNote: '形态 D：流程自动化。可自动执行并留回滚；大模型通常只出现在一两个节点，其余写死。',
       },
       {
         id: 'comp',
         label: '有补偿手段',
         result: 'D',
-        resultNote: '形态 D + 补偿事务 + 全量审计。',
+        resultNote: '形态 D，加上补偿事务和全量审计链路。',
       },
       {
         id: 'irrev',
         label: '不可逆或对外',
         result: 'gate',
-        resultNote: '形态 D + 强制人工确认门 + 完整审计链路。核准动作留给授权人员。',
+        resultNote: '形态 D，加上强制人工确认门和完整审计链路。核准动作留给授权人员。',
       },
     ],
   },
   q5e: {
     id: 'q5e',
     question: '动作可逆吗？（形态 E）',
-    hint: '四前提：工具≤15、单域、失败可回滚、有完成判据。缺一退回 D。',
+    hint: '四个前提：工具不超过 15 个、单一业务域、失败可回滚、有完成判据。缺一条就退回形态 D。',
     options: [
       {
         id: 'ok',
         label: '可逆或可回滚，且四前提可满足',
         result: 'E',
-        resultNote: '形态 E：限域自主 Agent。必须有评测集、状态恢复、继承发起人权限。',
+        resultNote: '形态 E：限域自主 Agent。必须有评测集、状态恢复，并以发起人身份访问业务系统。',
       },
       {
         id: 'irrev',
         label: '不可逆 / 对外 / 四前提不满足',
         result: 'gate',
-        resultNote: '退回形态 D 拆需求，或把写操作拆成人工确认门。',
+        resultNote: '退回形态 D 拆需求，或把写操作单独拆成人工确认门。',
       },
     ],
   },
   q5f: {
     id: 'q5f',
     question: '是否真正需要多 Agent？',
-    hint: '绝大多数号称多 Agent 的需求其实是 D 或 E。',
+    hint: '绝大多数号称多 Agent 的需求，拆开看其实是形态 D 或 E。',
     options: [
       {
         id: 'really',
         label: '子任务真独立可并行，或专业上下文完全不同',
         result: 'F',
-        resultNote: '形态 F：建议先用 E 做出单体版本跑通业务，再考虑拆分。工期 16 周起。',
+        resultNote: '形态 F：建议先用形态 E 做出单体版本跑通业务，再考虑拆分。工期通常从十六周起。',
       },
       {
         id: 'not',
         label: '其实可以拆成固定流程或限域单体',
         result: 'E',
-        resultNote: '退回 E 或 D。多 Agent 的协调、冲突、归因成本通常远超收益。',
+        resultNote: '退回形态 E 或 D。多 Agent 的协调、冲突和归因成本，通常远超收益。',
       },
     ],
   },
 }
 
 export const hardConstraints = [
-  '密级与访问控制先于功能；权限过滤发生在检索阶段而非展示阶段',
-  '数据出境与部署形态在项目启动前明确',
-  '问责链路可追溯：谁、何时、何输入、何建议、谁确认',
-  'AI 不得产出结论性判定（制裁、廉政、申诉、保障认定）——只能检索汇总',
+  '密级与访问控制先于功能定稿；权限过滤发生在检索阶段，不能先搜全库再遮挡',
+  '数据是否出境、模型怎么部署，要在项目启动前说清楚',
+  '问责链路可追溯：谁在什么时候、基于什么输入、得到什么建议、由谁确认',
+  '制裁、廉政、申诉、保障认定不得由 AI 下结论，模型只做检索和汇总',
   '对外发布必须隔断，默认标注内部参考',
   '多语言正式对外文本须经审校',
 ]
