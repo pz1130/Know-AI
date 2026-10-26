@@ -1,5 +1,5 @@
 ---
-title: Know AI
+title: Know-Your-AI
 emoji: 🩺
 colorFrom: purple
 colorTo: green
@@ -9,7 +9,7 @@ license: mit
 short_description: IT 内训与架构师选型 · 概念电梯 / A×B 网格 / 分诊 / 打分
 ---
 
-# Know AI
+# Know-Your-AI (KYA)
 
 交互式静态站点，面向 **IT 内训** 与 **方案架构师选型**。
 

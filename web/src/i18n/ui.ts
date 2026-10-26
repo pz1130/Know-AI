@@ -1,7 +1,7 @@
 import type { Locale } from './context'
 
 const ui = {
-  brand: { zh: 'Know AI', en: 'Know AI' },
+  brand: { zh: 'KYA', en: 'KYA' },
   footer1: {
     zh: '面向 IT 内训与架构师选型 · 公开参考资料，非正式政策',
     en: 'For IT training & solution architects · Public reference, not formal policy',
@@ -33,8 +33,8 @@ const ui = {
 
   home: {
     kicker: {
-      zh: 'Know AI · 选型与内训',
-      en: 'Know AI · Selection & Training',
+      zh: 'Know-Your-AI · 选型与内训',
+      en: 'Know-Your-AI · Selection & Training',
     },
     title1: { zh: '接到 AI 需求时，', en: 'When an AI request lands,' },
     title2: {

@@ -1,4 +1,4 @@
-# Know AI
+# Know-Your-AI (KYA)
 
 ## 文档（源稿）
 
