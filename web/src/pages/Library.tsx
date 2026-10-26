@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { docs, type DocMeta } from '../data/docs'
@@ -11,7 +12,18 @@ export function Library() {
   const { t, locale } = useUi()
   const lib = ui.library
   const catalog = useMemo(() => (locale === 'en' ? docsEn : docs), [locale])
-  const [activeId, setActiveId] = useState(docs[0].id)
+  const [params] = useSearchParams()
+  const wantDoc = params.get('doc')
+  const wantHeading = params.get('h')
+  const articleRef = useRef<HTMLElement>(null)
+  const [activeId, setActiveId] = useState(
+    wantDoc && docs.some((d) => d.id === wantDoc) ? wantDoc : docs[0].id,
+  )
+
+  // Deep link from the mind map: ?doc=<id>&h=<heading prefix>
+  useEffect(() => {
+    if (wantDoc && docs.some((d) => d.id === wantDoc)) setActiveId(wantDoc)
+  }, [wantDoc])
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -53,6 +65,20 @@ export function Library() {
       cancelled = true
     }
   }, [active.file])
+
+  useEffect(() => {
+    if (!wantHeading || loading || !content || !articleRef.current) return
+    const norm = (x: string) => x.replace(/\s+/g, ' ').trim()
+    // keep a trailing space: '1.1 ' must not match '1.10 …'
+    const target = wantHeading.replace(/\s+/g, ' ').trimStart()
+    const hit = Array.from(articleRef.current.querySelectorAll('h1,h2,h3,h4')).find((el) =>
+      norm(el.textContent ?? '').startsWith(target),
+    )
+    if (hit) {
+      hit.classList.add('mindmap-hit')
+      hit.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [wantHeading, loading, content])
 
   return (
     <div>
@@ -140,6 +166,7 @@ export function Library() {
 
           {!loading && !error && content && (
             <article
+              ref={articleRef}
               className="prose-doc max-w-none"
               lang={locale === 'en' ? 'en' : 'zh-CN'}
             >

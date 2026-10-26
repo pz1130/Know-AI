@@ -372,3 +372,11 @@ input[type='text']:focus {
   border-color: var(--eap-accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--eap-accent) 22%, transparent);
 }
+
+/* Mind map deep-link highlight */
+.mindmap-hit {
+  scroll-margin-top: 8rem;
+  outline: 2px solid #4285f4;
+  outline-offset: 6px;
+  border-radius: 6px;
+}
