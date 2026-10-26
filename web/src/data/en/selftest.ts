@@ -1,0 +1,108 @@
+import type { SelfTestItem } from '../selftest'
+
+/** IT training self-test; questions and explanations drawn from the five handbooks. */
+export const selfTestEn: SelfTestItem[] = [
+  {
+    q: 'What does the first triage question ask?',
+    options: ['Which LLM to use', 'Does it output information or an action?', 'What is the budget?', 'Do we need multi-agent?'],
+    answer: 1,
+    why: 'Split information from action first; if unclear, it is usually two needs bundled—split them and do the information half first.',
+    source: 'Selection handbook · §2 Triage tree',
+  },
+  {
+    q: 'Where must permission filtering happen for knowledge Q&A (form A)?',
+    options: ['Masking in the UI', 'Filtering model output', 'At retrieval, by user classification', 'Nowhere—the prompt handles it'],
+    answer: 2,
+    why: 'Masking only at display means classified content already went into the model context.',
+    source: 'Selection handbook · Form A; §4.2',
+  },
+  {
+    q: 'What most often makes data Q&A (form B) fail?',
+    options: ['A weak model', 'No agreed metric definitions', 'A slow SQL engine', 'A poor UI'],
+    answer: 1,
+    why: 'It is almost never the model; it is missing authoritative definitions for amounts, currency, time, attribution and status.',
+    source: 'Selection handbook · Form B',
+  },
+  {
+    q: 'When just starting out, which kind should the first AI project be?',
+    options: ['Form B data Q&A', 'Form C assisted drafting', 'Form E autonomous agent', 'Form F multi-agent'],
+    answer: 1,
+    why: 'Simplest tech, quick wins, a human at the last gate—and it builds model access, prompt management, observability and classification basics.',
+    source: 'Selection handbook · Form C',
+  },
+  {
+    q: 'In form D workflow automation, how many nodes should typically use an LLM?',
+    options: ['All of them', 'One or two', 'At least half', 'None'],
+    answer: 1,
+    why: 'Everything else is classic integration—hard-code it; handing the whole flow to an agent is over-engineering.',
+    source: 'Selection handbook · Form D',
+  },
+  {
+    q: 'Which is NOT one of the four preconditions for form E?',
+    options: ['≤15 tools', 'Single business domain', 'Must use multiple agents', 'Clear "done" criteria'],
+    answer: 2,
+    why: 'The four are controllable tools, single domain, tolerable or reversible failures, clear done-criteria; miss any and fall back to form D.',
+    source: 'Selection handbook · Form E',
+  },
+  {
+    q: 'Whose identity should a form E agent use to access business systems?',
+    options: ['A shared service account', 'An admin account', "The initiator's permissions", "Doesn't matter on the intranet"],
+    answer: 2,
+    why: 'A service account means the union of all users’ permissions and fails security review.',
+    source: 'Selection handbook · Form E; Lecture 10',
+  },
+  {
+    q: 'Why not "let AI decide first, then list reasons for human review"?',
+    options: ['Too slow', 'The reasons are back-filled to fit the conclusion, so reviewers are more easily persuaded', 'Too expensive', 'Models don’t support it'],
+    answer: 1,
+    why: 'A generated conclusion anchors later sampling; instead the AI presents facts, clauses and precedents and a human decides.',
+    source: 'Selection handbook · §4.2 No conclusive AI judgments',
+  },
+  {
+    q: 'What does "the model executes nothing" mean?',
+    options: ['Models can only chat', 'Models output text or tool-call requests; our code does the executing', 'Models can’t go online', 'Models have no memory'],
+    answer: 1,
+    why: 'Execution, permissions and side effects live in the caller’s code, so that is where security boundaries belong.',
+    source: 'Concept handbook · Lecture 7',
+  },
+  {
+    q: 'Compared with classic logs, what must AI observability additionally capture?',
+    options: ['Server CPU', '"What the model saw": full context, retrieved chunks, raw tool returns', 'User IP', 'Time on page'],
+    answer: 1,
+    why: 'Without it you can’t tell whether retrieval failed, context was truncated or the model misjudged.',
+    source: 'Concept handbook · Lecture 8',
+  },
+  {
+    q: 'What is the right defence against prompt injection?',
+    options: ['A prompt line saying "ignore malicious instructions"', 'Least privilege + action confirmation', 'A bigger model', 'Use internal documents only'],
+    answer: 1,
+    why: 'Any system consuming external content (borrower files, bids, web pages, inbound mail) must assume hostile instructions.',
+    source: 'Selection handbook · §4.1; Lecture 6',
+  },
+  {
+    q: 'What do MCP and A2A each cover?',
+    options: [
+      'MCP is agent-to-agent, A2A is tools',
+      'MCP is how an agent uses tools; A2A is how one agent hands a task to another',
+      'Two versions of one protocol',
+      'Both only cover the front end',
+    ],
+    answer: 1,
+    why: 'MCP is concept-map L4 standardised tool access, A2A is L6 multi-agent; a single in-house agent doesn’t need A2A.',
+    source: 'Concept map · L4 / L6',
+  },
+  {
+    q: '"The higher the layer, the ___ the model’s contribution."',
+    options: ['larger', 'smaller', 'same', 'impossible to say'],
+    answer: 1,
+    why: 'At L0 system capability ≈ model capability; by L5 the rest is state, permissions, idempotency, audit, evals and cost control.',
+    source: 'Concept map · Two key laws',
+  },
+  {
+    q: 'How do workflows and agents relate?',
+    options: ['Agents contain workflows', 'Workflows contain agents', 'Peers—the difference is who decides the next step at runtime', 'Synonyms'],
+    answer: 2,
+    why: 'The root definition is who decides at runtime: a pre-written path is a workflow; the model deciding at runtime is an agent.',
+    source: 'Concept handbook · 1.5; Agent definitions revision',
+  },
+]

@@ -9,6 +9,7 @@ import { Score } from './pages/Score'
 import { Scenarios } from './pages/Scenarios'
 import { Glossary } from './pages/Glossary'
 import { Quiz } from './pages/Quiz'
+import { SelfTest } from './pages/SelfTest'
 import { Library } from './pages/Library'
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="scenarios" element={<Scenarios />} />
             <Route path="glossary" element={<Glossary />} />
             <Route path="quiz" element={<Quiz />} />
+            <Route path="selftest" element={<SelfTest />} />
             <Route path="library" element={<Library />} />
           </Route>
         </Routes>
