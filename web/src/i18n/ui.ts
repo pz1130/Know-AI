@@ -1,7 +1,7 @@
 import type { Locale } from './context'
 
 const ui = {
-  brand: { zh: 'AI 分诊台', en: 'AI Triage Desk' },
+  brand: { zh: 'Know AI', en: 'Know AI' },
   footer1: {
     zh: '面向 IT 内训与架构师选型 · 公开参考资料，非正式政策',
     en: 'For IT training & solution architects · Public reference, not formal policy',
@@ -33,8 +33,8 @@ const ui = {
 
   home: {
     kicker: {
-      zh: 'AI 分诊台 · 选型与内训',
-      en: 'AI Triage Desk · Selection & Training',
+      zh: 'Know AI · 选型与内训',
+      en: 'Know AI · Selection & Training',
     },
     title1: { zh: '接到 AI 需求时，', en: 'When an AI request lands,' },
     title2: {
@@ -370,9 +370,19 @@ const ui = {
     kicker: { zh: 'Mind Map', en: 'Mind Map' },
     title: { zh: '项目全景思维导图', en: 'Project Mind Map' },
     desc: {
-      zh: '五份手册的章节骨架一图看完。点 ▸ 展开/收起，点节点名跳到原文库对应章节。',
-      en: 'The chapter skeleton of all five manuals at a glance. Click ▸ to expand/collapse, click a node to jump to that section in the Library.',
+      zh: '五份手册的章节骨架一图看完。点节点旁的圆点展开/收起，点节点名跳到原文库对应章节。',
+      en: 'The chapter skeleton of all five manuals at a glance. Click the dot beside a node to expand/collapse; click a node to jump to that section in the Library.',
     },
+    layout: { zh: '布局', en: 'Layout' },
+    layoutBalanced: { zh: '左右展开', en: 'Balanced' },
+    layoutRadial: { zh: '放射', en: 'Radial' },
+    layoutTree: { zh: '目录树', en: 'Outline tree' },
+    expand: { zh: '展开', en: 'Expand' },
+    collapse: { zh: '收起', en: 'Collapse' },
+    zoomIn: { zh: '放大', en: 'Zoom in' },
+    zoomOut: { zh: '缩小', en: 'Zoom out' },
+    fit: { zh: '适应屏幕', en: 'Fit to screen' },
+    hint: { zh: '滚轮缩放 · 拖动平移 · 悬停高亮路径', en: 'Scroll to zoom · drag to pan · hover to trace a path' },
     expandAll: { zh: '全部展开', en: 'Expand all' },
     collapseAll: { zh: '全部收起', en: 'Collapse all' },
     openDoc: { zh: '打开原文', en: 'Open doc' },

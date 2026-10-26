@@ -380,3 +380,77 @@ input[type='text']:focus {
   outline-offset: 6px;
   border-radius: 6px;
 }
+
+/* ───────── Mind map v2 (calm palette, scoped) ───────── */
+.mm-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.mm-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.mm-seg { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--mm-chip); }
+.mm-seg button { border: 0; background: transparent; color: var(--mm-muted); font: 600 13px var(--font-sans); padding: 7px 16px; border-radius: 999px; cursor: pointer; transition: background .25s, color .25s, transform .15s; }
+.mm-seg button[data-active='true'] { background: var(--mm-accent); color: #fff; box-shadow: 0 4px 14px -4px var(--mm-accent); }
+.mm-seg button:active, .mm-btn:active, .mm-zoom button:active { transform: scale(.97); }
+.mm-btn { display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 8px 16px; background: var(--mm-chip); color: var(--mm-text); font: 600 13px var(--font-sans); cursor: pointer; text-decoration: none; transition: background .25s, transform .15s; }
+.mm-btn:hover { background: var(--mm-chip-hover); }
+.mm-seg button:focus-visible, .mm-btn:focus-visible, .mm-zoom button:focus-visible { outline: 2px solid var(--mm-accent); outline-offset: 2px; }
+
+.mm-canvas { position: relative; height: clamp(520px, calc(100vh - 210px), 920px); border-radius: 22px; background: var(--mm-bg); overflow: hidden; cursor: grab; touch-action: none; user-select: none; box-shadow: var(--mm-shadow); }
+.mm-canvas:active { cursor: grabbing; }
+.mm-dot { fill: var(--mm-dot); }
+.mm-view { transform-origin: 0 0; }
+.mm-view-anim { transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.mm-rings circle { fill: none; stroke: var(--mm-ring); stroke-width: 1; stroke-dasharray: 2 7; }
+
+.mm-edge { fill: none; stroke: var(--mm-c); stroke-width: 2; stroke-linecap: round; opacity: .55; transition: stroke-width .25s, filter .25s; }
+.mm-edge[data-depth='1'] { stroke-width: 3.4; }
+.mm-edge[data-depth='3'], .mm-edge[data-depth='4'] { stroke-width: 1.5; }
+.mm-edge[data-lit='on'] { stroke-width: 3.6; filter: drop-shadow(0 0 4px var(--mm-c)); }
+.mm-edge[data-lit='off'] { stroke-opacity: .28; }
+
+.mm-node { cursor: pointer; transition: filter .25s; }
+.mm-node[data-lit='off'] .mm-pill { opacity: .45; }
+.mm-pill { transition: opacity .25s, transform .2s; transform-box: fill-box; transform-origin: center; }
+.mm-pill rect { fill: var(--mm-soft); transition: fill .25s; }
+.mm-pill text { fill: var(--mm-text); font: 500 13px var(--font-sans); pointer-events: none; }
+.mm-node[data-depth='1'] .mm-pill rect { fill: var(--mm-c); filter: drop-shadow(0 6px 12px var(--mm-shadow-c)); }
+.mm-node[data-depth='1'] .mm-pill text { fill: #fff; font: 600 14px var(--font-sans); }
+.mm-node[data-depth='0'] .mm-pill rect { fill: var(--mm-root); filter: drop-shadow(0 10px 22px var(--mm-shadow-c)); }
+.mm-node[data-depth='0'] .mm-pill text { fill: var(--mm-root-text); font: 600 17px var(--font-sans); letter-spacing: .02em; }
+.mm-node:hover .mm-pill { transform: scale(1.04); }
+.mm-node[data-lit='on'] .mm-pill rect { fill: var(--mm-soft-strong); }
+.mm-node[data-lit='on'][data-depth='1'] .mm-pill rect { fill: var(--mm-c); }
+.mm-node[data-lit='on'][data-depth='0'] .mm-pill rect { fill: var(--mm-root); }
+.mm-pill:focus-visible { outline: none; }
+.mm-pill:focus-visible rect { stroke: var(--mm-accent); stroke-width: 2; }
+
+.mm-toggle { cursor: pointer; }
+.mm-toggle circle { fill: var(--mm-bg); stroke: var(--mm-c); stroke-width: 1.6; transition: fill .2s; }
+.mm-toggle:hover circle { fill: var(--mm-c); }
+.mm-toggle path { stroke: var(--mm-c); stroke-width: 1.8; stroke-linecap: round; }
+.mm-toggle text { fill: var(--mm-c); font: 700 9.5px var(--font-sans); pointer-events: none; }
+.mm-toggle:hover path { stroke: #fff; }
+.mm-toggle:hover text { fill: #fff; }
+
+.mm-zoom { position: absolute; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 6px; padding: 6px; border-radius: 16px; background: var(--mm-glass); backdrop-filter: blur(10px); box-shadow: 0 8px 24px -10px rgba(0,0,0,.25); }
+.mm-zoom button { width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: var(--mm-text); font: 600 18px var(--font-sans); cursor: pointer; transition: background .2s, transform .15s; }
+.mm-zoom button:hover { background: var(--mm-chip-hover); }
+.mm-hint { position: absolute; left: 18px; bottom: 16px; font-size: 12px; color: var(--mm-muted); padding: 6px 12px; border-radius: 999px; background: var(--mm-glass); backdrop-filter: blur(10px); pointer-events: none; }
+
+/* palettes: mist blue / sage / clay / dusty rose / slate teal — no neon */
+[data-theme='light'] .mm-toolbar, [data-theme='light'] .mm-canvas {
+  --mm-bg: #EEF2F1; --mm-dot: rgba(92,127,153,.16); --mm-ring: rgba(92,127,153,.28);
+  --mm-text: #26323B; --mm-muted: #5E6B72; --mm-accent: #5C7F99;
+  --mm-chip: rgba(92,127,153,.10); --mm-chip-hover: rgba(92,127,153,.18); --mm-glass: rgba(255,255,255,.72);
+  --mm-root: #2F3E48; --mm-root-text: #F4F7F6; --mm-soft: #FFFFFF; --mm-soft-strong: #E3ECEF;
+  --mm-shadow: 0 1px 2px rgba(38,50,59,.05), 0 18px 40px -22px rgba(38,50,59,.28); --mm-shadow-c: rgba(38,50,59,.18);
+}
+[data-theme='dark'] .mm-toolbar, [data-theme='dark'] .mm-canvas {
+  --mm-bg: #22272C; --mm-dot: rgba(200,214,210,.07); --mm-ring: rgba(200,214,210,.12);
+  --mm-text: #DDE5E2; --mm-muted: #93A09C; --mm-accent: #3F7D62;
+  --mm-chip: rgba(200,214,210,.08); --mm-chip-hover: rgba(200,214,210,.15); --mm-glass: rgba(34,39,44,.78);
+  --mm-root: #3F7D62; --mm-root-text: #F1F5F3; --mm-soft: #2D343A; --mm-soft-strong: #38424A;
+  --mm-shadow: 0 18px 40px -22px rgba(0,0,0,.6); --mm-shadow-c: rgba(0,0,0,.35);
+}
+[data-theme='light'] [data-b='0'] { --mm-c: #5C7F99; } [data-theme='light'] [data-b='1'] { --mm-c: #7E9A7A; }
+[data-theme='light'] [data-b='2'] { --mm-c: #B08463; } [data-theme='light'] [data-b='3'] { --mm-c: #A07585; }
+[data-theme='light'] [data-b='4'] { --mm-c: #5F8C8A; }
+[data-b='0'] { --mm-c: #7FA3BD; } [data-b='1'] { --mm-c: #8FB08B; } [data-b='2'] { --mm-c: #C49A78; }
+[data-b='3'] { --mm-c: #B48C9A; } [data-b='4'] { --mm-c: #6FA39F; }
