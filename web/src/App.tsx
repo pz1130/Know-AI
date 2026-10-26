@@ -10,6 +10,7 @@ import { Scenarios } from './pages/Scenarios'
 import { Glossary } from './pages/Glossary'
 import { Quiz } from './pages/Quiz'
 import { Library } from './pages/Library'
+import { MindMap } from './pages/MindMap'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="scenarios" element={<Scenarios />} />
             <Route path="glossary" element={<Glossary />} />
             <Route path="quiz" element={<Quiz />} />
+            <Route path="mindmap" element={<MindMap />} />
             <Route path="library" element={<Library />} />
           </Route>
         </Routes>

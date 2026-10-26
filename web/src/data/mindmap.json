@@ -1,0 +1,902 @@
+{
+ "id": "n0",
+ "zh": "AI 分诊台 Know-AI",
+ "en": "AI Triage Desk (Know-AI)",
+ "doc": null,
+ "hz": null,
+ "he": null,
+ "children": [
+  {
+   "id": "n1",
+   "zh": "AI 需求技术选型手册",
+   "en": "AI Requirements Selection Handbook",
+   "doc": "selection",
+   "hz": null,
+   "he": null,
+   "children": [
+    {
+     "id": "n2",
+     "zh": "先破一个误区",
+     "en": "Kill one myth first",
+     "doc": "selection",
+     "hz": "一、先破一个误区",
+     "he": "1. Kill one myth",
+     "children": []
+    },
+    {
+     "id": "n3",
+     "zh": "分诊决策树 · 5 问",
+     "en": "Triage tree · 5 questions",
+     "doc": "selection",
+     "hz": "二、分诊决策树",
+     "he": "2. Triage decision tree",
+     "children": [
+      {
+       "id": "n4",
+       "zh": "Q1 信息还是动作",
+       "en": "Q1 Information or action",
+       "doc": "selection",
+       "hz": "问题 1",
+       "he": "Q1",
+       "children": []
+      },
+      {
+       "id": "n5",
+       "zh": "Q2 答案来源",
+       "en": "Q2 Source of answers",
+       "doc": "selection",
+       "hz": "问题 2",
+       "he": "Q2",
+       "children": []
+      },
+      {
+       "id": "n6",
+       "zh": "Q3 封闭还是开放",
+       "en": "Q3 Closed or open",
+       "doc": "selection",
+       "hz": "问题 3",
+       "he": "Q3",
+       "children": []
+      },
+      {
+       "id": "n7",
+       "zh": "Q4 能否事先画流程",
+       "en": "Q4 Flowchart in advance?",
+       "doc": "selection",
+       "hz": "问题 4",
+       "he": "Q4",
+       "children": []
+      },
+      {
+       "id": "n8",
+       "zh": "Q5 动作可逆吗",
+       "en": "Q5 Reversible?",
+       "doc": "selection",
+       "hz": "问题 5",
+       "he": "Q5",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n9",
+     "zh": "六种形态",
+     "en": "Six forms",
+     "doc": "selection",
+     "hz": "三、六种形态",
+     "he": "3. Six forms",
+     "children": [
+      {
+       "id": "n10",
+       "zh": "A 知识问答",
+       "en": "A Knowledge Q&A",
+       "doc": "selection",
+       "hz": "形态 A",
+       "he": "Form A",
+       "children": []
+      },
+      {
+       "id": "n11",
+       "zh": "B 数据问答 DataAgent",
+       "en": "B Data Q&A / DataAgent",
+       "doc": "selection",
+       "hz": "形态 B",
+       "he": "Form B",
+       "children": []
+      },
+      {
+       "id": "n12",
+       "zh": "C 辅助生成",
+       "en": "C Assisted drafting",
+       "doc": "selection",
+       "hz": "形态 C",
+       "he": "Form C",
+       "children": []
+      },
+      {
+       "id": "n13",
+       "zh": "D 流程自动化",
+       "en": "D Workflow automation",
+       "doc": "selection",
+       "hz": "形态 D",
+       "he": "Form D",
+       "children": []
+      },
+      {
+       "id": "n14",
+       "zh": "E 限域自主 Agent",
+       "en": "E Bounded autonomous agent",
+       "doc": "selection",
+       "hz": "形态 E",
+       "he": "Form E",
+       "children": []
+      },
+      {
+       "id": "n15",
+       "zh": "F 多 Agent 协同",
+       "en": "F Multi-agent",
+       "doc": "selection",
+       "hz": "形态 F",
+       "he": "Form F",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n16",
+     "zh": "跨形态通用底线",
+     "en": "Cross-form baselines",
+     "doc": "selection",
+     "hz": "四、跨形态的通用底线",
+     "he": "4. Cross-form baselines",
+     "children": [
+      {
+       "id": "n17",
+       "zh": "一般底线",
+       "en": "General",
+       "doc": "selection",
+       "hz": "4.1",
+       "he": "4.1",
+       "children": []
+      },
+      {
+       "id": "n18",
+       "zh": "本行特有硬约束",
+       "en": "Institution hard constraints",
+       "doc": "selection",
+       "hz": "4.2",
+       "he": "4.2",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n19",
+     "zh": "属性打分表",
+     "en": "Attribute scorecard",
+     "doc": "selection",
+     "hz": "五、属性打分表",
+     "he": "5. Attribute scorecard",
+     "children": []
+    },
+    {
+     "id": "n20",
+     "zh": "场景对照库",
+     "en": "Scenario library",
+     "doc": "selection",
+     "hz": "六、场景对照库",
+     "he": "6. Scenario library",
+     "children": []
+    },
+    {
+     "id": "n21",
+     "zh": "从零开始的建设顺序",
+     "en": "Build order from zero",
+     "doc": "selection",
+     "hz": "七、从零开始的建设顺序",
+     "he": "7. Build order",
+     "children": []
+    },
+    {
+     "id": "n22",
+     "zh": "危险信号清单",
+     "en": "Red-flag list",
+     "doc": "selection",
+     "hz": "八、危险信号清单",
+     "he": "8. Red-flag list",
+     "children": []
+    },
+    {
+     "id": "n23",
+     "zh": "关于原书的提醒",
+     "en": "Notes on the source book",
+     "doc": "selection",
+     "hz": "九、关于原书",
+     "he": "9. Notes on the source book",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": "n24",
+   "zh": "概念讲解手册（给 IT 团队）",
+   "en": "Concept Handbook (for IT)",
+   "doc": "handbook",
+   "hz": null,
+   "he": null,
+   "children": [
+    {
+     "id": "n25",
+     "zh": "词汇速查 · 13 节",
+     "en": "Vocabulary · 13 sections",
+     "doc": "handbook",
+     "hz": "第一部分",
+     "he": "Part 1",
+     "children": [
+      {
+       "id": "n26",
+       "zh": "1.1 模型层",
+       "en": "1.1 Model layer",
+       "doc": "handbook",
+       "hz": "1.1 ",
+       "he": "1.1 ",
+       "children": []
+      },
+      {
+       "id": "n27",
+       "zh": "1.2 模型内部的数字概念",
+       "en": "1.2 Numbers inside the model",
+       "doc": "handbook",
+       "hz": "1.2 ",
+       "he": "1.2 ",
+       "children": []
+      },
+      {
+       "id": "n28",
+       "zh": "1.3 与模型交互",
+       "en": "1.3 Interacting with the model",
+       "doc": "handbook",
+       "hz": "1.3 ",
+       "he": "1.3 ",
+       "children": []
+      },
+      {
+       "id": "n29",
+       "zh": "1.4 Agent 与工具",
+       "en": "1.4 Agents and tools",
+       "doc": "handbook",
+       "hz": "1.4 ",
+       "he": "1.4 ",
+       "children": []
+      },
+      {
+       "id": "n30",
+       "zh": "1.5 Workflow 与 Agent",
+       "en": "1.5 Workflow vs agent",
+       "doc": "handbook",
+       "hz": "1.5 ",
+       "he": "1.5 ",
+       "children": []
+      },
+      {
+       "id": "n31",
+       "zh": "1.6 知识与检索层",
+       "en": "1.6 Knowledge & retrieval",
+       "doc": "handbook",
+       "hz": "1.6 ",
+       "he": "1.6 ",
+       "children": []
+      },
+      {
+       "id": "n32",
+       "zh": "1.7 数据层",
+       "en": "1.7 Data layer",
+       "doc": "handbook",
+       "hz": "1.7 ",
+       "he": "1.7 ",
+       "children": []
+      },
+      {
+       "id": "n33",
+       "zh": "1.8 工程与运行层",
+       "en": "1.8 Engineering & runtime",
+       "doc": "handbook",
+       "hz": "1.8 ",
+       "he": "1.8 ",
+       "children": []
+      },
+      {
+       "id": "n34",
+       "zh": "1.9 安全与权限层",
+       "en": "1.9 Security & permissions",
+       "doc": "handbook",
+       "hz": "1.9 ",
+       "he": "1.9 ",
+       "children": []
+      },
+      {
+       "id": "n35",
+       "zh": "1.10 治理、评测与成本",
+       "en": "1.10 Governance, eval & cost",
+       "doc": "handbook",
+       "hz": "1.10 ",
+       "he": "1.10 ",
+       "children": []
+      },
+      {
+       "id": "n36",
+       "zh": "1.11 产品形态词",
+       "en": "1.11 Product-form terms",
+       "doc": "handbook",
+       "hz": "1.11 ",
+       "he": "1.11 ",
+       "children": []
+      },
+      {
+       "id": "n37",
+       "zh": "1.12 术语来源提醒",
+       "en": "1.12 Where terms come from",
+       "doc": "handbook",
+       "hz": "1.12 ",
+       "he": "1.12 ",
+       "children": []
+      },
+      {
+       "id": "n38",
+       "zh": "1.13 完整速查表",
+       "en": "1.13 Full reference table",
+       "doc": "handbook",
+       "hz": "1.13 ",
+       "he": "1.13 ",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n39",
+     "zh": "必修十讲",
+     "en": "Ten required lectures",
+     "doc": "handbook",
+     "hz": "第二部分",
+     "he": "Part 2",
+     "children": [
+      {
+       "id": "n40",
+       "zh": "1. 语义层与指标口径",
+       "en": "1. Semantic layer & metrics",
+       "doc": "handbook",
+       "hz": "第 1 讲 ",
+       "he": "Lecture 1 ",
+       "children": []
+      },
+      {
+       "id": "n41",
+       "zh": "2. 上下文工程",
+       "en": "2. Context engineering",
+       "doc": "handbook",
+       "hz": "第 2 讲 ",
+       "he": "Lecture 2 ",
+       "children": []
+      },
+      {
+       "id": "n42",
+       "zh": "3. 引用溯源",
+       "en": "3. Citation traceability",
+       "doc": "handbook",
+       "hz": "第 3 讲 ",
+       "he": "Lecture 3 ",
+       "children": []
+      },
+      {
+       "id": "n43",
+       "zh": "4. 幂等与补偿事务",
+       "en": "4. Idempotency & compensation",
+       "doc": "handbook",
+       "hz": "第 4 讲 ",
+       "he": "Lecture 4 ",
+       "children": []
+      },
+      {
+       "id": "n44",
+       "zh": "5. 人工介入点设计",
+       "en": "5. Human checkpoint design",
+       "doc": "handbook",
+       "hz": "第 5 讲 ",
+       "he": "Lecture 5 ",
+       "children": []
+      },
+      {
+       "id": "n45",
+       "zh": "6. 提示注入",
+       "en": "6. Prompt injection",
+       "doc": "handbook",
+       "hz": "第 6 讲 ",
+       "he": "Lecture 6 ",
+       "children": []
+      },
+      {
+       "id": "n46",
+       "zh": "7. 模型不执行任何东西",
+       "en": "7. The model executes nothing",
+       "doc": "handbook",
+       "hz": "第 7 讲 ",
+       "he": "Lecture 7 ",
+       "children": []
+      },
+      {
+       "id": "n47",
+       "zh": "8. 可观测与追踪",
+       "en": "8. Observability & tracing",
+       "doc": "handbook",
+       "hz": "第 8 讲 ",
+       "he": "Lecture 8 ",
+       "children": []
+      },
+      {
+       "id": "n48",
+       "zh": "9. 评测集与 LLM-as-Judge",
+       "en": "9. Eval sets & LLM-as-Judge",
+       "doc": "handbook",
+       "hz": "第 9 讲 ",
+       "he": "Lecture 9 ",
+       "children": []
+      },
+      {
+       "id": "n49",
+       "zh": "10. Agent 身份与权限传递",
+       "en": "10. Agent identity & credentials",
+       "doc": "handbook",
+       "hz": "第 10 讲 ",
+       "he": "Lecture 10 ",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n50",
+     "zh": "选修",
+     "en": "Optional",
+     "doc": "handbook",
+     "hz": "第三部分",
+     "he": "Part 3",
+     "children": []
+    },
+    {
+     "id": "n51",
+     "zh": "现阶段先不学",
+     "en": "Not yet",
+     "doc": "handbook",
+     "hz": "第四部分",
+     "he": "Part 4",
+     "children": []
+    },
+    {
+     "id": "n52",
+     "zh": "必须补的六块",
+     "en": "Six gaps we must fill",
+     "doc": "handbook",
+     "hz": "第五部分",
+     "he": "Part 5",
+     "children": [
+      {
+       "id": "n53",
+       "zh": "爆炸半径与沙箱",
+       "en": "Blast radius & sandboxing",
+       "doc": "handbook",
+       "hz": "爆炸半径",
+       "he": "Blast radius",
+       "children": []
+      },
+      {
+       "id": "n54",
+       "zh": "长时运行与断点恢复",
+       "en": "Long-running & resumption",
+       "doc": "handbook",
+       "hz": "长时运行",
+       "he": "Long-running",
+       "children": []
+      },
+      {
+       "id": "n55",
+       "zh": "验证瓶颈",
+       "en": "Verification bottleneck",
+       "doc": "handbook",
+       "hz": "验证瓶颈",
+       "he": "The verification",
+       "children": []
+      },
+      {
+       "id": "n56",
+       "zh": "多 Agent 组织形态",
+       "en": "Multi-agent org form",
+       "doc": "handbook",
+       "hz": "多 Agent 的组织",
+       "he": "Organisational form",
+       "children": []
+      },
+      {
+       "id": "n57",
+       "zh": "密级感知检索",
+       "en": "Classification-aware retrieval",
+       "doc": "handbook",
+       "hz": "密级感知",
+       "he": "Classification-aware",
+       "children": []
+      },
+      {
+       "id": "n58",
+       "zh": "模型版本漂移",
+       "en": "Model version drift",
+       "doc": "handbook",
+       "hz": "模型版本漂移",
+       "he": "Model version drift",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n59",
+     "zh": "讲解安排建议",
+     "en": "Teaching plan",
+     "doc": "handbook",
+     "hz": "第六部分",
+     "he": "Part 6",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": "n60",
+   "zh": "概念层级图谱：LLM → Agent",
+   "en": "Concept map: LLM → Agent",
+   "doc": "elevator",
+   "hz": null,
+   "he": null,
+   "children": [
+    {
+     "id": "n61",
+     "zh": "L0–L6 七层",
+     "en": "Seven layers L0–L6",
+     "doc": "elevator",
+     "hz": null,
+     "he": null,
+     "children": [
+      {
+       "id": "n62",
+       "zh": "L0 模型本身",
+       "en": "L0 The model",
+       "doc": "elevator",
+       "hz": "L0",
+       "he": "L0",
+       "children": []
+      },
+      {
+       "id": "n63",
+       "zh": "L1 对话",
+       "en": "L1 Conversation",
+       "doc": "elevator",
+       "hz": "L1",
+       "he": "L1",
+       "children": []
+      },
+      {
+       "id": "n64",
+       "zh": "L2 上下文供给",
+       "en": "L2 Context supply",
+       "doc": "elevator",
+       "hz": "L2 ·",
+       "he": "L2 ·",
+       "children": [
+        {
+         "id": "n65",
+         "zh": "L2-A 知识问答",
+         "en": "L2-A Knowledge Q&A",
+         "doc": "elevator",
+         "hz": "L2-A",
+         "he": "L2-A",
+         "children": []
+        },
+        {
+         "id": "n66",
+         "zh": "L2-B 数据问答",
+         "en": "L2-B Data Q&A",
+         "doc": "elevator",
+         "hz": "L2-B",
+         "he": "L2-B",
+         "children": []
+        }
+       ]
+      },
+      {
+       "id": "n67",
+       "zh": "L3 函数调用",
+       "en": "L3 Function calling",
+       "doc": "elevator",
+       "hz": "L3",
+       "he": "L3",
+       "children": []
+      },
+      {
+       "id": "n68",
+       "zh": "L4 标准化工具接入",
+       "en": "L4 Standard tool access",
+       "doc": "elevator",
+       "hz": "L4",
+       "he": "L4",
+       "children": []
+      },
+      {
+       "id": "n69",
+       "zh": "L5 Agent",
+       "en": "L5 Agent",
+       "doc": "elevator",
+       "hz": "L5",
+       "he": "L5",
+       "children": []
+      },
+      {
+       "id": "n70",
+       "zh": "L6 多 Agent 协同",
+       "en": "L6 Multi-agent",
+       "doc": "elevator",
+       "hz": "L6",
+       "he": "L6",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n71",
+     "zh": "横切四件事",
+     "en": "Four cross-cutting concerns",
+     "doc": "elevator",
+     "hz": "横切所有层",
+     "he": "Four cross-cutting",
+     "children": []
+    },
+    {
+     "id": "n72",
+     "zh": "两条规律",
+     "en": "Two laws",
+     "doc": "elevator",
+     "hz": "两条重要的规律",
+     "he": "Two laws",
+     "children": [
+      {
+       "id": "n73",
+       "zh": "越往上模型贡献越小",
+       "en": "Higher layers, smaller model share",
+       "doc": "elevator",
+       "hz": "一、越往上",
+       "he": "1. Higher layers",
+       "children": []
+      },
+      {
+       "id": "n74",
+       "zh": "层边界在往下移",
+       "en": "Boundaries move down",
+       "doc": "elevator",
+       "hz": "二、层与层",
+       "he": "2. Layer boundaries",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n75",
+     "zh": "怎么用这份图谱",
+     "en": "How to use this map",
+     "doc": "elevator",
+     "hz": "怎么用这份图谱",
+     "he": "How to use this map",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": "n76",
+   "zh": "Agent 术语定义修订提案",
+   "en": "Agent definitions revision",
+   "doc": "definitions",
+   "hz": null,
+   "he": null,
+   "children": [
+    {
+     "id": "n77",
+     "zh": "根定义：运行时决策权",
+     "en": "Root: runtime decision rights",
+     "doc": "definitions",
+     "hz": "一、根定义",
+     "he": "1. Root definition",
+     "children": []
+    },
+    {
+     "id": "n78",
+     "zh": "两条正交主轴",
+     "en": "Two orthogonal axes",
+     "doc": "definitions",
+     "hz": "二、两条正交主轴",
+     "he": "2. Two orthogonal axes",
+     "children": [
+      {
+       "id": "n79",
+       "zh": "A 轴 决策权归属",
+       "en": "Axis A Decision rights",
+       "doc": "definitions",
+       "hz": "A 轴",
+       "he": "Axis A",
+       "children": []
+      },
+      {
+       "id": "n80",
+       "zh": "B 轴 作用域",
+       "en": "Axis B Scope",
+       "doc": "definitions",
+       "hz": "B 轴",
+       "he": "Axis B",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n81",
+     "zh": "五个可调维度",
+     "en": "Five knobs",
+     "doc": "definitions",
+     "hz": "三、五个正交",
+     "he": "3. Five orthogonal knobs",
+     "children": []
+    },
+    {
+     "id": "n82",
+     "zh": "可检验判据",
+     "en": "Testable criteria",
+     "doc": "definitions",
+     "hz": "四、可检验判据",
+     "he": "4. Testable criteria",
+     "children": []
+    },
+    {
+     "id": "n83",
+     "zh": "四个词归位",
+     "en": "Four words re-homed",
+     "doc": "definitions",
+     "hz": "五、把四个词",
+     "he": "5. Put the four words",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": "n84",
+   "zh": "企业级 Agent 平台术语提炼 · 10 领域",
+   "en": "Enterprise agent platform term digest · 10 domains",
+   "doc": "glossary-book",
+   "hz": null,
+   "he": null,
+   "children": [
+    {
+     "id": "n85",
+     "zh": "基础形态",
+     "en": "Foundations",
+     "doc": "glossary-book",
+     "hz": "一、",
+     "he": "1.",
+     "children": []
+    },
+    {
+     "id": "n86",
+     "zh": "模型与推理",
+     "en": "Models & inference",
+     "doc": "glossary-book",
+     "hz": "二、",
+     "he": "2.",
+     "children": []
+    },
+    {
+     "id": "n87",
+     "zh": "数据基础设施",
+     "en": "Data infrastructure",
+     "doc": "glossary-book",
+     "hz": "三、",
+     "he": "3.",
+     "children": []
+    },
+    {
+     "id": "n88",
+     "zh": "向量与 RAG",
+     "en": "Vectors & RAG",
+     "doc": "glossary-book",
+     "hz": "四、",
+     "he": "4.",
+     "children": []
+    },
+    {
+     "id": "n89",
+     "zh": "Agent 与编排",
+     "en": "Agent & orchestration",
+     "doc": "glossary-book",
+     "hz": "五、",
+     "he": "5.",
+     "children": []
+    },
+    {
+     "id": "n90",
+     "zh": "评估与可观测",
+     "en": "Eval & observability",
+     "doc": "glossary-book",
+     "hz": "六、",
+     "he": "6.",
+     "children": []
+    },
+    {
+     "id": "n91",
+     "zh": "安全与合规",
+     "en": "Security & compliance",
+     "doc": "glossary-book",
+     "hz": "七、",
+     "he": "7.",
+     "children": []
+    },
+    {
+     "id": "n92",
+     "zh": "K8s 部署运维",
+     "en": "Deploy & ops on K8s",
+     "doc": "glossary-book",
+     "hz": "八、",
+     "he": "8.",
+     "children": []
+    },
+    {
+     "id": "n93",
+     "zh": "前端与交互",
+     "en": "Frontend & interaction",
+     "doc": "glossary-book",
+     "hz": "九、",
+     "he": "9.",
+     "children": []
+    },
+    {
+     "id": "n94",
+     "zh": "数据智能",
+     "en": "Data intelligence",
+     "doc": "glossary-book",
+     "hz": "十、",
+     "he": "10.",
+     "children": []
+    },
+    {
+     "id": "n95",
+     "zh": "易混术语对照",
+     "en": "Easy confusions",
+     "doc": "glossary-book",
+     "hz": "附",
+     "he": "Appendix",
+     "children": []
+    }
+   ]
+  }
+ ],
+ "files": {
+  "selection": [
+   "AI需求技术选型手册.md",
+   "en/ai-requirements-selection-handbook.md"
+  ],
+  "handbook": [
+   "概念讲解手册_给IT团队.md",
+   "en/concept-handbook-for-it.md"
+  ],
+  "elevator": [
+   "概念层级图谱_从LLM到Agent.md",
+   "en/concept-map-llm-to-agent.md"
+  ],
+  "definitions": [
+   "Agent术语定义_修订提案.md",
+   "en/agent-definitions-revision.md"
+  ],
+  "glossary-book": [
+   "企业级Agent平台_概念术语提炼.md",
+   "en/enterprise-agent-platform-term-digest.md"
+  ]
+ }
+}

@@ -37,6 +37,13 @@ export const docs: DocMeta[] = [
     audience: '方案架构师',
   },
   {
+    id: 'cost',
+    title: '成本与容量估算（形态 A–F）',
+    file: '成本与容量估算.md',
+    blurb: 'token / 延迟 / 成本 / 并发的粗算公式与示例算例；成本闸门取值。',
+    audience: '方案架构师 · 预算评审',
+  },
+  {
     id: 'handbook',
     title: '概念讲解手册（给 IT 团队）',
     file: '概念讲解手册_给IT团队.md',
@@ -49,5 +56,12 @@ export const docs: DocMeta[] = [
     file: '企业级Agent平台_概念术语提炼.md',
     blurb: '按十个主题域梳理原书术语（模型、数据、RAG、编排、安全…）。',
     audience: '对照原书深读',
+  },
+  {
+    id: 'ops',
+    title: '上线与运维清单',
+    file: '上线与运维清单.md',
+    blurb: '上线门槛、灰度发布、回滚、模型版本漂移监控、事故分级与复盘模板。',
+    audience: '架构 · 运维 · 值班',
   },
 ]
