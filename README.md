@@ -10,6 +10,7 @@
 | `成本与容量估算.md` | `cost-capacity-estimation.md` | 形态 A–F 的 token / 延迟 / 成本粗算 |
 | `概念讲解手册_给IT团队.md` | `concept-handbook-for-it.md` | 内训讲解与易混点 |
 | `企业级Agent平台_概念术语提炼.md` | `enterprise-agent-platform-term-digest.md` | 原书术语十域提炼 |
+| `上线与运维清单.md` | `release-and-operations-checklist.md` | 灰度 / 回滚 / 漂移监控 / 复盘模板 |
 
 站点「原文库」随界面中/英切换加载对应文稿。改中文源稿后请同步更新英文译本。
 
