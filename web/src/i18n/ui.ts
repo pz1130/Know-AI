@@ -26,6 +26,7 @@ const ui = {
     scenarios: { zh: '场景库', en: 'Scenarios' },
     glossary: { zh: '术语馆', en: 'Lexicon' },
     quiz: { zh: '验收四问', en: '4 Checks' },
+    selftest: { zh: '自测题', en: 'Self-test' },
     mindmap: { zh: '思维导图', en: 'Mind Map' },
     library: { zh: '原文库', en: 'Library' },
   },
@@ -323,6 +324,34 @@ const ui = {
     generate: { zh: '生成验收画像', en: 'Build portrait' },
     portrait: { zh: '验收画像', en: 'Acceptance portrait' },
     copyPortrait: { zh: '复制画像', en: 'Copy portrait' },
+  },
+
+  baseline: {
+    title: { zh: '上线底线清单', en: 'Launch baseline checklist' },
+    desc: {
+      zh: '依据选型手册 4.1 与第三章该形态的必需组件。逐项勾选，复制到评审材料。',
+      en: 'From handbook §4.1 and the form’s required components in §3. Tick each item and copy into review material.',
+    },
+    specific: { zh: '本形态专属', en: 'Specific to this form' },
+    general: { zh: '所有形态通用', en: 'All forms' },
+    copy: { zh: '复制清单', en: 'Copy checklist' },
+    copied: { zh: '已复制', en: 'Copied' },
+  },
+
+  selftest: {
+    kicker: { zh: 'IT Training', en: 'IT Training' },
+    title: { zh: 'IT 内训自测题', en: 'IT training self-test' },
+    desc: {
+      zh: '题目取自五份手册。每题作答后显示解析与出处，全部答完给出得分。',
+      en: 'Questions drawn from the five handbooks. Each answer reveals an explanation and source; finish all for a score.',
+    },
+    source: { zh: '出处', en: 'Source' },
+    correct: { zh: '回答正确', en: 'Correct' },
+    wrong: { zh: '回答错误', en: 'Incorrect' },
+    score: { zh: '得分', en: 'Score' },
+    retry: { zh: '重新作答', en: 'Retry' },
+    pass: { zh: '已掌握核心概念', en: 'Core concepts mastered' },
+    review: { zh: '建议回看标注出处的章节', en: 'Review the cited sections' },
   },
 
   library: {

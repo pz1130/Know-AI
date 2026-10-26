@@ -4,6 +4,7 @@ import type { MorphologyResult } from '../data/triage'
 import { PageHeader, Card, Badge, Button } from '../components/ui'
 import { useContent, useUi } from '../hooks/useContent'
 import { ui } from '../i18n/ui'
+import { BaselineChecklist } from '../components/BaselineChecklist'
 
 export function Triage() {
   const { t, locale } = useUi()
@@ -229,6 +230,12 @@ export function Triage() {
               </Card>
             </div>
           )}
+
+          <BaselineChecklist
+            key={result.code}
+            code={result.code}
+            title={morph ? `${t(tr.form)} ${morph.letter} · ${morph.name}` : resultLabel(result.code)}
+          />
 
           {/* Hard Constraints Grid */}
           <Card className="p-6">

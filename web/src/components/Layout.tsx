@@ -13,6 +13,7 @@ const linkDefs = [
   { to: '/scenarios', key: 'scenarios' as const },
   { to: '/glossary', key: 'glossary' as const },
   { to: '/quiz', key: 'quiz' as const },
+  { to: '/selftest', key: 'selftest' as const },
   { to: '/mindmap', key: 'mindmap' as const },
   { to: '/library', key: 'library' as const },
 ]

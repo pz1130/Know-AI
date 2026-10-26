@@ -30,6 +30,11 @@ import { morphologiesEn } from '../data/en/morphologies'
 import { triageSteps, hardConstraints } from '../data/triage'
 import { triageStepsEn, hardConstraintsEn, resultLabelEn } from '../data/en/triage'
 
+import { generalBaselines, formBaselines } from '../data/baselines'
+import { generalBaselinesEn, formBaselinesEn } from '../data/en/baselines'
+import { selfTest } from '../data/selftest'
+import { selfTestEn } from '../data/en/selftest'
+
 import { scoreDims, evaluateScores } from '../data/scoring'
 import { scoreDimsEn, evaluateScoresEn } from '../data/en/scoring'
 
@@ -95,6 +100,9 @@ export function useContent() {
       triageSteps: en ? triageStepsEn : triageSteps,
       hardConstraints: en ? hardConstraintsEn : hardConstraints,
       resultLabel: en ? resultLabelEn : resultLabelZh,
+      generalBaselines: en ? generalBaselinesEn : generalBaselines,
+      formBaselines: en ? formBaselinesEn : formBaselines,
+      selfTest: en ? selfTestEn : selfTest,
       scoreDims: en ? scoreDimsEn : scoreDims,
       evaluateScores: en ? evaluateScoresEn : evaluateScores,
       scenarios: en ? scenariosEn : scenarios,
