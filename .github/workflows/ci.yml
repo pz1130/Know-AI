@@ -25,6 +25,8 @@ jobs:
         run: node ../scripts/check-glossary.mjs
       - name: Handbook ↔ site glossary drift
         run: node ../scripts/sync-glossary.mjs --strict
+      - name: Mind map links resolve
+        run: node ../scripts/check-mindmap.mjs
       - name: Type check
         run: npx tsc -b
       - name: Lint
