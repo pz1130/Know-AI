@@ -9,6 +9,7 @@
 | `AI需求技术选型手册.md` | `ai-requirements-selection-handbook.md` | 分诊 / 六形态 / 打分 / 场景 |
 | `概念讲解手册_给IT团队.md` | `concept-handbook-for-it.md` | 内训讲解与易混点 |
 | `企业级Agent平台_概念术语提炼.md` | `enterprise-agent-platform-term-digest.md` | 原书术语十域提炼 |
+| `上线与运维清单.md` | `release-and-operations-checklist.md` | 灰度 / 回滚 / 漂移监控 / 复盘模板 |
 
 站点「原文库」随界面中/英切换加载对应文稿。改中文源稿后请同步更新英文译本。
 

@@ -43,4 +43,11 @@ export const docs: DocMeta[] = [
     blurb: '按十个主题域梳理原书术语（模型、数据、RAG、编排、安全…）。',
     audience: '对照原书深读',
   },
+  {
+    id: 'ops',
+    title: '上线与运维清单',
+    file: '上线与运维清单.md',
+    blurb: '上线门槛、灰度发布、回滚、模型版本漂移监控、事故分级与复盘模板。',
+    audience: '架构 · 运维 · 值班',
+  },
 ]

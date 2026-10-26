@@ -37,4 +37,11 @@ export const docsEn: DocMeta[] = [
     blurb: 'Book terms across ten domains (model, data, RAG, runtime, security…).',
     audience: 'Deep read vs source book',
   },
+  {
+    id: 'ops',
+    title: 'Release & operations checklist',
+    file: 'en/release-and-operations-checklist.md',
+    blurb: 'Launch gate, staged release, rollback, model drift monitoring, incident levels and postmortem template.',
+    audience: 'Architecture · ops · on-call',
+  },
 ]
