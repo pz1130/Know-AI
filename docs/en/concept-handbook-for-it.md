@@ -634,7 +634,7 @@ The permission model in a typical enterprise is "may this user access this syste
 
 ## Model version drift
 
-Providers update versions, the same prompt may behave differently, and you are not necessarily told. This requires prompts, model versions and evaluation sets to be managed together, with the ability to run a regression quickly.
+Providers update versions, the same prompt may behave differently, and you are not necessarily told. This requires prompts, model versions and evaluation sets to be managed together, with the ability to run a regression quickly. For concrete monitoring signals and the response process, see *Release and operations checklist*, section 4.
 
 ---
 

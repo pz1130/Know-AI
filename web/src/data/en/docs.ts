@@ -10,6 +10,13 @@ export const docsEn: DocMeta[] = [
     audience: 'Onboarding · architecture alignment',
   },
   {
+    id: 'protocols',
+    title: 'Protocol comparison: MCP · A2A · AG-UI · Agent Skills',
+    file: 'en/protocol-comparison-mcp-a2a-agui-skills.md',
+    blurb: 'Which connection each covers, who talks to whom, versions and governance; mapped to L4–L6.',
+    audience: 'Architects · vendor evaluation',
+  },
+  {
     id: 'definitions',
     title: 'Agent / Copilot / Workflow / RAG revision',
     file: 'en/agent-definitions-revision.md',
@@ -24,6 +31,13 @@ export const docsEn: DocMeta[] = [
     audience: 'Solution architects',
   },
   {
+    id: 'cost',
+    title: 'Cost & capacity estimation (forms A–F)',
+    file: 'en/cost-capacity-estimation.md',
+    blurb: 'Rough formulas and worked examples for tokens, latency, cost, concurrency; cost-gate values.',
+    audience: 'Solution architects · budget review',
+  },
+  {
     id: 'handbook',
     title: 'Concept handbook for IT teams',
     file: 'en/concept-handbook-for-it.md',
@@ -36,5 +50,12 @@ export const docsEn: DocMeta[] = [
     file: 'en/enterprise-agent-platform-term-digest.md',
     blurb: 'Book terms across ten domains (model, data, RAG, runtime, security…).',
     audience: 'Deep read vs source book',
+  },
+  {
+    id: 'ops',
+    title: 'Release & operations checklist',
+    file: 'en/release-and-operations-checklist.md',
+    blurb: 'Launch gate, staged release, rollback, model drift monitoring, incident levels and postmortem template.',
+    audience: 'Architecture · ops · on-call',
   },
 ]

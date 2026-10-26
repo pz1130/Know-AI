@@ -187,11 +187,11 @@ Sources: OpenAI https://openai.github.io/openai-agents-python/human_in_the_loop/
 
 ## 4.1 General
 
-**Cost breakers** per request/session/day.  
+**Cost breakers** per request/session/day. For rough token, latency and cost estimates per form and gate values, see *Cost and capacity estimation* (`cost-capacity-estimation.md`).  
 **Full tracing** (OpenTelemetry + Langfuse-class)—replay is the production/audit gate. Emit OpenTelemetry GenAI semantic conventions so traces stay portable across tools; for the concept-to-span mapping and content-capture privacy rules, see the concept handbook, Lecture 8.  
 **Outputs are untrusted**—never raw into SQL/DOM/shell.  
 **Injection posture**—assume hostile external content (borrower files, bids, scraped pages, inbound mail); least privilege + action gates, not a system-prompt line.  
-**Version & rollback** for prompts, models, tool schemas.
+**Version & rollback** for prompts, models, tool schemas. For staged release, rollback, drift monitoring and a postmortem template, see *Release and operations checklist* (`release-and-operations-checklist.md`).
 
 ## 4.2 Institution-specific hard constraints
 

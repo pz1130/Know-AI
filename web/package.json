@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "sync:glossary": "node ../scripts/sync-glossary.mjs",
     "check:glossary": "node ../scripts/check-glossary.mjs",
-    "check": "node ../scripts/check-glossary.mjs && tsc -b",
+    "gen:mindmap": "node ../scripts/gen-mindmap.mjs",
+    "check:mindmap": "node ../scripts/check-mindmap.mjs",
+    "check": "node ../scripts/check-glossary.mjs && node ../scripts/check-mindmap.mjs && tsc -b",
     "prebuild": "node ../scripts/check-glossary.mjs"
   },
   "dependencies": {

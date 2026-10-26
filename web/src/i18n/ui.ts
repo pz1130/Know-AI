@@ -27,6 +27,7 @@ const ui = {
     glossary: { zh: '术语馆', en: 'Lexicon' },
     quiz: { zh: '验收四问', en: '4 Checks' },
     selftest: { zh: '自测题', en: 'Self-test' },
+    mindmap: { zh: '思维导图', en: 'Mind Map' },
     library: { zh: '原文库', en: 'Library' },
   },
 
@@ -364,6 +365,17 @@ const ui = {
       zh: '',
       en: '',
     },
+  },
+  mindmap: {
+    kicker: { zh: 'Mind Map', en: 'Mind Map' },
+    title: { zh: '项目全景思维导图', en: 'Project Mind Map' },
+    desc: {
+      zh: '五份手册的章节骨架一图看完。点 ▸ 展开/收起，点节点名跳到原文库对应章节。',
+      en: 'The chapter skeleton of all five manuals at a glance. Click ▸ to expand/collapse, click a node to jump to that section in the Library.',
+    },
+    expandAll: { zh: '全部展开', en: 'Expand all' },
+    collapseAll: { zh: '全部收起', en: 'Collapse all' },
+    openDoc: { zh: '打开原文', en: 'Open doc' },
   },
 } as const
 

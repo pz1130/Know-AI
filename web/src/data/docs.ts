@@ -16,6 +16,13 @@ export const docs: DocMeta[] = [
     audience: '全员入门 · 架构对齐',
   },
   {
+    id: 'protocols',
+    title: '协议对照表：MCP · A2A · AG-UI · Agent Skills',
+    file: '协议对照表_MCP_A2A_AGUI_Skills.md',
+    blurb: '各管哪段连接、谁和谁说话、现行版本与治理方，对应图谱 L4–L6。',
+    audience: '架构师 · 供应商评估',
+  },
+  {
     id: 'definitions',
     title: 'Agent / Copilot / Workflow / RAG 定义修订',
     file: 'Agent术语定义_修订提案.md',
@@ -30,6 +37,13 @@ export const docs: DocMeta[] = [
     audience: '方案架构师',
   },
   {
+    id: 'cost',
+    title: '成本与容量估算（形态 A–F）',
+    file: '成本与容量估算.md',
+    blurb: 'token / 延迟 / 成本 / 并发的粗算公式与示例算例；成本闸门取值。',
+    audience: '方案架构师 · 预算评审',
+  },
+  {
     id: 'handbook',
     title: '概念讲解手册（给 IT 团队）',
     file: '概念讲解手册_给IT团队.md',
@@ -42,5 +56,12 @@ export const docs: DocMeta[] = [
     file: '企业级Agent平台_概念术语提炼.md',
     blurb: '按十个主题域梳理原书术语（模型、数据、RAG、编排、安全…）。',
     audience: '对照原书深读',
+  },
+  {
+    id: 'ops',
+    title: '上线与运维清单',
+    file: '上线与运维清单.md',
+    blurb: '上线门槛、灰度发布、回滚、模型版本漂移监控、事故分级与复盘模板。',
+    audience: '架构 · 运维 · 值班',
   },
 ]
