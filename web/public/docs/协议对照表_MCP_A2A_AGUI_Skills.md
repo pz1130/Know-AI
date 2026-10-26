@@ -1,6 +1,6 @@
 # 协议对照表：MCP · A2A · AG-UI · Agent Skills
 
-> 配套《概念层级图谱：从 LLM 到 Agent》L4–L6。四样东西经常被并列成"Agent 协议"，但它们管的是不同的连接：**MCP 管 Agent ↔ 工具，A2A 管 Agent ↔ Agent，AG-UI 管 Agent ↔ 用户界面，Agent Skills 根本不是线上协议，而是一种给 Agent 装"做事方法"的文件格式。** 状态与版本核对于 2026-10-26，来源见文末。
+> 配套《概念层级图谱：从 LLM 到 Agent》L4–L6。四样东西经常被并列成"Agent 协议"，但它们管的是不同的连接：MCP 管 Agent ↔ 工具，A2A 管 Agent ↔ Agent，AG-UI 管 Agent ↔ 用户界面，Agent Skills 根本不是线上协议，而是一种给 Agent 装"做事方法"的文件格式。 状态与版本核对于 2026-10-26，来源见文末。
 
 ---
 
@@ -33,7 +33,7 @@ L3 函数调用        ── 各家模型 API 的 tool calling（MCP 建在它�
 
 1. **只做单体 Agent（形态 E）**：MCP 必看；Skills 可选；AG-UI 只在自建界面时看；A2A 用不到。
 2. **MCP 和 Skills 不是二选一**：MCP 接入"能调用的外部系统"，Skill 装"怎么做这类事"的说明和脚本；一个 Skill 可以写明去调哪个 MCP 工具。
-3. **A2A 和 MCP 的边界**：对方是"一个能自己决策的 Agent、你看不到它的内部"——用 A2A；对方是"一个按参数执行的工具"——用 MCP。行内能直接调的系统都应作为 MCP 工具暴露，不要包成 Agent 再走 A2A。
+3. **A2A 和 MCP 的边界**：对方是"一个能自己决策的 Agent、你看不到它的内部"（用 A2A；对方是"一个按参数执行的工具"）用 MCP。行内能直接调的系统都应作为 MCP 工具暴露，不要包成 Agent 再走 A2A。
 
 ---
 

@@ -17,7 +17,7 @@
 
 ## 交互站点
 
-静态前端在 [`web/`](./web/)，可发布到 **Hugging Face Spaces（Static）**。
+静态前端在 [`web/`](./web/)，可发布到 Hugging Face Spaces（Static）。
 
 ```bash
 cd web
@@ -50,11 +50,11 @@ chmod +x scripts/deploy-hf.sh
 
 ### 四条约定
 
-1. **改词条释义 → 先改手册，再对照站点。** 不要只改 TS 忘了讲义。  
-2. **改易混 / 十讲 → 只改 `glossary.ts`（及对应英文）。**  
+1. **改词条释义，先改手册，再对照站点。** 不要只改 TS 忘了讲义。  
+2. **改易混 / 十讲，只改 `glossary.ts`（及对应英文）。**  
 3. **中英必须同 PR、同条数。** `terms` / `confusions` / `lectures` 任一不对齐，`check:glossary` 失败。  
 4. **日常用 check，大手术才 write。** 默认不要 `--write` 冲掉精炼词条。  
-5. **`sync-glossary` 的输出应当是空的。** 命名差异（手册 `沙箱与爆炸半径` ↔ 站点 `沙箱 / 爆炸半径`）登记在 `TERM_ALIAS`，站点独有卡片登记在 `CURATED_ONLY`。**报出东西 = 真出事了**：手册新增了站点没有的词条，或者有人改名没记。别靠"这些差异是正常的"来消化输出。
+5. **`sync-glossary` 的输出应当是空的。** 命名差异（手册 `沙箱与爆炸半径` ↔ 站点 `沙箱 / 爆炸半径`）登记在 `TERM_ALIAS`，站点独有卡片登记在 `CURATED_ONLY`。报出东西 = 真出事了：手册新增了站点没有的词条，或者有人改名没记。别靠"这些差异是正常的"来消化输出。
 
 ### 命令
 
@@ -79,7 +79,7 @@ chmod +x scripts/install-git-hooks.sh
 ./scripts/install-git-hooks.sh
 ```
 
-`npm run build` 会先跑 `prebuild` → `check-glossary`；中英条数不一致会直接失败。
+`npm run build` 会先跑 `prebuild`，`check-glossary`；中英条数不一致会直接失败。
 
 ### 推荐 PR 节奏
 
@@ -95,13 +95,13 @@ chmod +x scripts/install-git-hooks.sh
 
 ## 页面一览
 
-1. **概念电梯** — L0→L6 可点层级  
+1. **概念电梯** — L0，L6 可点层级  
 2. **定义网格** — A×B + 五旋钮系统画像  
-3. **选型分诊** — 决策树 → 形态 A–F  
+3. **选型分诊** — 决策树，属于形态 A–F  
 4. **属性打分** — 七维 + 本行硬规则  
 5. **场景库** — 业务原话对照  
 6. **术语馆** — 速查 / 易混 / 十讲 / 闪卡  
 7. **验收四问** — 定义可检验判据  
 8. **原文库** — 五份 Markdown 全文  
 
-面向：**行内 IT 内训**、**架构师选型**。公开部署，无需脱敏。
+面向：行内 IT 内训、架构师选型。公开部署，无需脱敏。

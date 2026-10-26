@@ -1,8 +1,8 @@
 # Concept Hierarchy Map: From LLM to Agent
 
-Reorder the book’s concepts by “capability stacked from the bottom up.” That order is also historical—each layer was added to fix limits of the one below.
+Reorder the book’s concepts by “capability stacked from the bottom up.” That order is also historical; each layer was added to fix limits of the one below.
 
-**Core point first: layers do not replace each other; they stack.** In a production Agent today, L0 through L5 often all run at once. Understanding what each layer solves—and what it leaves broken—matters more than memorizing terms.
+**Core point first: layers do not replace each other; they stack.** In a production Agent today, L0 through L5 often all run at once. Understanding what each layer solves; and what it leaves broken; matters more than memorizing terms.
 
 ```
 L6  Multi-agent collaboration   A2A, Agent Card, fan-out / pipeline / manager–worker
@@ -31,7 +31,7 @@ Cross-cutting: observability, evaluation, security, cost, deploy
 
 **Book concepts**: LLM, Transformer, autoregressive generation; inference-side KV Cache, Prefix Cache, speculative decoding, quantization (GPTQ/AWQ…); adaptation LoRA, DPO; engines vLLM, SGLang, LMDeploy.
 
-**Key insight**: parametric knowledge is frozen at training time with a cutoff, and the model does not “know that it does not know”—when unsure it still answers fluently and confidently. That is how it works, not a bug to patch. Every higher layer is, in some sense, patching that fact.
+**Key insight**: parametric knowledge is frozen at training time with a cutoff, and the model does not “know that it does not know”; when unsure it still answers fluently and confidently. That is how it works, not a bug to patch. Every higher layer is, in some sense, patching that fact.
 
 **Failure modes**: fabrication (confident fake clauses and numbers), stale knowledge, unreliable arithmetic.
 
@@ -41,15 +41,15 @@ Cross-cutting: observability, evaluation, security, cost, deploy
 
 # L1 · Conversation
 
-**What it solves**: wrap the stateless function so multi-turn chat *looks* continuous—the late-2022 ChatGPT leap was interaction form, not a new model class.
+**What it solves**: wrap the stateless function so multi-turn chat *looks* continuous; the late-2022 ChatGPT leap was interaction form, not a new model class.
 
 **Book concepts**: context window, token budget, prompting, CoT, ToT, system prompt.
 
-**Key insight**: **multi-turn memory is an illusion.** The model does not remember the last line; the app resends history every turn. Consequences: longer chats cost more; past the window you must truncate or compress—and *how* you truncate defines UX.
+**Key insight**: multi-turn memory is an illusion. The model does not remember the last line; the app resends history every turn. Consequences: longer chats cost more; past the window you must truncate or compress; and *how* you truncate defines UX.
 
 **Failure modes**: overflow “amnesia,” mid-context dilution, cost growing with history.
 
-**Our forms**: Form C (assisted drafting) mostly needs only this layer—shortest timeline, lowest risk.
+**Our forms**: Form C (assisted drafting) mostly needs only this layer; shortest timeline, lowest risk.
 
 ---
 
@@ -57,13 +57,13 @@ Cross-cutting: observability, evaluation, security, cost, deploy
 
 **What it solves**: the model knows nothing internal to the institution. At ask time, inject relevant material.
 
-Two very different technical paths—under-explained in the book, critical for selection.
+Two very different technical paths; under-explained in the book, critical for selection.
 
 ## L2-A Unstructured: knowledge Q&A
 
-**Book concepts**: Embedding, vector DB, dense/sparse (BM25), hybrid, RRF, HNSW/IVF/PQ, rerankers, Cross-Encoder, ColBERT, chunking, OCR, doc parse, knowledge graphs. GraphRAG is optional, not a default architecture; some integrated platforms have dropped it from the UI—do not plan from sales narrative.
+**Book concepts**: Embedding, vector DB, dense/sparse (BM25), hybrid, RRF, HNSW/IVF/PQ, rerankers, Cross-Encoder, ColBERT, chunking, OCR, doc parse, knowledge graphs. GraphRAG is optional, not a default architecture; some integrated platforms have dropped it from the UI; do not plan from sales narrative.
 
-**Key insight**: RAG does not make the model smarter—it hands references. Answer quality is capped by retrieval. Industry now demotes RAG to one technique under **context engineering** (retrieve, compress, remember, format, budget tokens).
+**Key insight**: RAG does not make the model smarter; it hands references. Answer quality is capped by retrieval. Industry now demotes RAG to one technique under context engineering (retrieve, compress, remember, format, budget tokens).
 
 ## L2-B Structured: data Q&A
 
@@ -73,7 +73,7 @@ Two very different technical paths—under-explained in the book, critical for s
 
 **Failure modes**: miss retrieval, stale versions, metric inconsistency that looks plausible, ACL bypass at retrieval.
 
-**Our forms**: L2-A → Form A; L2-B → Form B. Do not merge into one project—they only share the top LLM call.
+**Our forms**: L2-A → Form A; L2-B → Form B. Do not merge into one project; they only share the top LLM call.
 
 ---
 
@@ -83,13 +83,13 @@ Two very different technical paths—under-explained in the book, critical for s
 
 **Book concepts**: Function Calling, Tool Use, JSON Schema, structured output.
 
-**Most important insight in this document**: **the model executes nothing.** It emits structured text meaning “I suggest calling X with Y.” The host runs tools.
+**Most important insight in this document**: the model executes nothing. It emits structured text meaning “I suggest calling X with Y.” The host runs tools.
 
-Security answers fall out: ACL lives in the host, not the system prompt; prevent “delete DB” by not exposing the tool; injection can request danger, but execution is still ours. **The security boundary is always the host.**
+Security answers fall out: ACL lives in the host, not the system prompt; prevent “delete DB” by not exposing the tool; injection can request danger, but execution is still ours. The security boundary is always the host.
 
 **Failure modes**: param hallucination, wrong tool choice, infinite same-tool loops.
 
-**Our forms**: Form D (workflow automation) often only needs L3—LLM on a few nodes; path is fixed.
+**Our forms**: Form D (workflow automation) often only needs L3; LLM on a few nodes; path is fixed.
 
 ---
 
@@ -101,15 +101,15 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **Key insight**: economics, not raw ability. With or without MCP the model can do the same things; the difference is one-off glue vs reusable assets. For institutions wiring loan, procurement, and finance systems, decide before the first Agent project.
 
-**As of 2026-09**: the 2026-07-28 spec removed protocol-level sessions and the initialize handshake. Each request carries protocol version and client capabilities; clients may call `server/discover`; servers scale like ordinary HTTP. The “like HTTP” analogy is now more accurate than the session-based version. Enterprise rollout needs the authorization extension (Enterprise-Managed Authorization) so “the agent inherits the initiator’s identity” is a protocol capability, not a custom bolt-on. Progressive tool discovery is coming for large catalogs—Form E’s “≤15 tools” remains a governance cap, not a protocol cap.
+**As of 2026-09**: the 2026-07-28 spec removed protocol-level sessions and the initialize handshake. Each request carries protocol version and client capabilities; clients may call `server/discover`; servers scale like ordinary HTTP. The “like HTTP” analogy is now more accurate than the session-based version. Enterprise rollout needs the authorization extension (Enterprise-Managed Authorization) so “the agent inherits the initiator’s identity” is a protocol capability, not a custom bolt-on. Progressive tool discovery is coming for large catalogs; Form E’s “≤15 tools” remains a governance cap, not a protocol cap.
 
-**Failure modes**: vague tool descriptions → wrong pick; silent break on version change; ACL bypassed at protocol layer; SDKs still on the sessionful spec.
+**Failure modes**: vague tool descriptions: wrong pick; silent break on version change; ACL bypassed at protocol layer; SDKs still on the sessionful spec.
 
 ---
 
 # L5 · Agent
 
-**What it solves**: real tasks need multi-step loops. The leap is not a stronger model—it is moving “what next” from if-else in our code to the model at runtime.
+**What it solves**: real tasks need multi-step loops. The leap is not a stronger model; it is moving “what next” from if-else in our code to the model at runtime.
 
 **Book concepts**: Runtime, ReAct, Plan-and-Execute, Reflexion, Self-Refine, memory, HITL, LangGraph / Microsoft Agent Framework / CrewAI / Dify / Coze. AutoGen is in maintenance mode; do not list it for new work.
 
@@ -117,7 +117,7 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **The book is right that a “platform” truly starts here.** L0–L4 can be application-local; L5 needs shared runtime, tool governance, identity, observability.
 
-**Failure modes**: non-convergence, drift, mid-state business inconsistency, cost blowups, **non-reproducible behavior**.
+**Failure modes**: non-convergence, drift, mid-state business inconsistency, cost blowups, non-reproducible behavior.
 
 **Our forms**: Form E, with four preconditions (≤15 tools, single domain, rollback-tolerant, clear done criteria) to compress open-path risk.
 
@@ -129,13 +129,13 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **Book concepts**: A2A, Agent Card; fan-out, pipeline, manager–worker, debate, swarm.
 
-**Key insight**: organizational design, not pure tech—who supervises, conflict resolution, failure cleanup, explainable chains. Benefits are often overrated; many “multi-agent” needs are L3 or L5. MCP is how an agent uses tools; A2A is how one agent hands a task to another. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration, not a bank-internal single agent. Standardization lowers integration cost, not audit explainability—Form F remains mostly dissuasive.
+**Key insight**: organizational design, not pure tech; who supervises, conflict resolution, failure cleanup, explainable chains. Benefits are often overrated; many “multi-agent” needs are L3 or L5. MCP is how an agent uses tools; A2A is how one agent hands a task to another. Both now sit in the Agentic AI Foundation. A2A is for cross-institution collaboration, not a bank-internal single agent. Standardization lowers integration cost, not audit explainability; Form F remains mostly dissuasive.
 
 **Failure modes**: coordination > parallel gain, error amplification, multiplied cost, near-impossible attribution.
 
-**Our forms**: Form F—selection handbook is largely dissuasive.
+**Our forms**: Form F; selection handbook is largely dissuasive.
 
-**Protocols across L4–L6**: which connection MCP, A2A, AG-UI and Agent Skills each cover, who talks to whom, current versions and governance—see *Protocol comparison* (`protocol-comparison-mcp-a2a-agui-skills.md`).
+**Protocols across L4–L6**: which connection MCP, A2A, AG-UI and Agent Skills each cover, who talks to whom, current versions and governance; see *Protocol comparison* (`protocol-comparison-mcp-a2a-agui-skills.md`).
 
 ---
 
@@ -143,13 +143,13 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 Not layers; required from the first project.
 
-**Observability**—OpenTelemetry, GenAI conventions, Langfuse/Phoenix. Higher layers need full traces.
+**Observability**: OpenTelemetry, GenAI conventions, Langfuse/Phoenix. Higher layers need full traces.
 
-**Evaluation**—eval sets, Ragas/DeepEval, LLM-as-Judge. Above L2, no eval set means no production.
+**Evaluation**: eval sets, Ragas/DeepEval, LLM-as-Judge. Above L2, no eval set means no production.
 
-**Security**—injection, guardrails, red team, OWASP LLM Top 10 (plus the OWASP Agentic Top 10 2026 from L3), NIST AI RMF, identity propagation. Surface grows with layer.
+**Security**: injection, guardrails, red team, OWASP LLM Top 10 (plus the OWASP Agentic Top 10 2026 from L3), NIST AI RMF, identity propagation. Surface grows with layer.
 
-**Cost & deploy**—caches, gateways, routing, budget breakers. L1 is one call; L5 may be hundreds.
+**Cost & deploy**: caches, gateways, routing, budget breakers. L1 is one call; L5 may be hundreds.
 
 ---
 
@@ -161,7 +161,7 @@ At L0, system ≈ model. At L5, model is a small fraction of complexity. Stronge
 
 ## 2. Layer boundaries keep moving down
 
-What lived in app code moves into models (CoT, multi-hop retrieve). **Architect for replaceable layers**—flexible inside, standard outside—so adapters swap without welding business objects to a framework’s message types.
+What lived in app code moves into models (CoT, multi-hop retrieve). Architect for replaceable layers; flexible inside, standard outside; so adapters swap without welding business objects to a framework’s message types.
 
 ---
 
@@ -171,4 +171,4 @@ What lived in app code moves into models (CoT, multi-hop retrieve). **Architect 
 
 **What the team should learn**: go deep on the active layer and the one below; survey the rest.
 
-**What vendors are selling**: demos often show L5 effects while quotes cover L2. Ask which layer the feature sits on—and who builds the layers above.
+**What vendors are selling**: demos often show L5 effects while quotes cover L2. Ask which layer the feature sits on; and who builds the layers above.

@@ -1,6 +1,6 @@
 # Protocol comparison: MCP · A2A · AG-UI · Agent Skills
 
-> Companion to *Concept map: from LLM to agent*, L4–L6. These four are often lumped together as "agent protocols", but they cover different connections: **MCP is agent ↔ tools, A2A is agent ↔ agent, AG-UI is agent ↔ user interface, and Agent Skills is not a wire protocol at all but a file format for giving an agent "how-to" capabilities.** Status and versions checked 2026-10-26; sources at the end.
+> Companion to *Concept map: from LLM to agent*, L4–L6. These four are often lumped together as "agent protocols", but they cover different connections: MCP is agent ↔ tools, A2A is agent ↔ agent, AG-UI is agent ↔ user interface, and Agent Skills is not a wire protocol at all but a file format for giving an agent "how-to" capabilities. Status and versions checked 2026-10-26; sources at the end.
 
 ---
 
@@ -33,7 +33,7 @@ Three rules of thumb:
 
 1. **Single agent only (form E)**: MCP is a must; Skills optional; AG-UI only if you build your own UI; A2A not needed.
 2. **MCP and Skills are not either/or**: MCP connects callable external systems; a skill packages instructions and scripts for a kind of task, and can name which MCP tool to call.
-3. **A2A vs MCP boundary**: the other side is "an agent that decides for itself and whose internals you can't see"—use A2A; it is "a tool that executes on parameters"—use MCP. Systems you can call directly should be exposed as MCP tools, not wrapped as agents behind A2A.
+3. **A2A vs MCP boundary**: the other side is "an agent that decides for itself and whose internals you can't see"; use A2A; it is "a tool that executes on parameters"; use MCP. Systems you can call directly should be exposed as MCP tools, not wrapped as agents behind A2A.
 
 ---
 
