@@ -135,6 +135,8 @@ Security answers fall out: ACL lives in the host, not the system prompt; prevent
 
 **Our forms**: Form F—selection handbook is largely dissuasive.
 
+**Protocols across L4–L6**: which connection MCP, A2A, AG-UI and Agent Skills each cover, who talks to whom, current versions and governance—see *Protocol comparison* (`protocol-comparison-mcp-a2a-agui-skills.md`).
+
 ---
 
 # Four cross-cutting concerns
