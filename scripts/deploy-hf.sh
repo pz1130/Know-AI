@@ -22,7 +22,7 @@ done
 
 if [[ -z "$SPACE" ]]; then
   echo "Usage: $0 YOUR_USER/YOUR_SPACE [--dry-run]"
-  echo "Example: $0 pz1130/ai-triage-desk"
+  echo "Example: $0 pz1130/Know-Your-AI"
   exit 1
 fi
 
