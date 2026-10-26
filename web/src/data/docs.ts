@@ -16,6 +16,13 @@ export const docs: DocMeta[] = [
     audience: '全员入门 · 架构对齐',
   },
   {
+    id: 'protocols',
+    title: '协议对照表：MCP · A2A · AG-UI · Agent Skills',
+    file: '协议对照表_MCP_A2A_AGUI_Skills.md',
+    blurb: '各管哪段连接、谁和谁说话、现行版本与治理方，对应图谱 L4–L6。',
+    audience: '架构师 · 供应商评估',
+  },
+  {
     id: 'definitions',
     title: 'Agent / Copilot / Workflow / RAG 定义修订',
     file: 'Agent术语定义_修订提案.md',

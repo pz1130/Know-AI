@@ -10,6 +10,13 @@ export const docsEn: DocMeta[] = [
     audience: 'Onboarding · architecture alignment',
   },
   {
+    id: 'protocols',
+    title: 'Protocol comparison: MCP · A2A · AG-UI · Agent Skills',
+    file: 'en/protocol-comparison-mcp-a2a-agui-skills.md',
+    blurb: 'Which connection each covers, who talks to whom, versions and governance; mapped to L4–L6.',
+    audience: 'Architects · vendor evaluation',
+  },
+  {
     id: 'definitions',
     title: 'Agent / Copilot / Workflow / RAG revision',
     file: 'en/agent-definitions-revision.md',

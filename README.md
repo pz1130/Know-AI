@@ -5,6 +5,7 @@
 | 中文 | 英文（`web/public/docs/en/` 与 `docs/en/`） | 用途 |
 |------|---------------------------------------------|------|
 | `概念层级图谱_从LLM到Agent.md` | `concept-map-llm-to-agent.md` | L0–L6 能力叠加 |
+| `协议对照表_MCP_A2A_AGUI_Skills.md` | `protocol-comparison-mcp-a2a-agui-skills.md` | MCP / A2A / AG-UI / Skills 分工（L4–L6） |
 | `Agent术语定义_修订提案.md` | `agent-definitions-revision.md` | A×B 定义体系 |
 | `AI需求技术选型手册.md` | `ai-requirements-selection-handbook.md` | 分诊 / 六形态 / 打分 / 场景 |
 | `成本与容量估算.md` | `cost-capacity-estimation.md` | 形态 A–F 的 token / 延迟 / 成本粗算 |
