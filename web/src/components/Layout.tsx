@@ -147,8 +147,8 @@ export function Layout() {
               <span className="h-2 w-2 rounded-full bg-[#34A853]" />
               <span className="font-semibold text-fog tracking-wide ml-1">
                 {locale === 'zh'
-                  ? 'AI 分诊台 · 企业级智能体架构工作台'
-                  : 'AI Triage Desk · Enterprise Agent Architecture'}
+                  ? 'Know-Your-AI · 企业级智能体架构工作台'
+                  : 'Know-Your-AI · Enterprise Agent Architecture'}
               </span>
             </div>
             <p className="leading-relaxed">{t(ui.footer1, locale)}</p>

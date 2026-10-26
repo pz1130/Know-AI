@@ -1,4 +1,4 @@
-# AI 分诊台
+# Know-Your-AI (KYA)
 
 ## 文档（源稿）
 

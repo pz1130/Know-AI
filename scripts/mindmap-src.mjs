@@ -8,7 +8,7 @@ export const docs = {
   definitions: ['Agent术语定义_修订提案.md', 'en/agent-definitions-revision.md'],
   'glossary-book': ['企业级Agent平台_概念术语提炼.md', 'en/enterprise-agent-platform-term-digest.md'],
 }
-export const tree = N('AI 分诊台 Know-AI', 'AI Triage Desk (Know-AI)', null, null, [
+export const tree = N('Know-Your-AI', 'Know-Your-AI', null, null, [
   { ...N('AI 需求技术选型手册', 'AI Requirements Selection Handbook', null, null, [
     N('先破一个误区', 'Kill one myth first', '一、先破一个误区', '1. Kill one myth'),
     N('分诊决策树 · 5 问', 'Triage tree · 5 questions', '二、分诊决策树', '2. Triage decision tree', [
