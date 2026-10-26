@@ -4,7 +4,7 @@ export const triageStepsEn: Record<string, TriageStep> = {
   q1: {
     id: 'q1',
     question: 'Is the final output “information” or “action”?',
-    hint: 'Information = answers/reports/drafts for humans; Action = the system really changes something.',
+    hint: 'Information is answers, reports or drafts for humans; action means the system really changes state — approving a withdrawal, sending a notice, writing back to the loan system.',
     options: [
       { id: 'info', label: 'Information', detail: 'Humans decide after reading', next: 'q2' },
       { id: 'action', label: 'Action', detail: 'System mutates state or emits externally', next: 'q4' },
@@ -13,14 +13,14 @@ export const triageStepsEn: Record<string, TriageStep> = {
         label: 'Unclear',
         detail: 'Usually two asks packed as one',
         result: 'split' as MorphologyResult,
-        resultNote: 'Split the work; deliver the information half first. Most common project rescue.',
+        resultNote: 'Split the work and deliver the information half first. If you need both clause answers and an award notice, do Q&A first. Most common project rescue.',
       },
     ],
   },
   q2: {
     id: 'q2',
     question: 'Where do answers come from?',
-    hint: 'Need both sources → not one project. A and B stacks barely overlap.',
+    hint: 'If you need both sources, do not treat them as one project. Knowledge Q&A and data Q&A stacks barely overlap.',
     options: [
       { id: 'unstructured', label: 'Unstructured materials', detail: 'Policies, handbooks, eval reports, board files…', next: 'q3a' },
       { id: 'structured', label: 'Structured data', detail: 'Loan / procurement / finance / results systems…', next: 'q3b' },
@@ -29,7 +29,7 @@ export const triageStepsEn: Record<string, TriageStep> = {
         label: 'Need new content',
         detail: 'Draft concept notes, supervision reports, country briefs…',
         result: 'C',
-        resultNote: 'Form C: assisted drafting. Human confirms at the end. Ideal first AI project.',
+        resultNote: 'Form C: assisted drafting. A human confirms at the end. Country briefs or supervision-report drafts make a good first AI project.',
       },
       {
         id: 'both',
@@ -42,13 +42,13 @@ export const triageStepsEn: Record<string, TriageStep> = {
   q3a: {
     id: 'q3a',
     question: 'Is the question space closed or open? (Knowledge Q&A)',
-    hint: 'If you can list ≤ ~50 question types → closed; do not build retrieval.',
+    hint: 'If you can list about fifty question types or fewer, it is closed — do not build retrieval.',
     options: [
       {
         id: 'closed',
         label: 'Closed (listable)',
         result: 'closed',
-        resultNote: 'Classifier + parameterized templates. Order-of-magnitude cheaper and more accurate.',
+        resultNote: 'A classifier plus parameterized templates is enough. Usually an order of magnitude cheaper and more accurate.',
       },
       {
         id: 'open',
@@ -61,19 +61,19 @@ export const triageStepsEn: Record<string, TriageStep> = {
   q3b: {
     id: 'q3b',
     question: 'Is the question space closed or open? (Data Q&A)',
-    hint: 'Fixed portfolio reports → parameterized templates, not NL2SQL.',
+    hint: 'If the ask is a few fixed portfolio reports, use parameterized templates, not NL2SQL.',
     options: [
       {
         id: 'closed',
         label: 'Closed (fixed reports/questions)',
         result: 'closed',
-        resultNote: 'Parameterized templates + precompute. Leaders will not wait 30s.',
+        resultNote: 'Parameterized templates plus precompute. Leaders will not sit through a thirty-second wait for one number.',
       },
       {
         id: 'open',
         label: 'Open (free NL questions)',
         result: 'B',
-        resultNote: 'Form B: data Q&A. First confirm authoritative metrics; if missing, it is a governance project.',
+        resultNote: 'Form B: data Q&A. First confirm authoritative definitions for amounts, currency and time; if they are missing, do metrics governance before NL2SQL.',
       },
     ],
   },
@@ -82,7 +82,7 @@ export const triageStepsEn: Record<string, TriageStep> = {
     question: 'Can you draw the action path as a flowchart in advance?',
     hint: 'When business says “every project differs”, spend a week drawing before judging.',
     options: [
-      { id: 'drawable', label: 'Yes; branches enumerable', next: 'q5', detail: '→ lean Form D' },
+      { id: 'drawable', label: 'Yes; branches enumerable', next: 'q5', detail: 'Lean Form D' },
       {
         id: 'narrow',
         label: 'No, but domain is narrow',
@@ -95,74 +95,74 @@ export const triageStepsEn: Record<string, TriageStep> = {
   q5: {
     id: 'q5',
     question: 'Is the action reversible? (Form D)',
-    hint: 'Funds, external notices, board filings, sanctions/integrity → forced human gate.',
+    hint: 'Funds, external notices, board filings, and sanctions or integrity determinations all need a forced human gate.',
     options: [
       {
         id: 'rev',
         label: 'Fully reversible',
         result: 'D',
-        resultNote: 'Form D: workflow automation. Auto-run with rollback. LLM only on select nodes.',
+        resultNote: 'Form D: workflow automation. Auto-run with rollback; the LLM usually sits on one or two nodes and the rest is hard-coded.',
       },
       {
         id: 'comp',
         label: 'Compensatable',
         result: 'D',
-        resultNote: 'Form D + compensating transactions + full audit.',
+        resultNote: 'Form D, plus compensating transactions and a full audit trail.',
       },
       {
         id: 'irrev',
         label: 'Irreversible or external',
         result: 'gate',
-        resultNote: 'Form D + forced human confirmation + full audit trail. Approvals stay with authorized humans.',
+        resultNote: 'Form D, plus a forced human confirmation gate and a full audit trail. Approvals stay with authorized humans.',
       },
     ],
   },
   q5e: {
     id: 'q5e',
     question: 'Is the action reversible? (Form E)',
-    hint: 'Four prerequisites: ≤15 tools, single domain, rollback-tolerant, clear done criteria.',
+    hint: 'Four prerequisites: at most fifteen tools, a single domain, rollback-tolerant failures, and clear done-criteria. Miss any and fall back to Form D.',
     options: [
       {
         id: 'ok',
         label: 'Reversible/rollback OK and four prerequisites met',
         result: 'E',
-        resultNote: 'Form E: bounded agent. Needs eval set, state recovery, initiator identity inheritance.',
+        resultNote: 'Form E: a bounded agent. Needs an eval set, state recovery, and access to business systems as the initiator.',
       },
       {
         id: 'irrev',
         label: 'Irreversible / external / prerequisites fail',
         result: 'gate',
-        resultNote: 'Fall back to Form D decomposition, or split writes behind human gates.',
+        resultNote: 'Fall back to Form D and split the ask, or put writes behind human confirmation gates.',
       },
     ],
   },
   q5f: {
     id: 'q5f',
     question: 'Do you truly need multi-agent?',
-    hint: 'Most “multi-agent” asks are D or E.',
+    hint: 'Most asks labelled multi-agent turn out to be Form D or E once split.',
     options: [
       {
         id: 'really',
         label: 'Subtasks truly independent or professional contexts must stay separate',
         result: 'F',
-        resultNote: 'Form F: prefer a working Form E monolith first. 16+ weeks.',
+        resultNote: 'Form F: prefer a working Form E monolith that proves the business first, then consider splitting. Plan on sixteen weeks or more.',
       },
       {
         id: 'not',
         label: 'Can be a fixed flow or single bounded agent',
         result: 'E',
-        resultNote: 'Prefer E or D. Multi-agent coordination/conflict/attribution costs usually dominate.',
+        resultNote: 'Prefer Form E or D. Multi-agent coordination, conflict and attribution costs usually dominate the benefit.',
       },
     ],
   },
 }
 
 export const hardConstraintsEn = [
-  'Classification & ACL before features; filter at retrieval, not display',
-  'Data egress & deploy model fixed before kickoff',
-  'Accountable trail: who / when / inputs / advice / confirmer',
-  'No AI conclusive judgments (sanctions, integrity, grievances, safeguards); retrieve & summarize only',
-  'External publish firewalled; default “internal reference”',
+  'Freeze classification and ACL before features; filter at retrieval, not by hiding after a full-corpus search',
+  'Decide data egress and how the model is deployed before kickoff',
+  'Keep an accountable trail: who, when, which inputs, what advice, who confirmed',
+  'No AI conclusive judgments on sanctions, integrity, grievances or safeguards — retrieve and summarize only',
+  'Firewall external publishing; default label is internal reference',
   'Official multilingual texts require human review',
 ]
 

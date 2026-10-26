@@ -89,7 +89,7 @@ export function Home() {
             { num: '06', label: locale === 'zh' ? '架构分层 (L0-L5)' : 'Layers (L0-L5)', color: '#4285F4' },
             { num: '16', label: locale === 'zh' ? 'A×B 选型象限' : 'Matrix Cells', color: '#9B72CF' },
             { num: '06', label: locale === 'zh' ? '落地形态 (A-F)' : 'Morphologies', color: '#34A853' },
-            { num: '126', label: locale === 'zh' ? '高频架构术语' : 'Concepts Mapped', color: '#FBBC05' },
+            { num: '130', label: locale === 'zh' ? '高频架构术语' : 'Concepts Mapped', color: '#FBBC05' },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -134,7 +134,7 @@ export function Home() {
           <div className="flex items-center gap-2.5">
             <span className="h-2.5 w-2.5 rounded-full bg-[#4285F4]" />
             <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-paper">
-              {locale === 'zh' ? '架构工作台 · 八大决策与实践模块' : 'Decision Workbench · 8 Modules'}
+              {locale === 'zh' ? '工作台里的八个模块' : 'Eight modules on the workbench'}
             </h2>
           </div>
           <span className="text-xs font-semibold text-mist uppercase tracking-wider">
@@ -182,7 +182,7 @@ export function Home() {
                     </p>
 
                     <div className="mt-5 flex items-center gap-1 text-[11px] font-semibold text-copper opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span>{locale === 'zh' ? '进入模块' : 'Launch Module'}</span>
+                      <span>{locale === 'zh' ? '打开' : 'Open'}</span>
                       <span>→</span>
                     </div>
                   </SpotlightCard>
@@ -200,7 +200,7 @@ export function Home() {
             {
               title: t(h.twoPaths),
               accent: false,
-              badge: locale === 'zh' ? '两条学习路径' : 'Dual Paths',
+              badge: locale === 'zh' ? '两条路径' : 'Two paths',
               color: '#4285F4',
               body: (
                 <ul className="mt-3 space-y-2.5 text-sm text-mist">
@@ -222,7 +222,7 @@ export function Home() {
             {
               title: t(h.stance),
               accent: false,
-              badge: locale === 'zh' ? '架构立场' : 'Core Stance',
+              badge: locale === 'zh' ? '怎么选型' : 'How we select',
               color: '#34A853',
               body: (
                 <p className="mt-3 text-sm leading-relaxed text-mist">{t(h.stanceBody)}</p>
@@ -231,7 +231,7 @@ export function Home() {
             {
               title: t(h.hard),
               accent: true,
-              badge: locale === 'zh' ? '红线铁律' : 'Hard Rules',
+              badge: locale === 'zh' ? '本行硬约束' : 'Hard constraints',
               color: '#EA4335',
               body: (
                 <p className="mt-3 text-sm leading-relaxed text-mist">{t(h.hardBody)}</p>
