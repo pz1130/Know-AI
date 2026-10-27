@@ -36,7 +36,6 @@ export function Elevator() {
       <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
         {/* Left Elevator Track */}
         <div className="relative rounded-3xl border border-line bg-panel/50 p-4 backdrop-blur-xl">
-          <div className="absolute left-9 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#4285F4] via-[#9B72CF] to-[#34A853] opacity-30" />
           <ul className="relative space-y-2">
             {[...layers].reverse().map((l) => {
               const li = layers.findIndex((x) => x.id === l.id)
