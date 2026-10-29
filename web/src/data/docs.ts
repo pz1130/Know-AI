@@ -44,6 +44,13 @@ export const docs: DocMeta[] = [
     audience: '方案架构师 · 预算评审',
   },
   {
+    id: 'finops',
+    title: 'Agent 平台落地与 AI 成本治理（会议要点）',
+    file: 'Agent平台落地与AI成本治理_会议要点.md',
+    blurb: '平台六层与解耦、自主性与护栏、模型分层/路由/缓存/批处理、FinOps 与预算拆解、自研还是外购。',
+    audience: '架构师 · 预算评审 · 管理层',
+  },
+  {
     id: 'handbook',
     title: '概念讲解手册（给 IT 团队）',
     file: '概念讲解手册_给IT团队.md',
