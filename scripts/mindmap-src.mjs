@@ -6,6 +6,7 @@ export const docs = {
   handbook: ['概念讲解手册_给IT团队.md', 'en/concept-handbook-for-it.md'],
   elevator: ['概念层级图谱_从LLM到Agent.md', 'en/concept-map-llm-to-agent.md'],
   definitions: ['Agent术语定义_修订提案.md', 'en/agent-definitions-revision.md'],
+  finops: ['Agent平台落地与AI成本治理_会议要点.md', 'en/agent-platform-and-ai-finops-notes.md'],
   'glossary-book': ['企业级Agent平台_概念术语提炼.md', 'en/enterprise-agent-platform-term-digest.md'],
 }
 export const tree = N('Know-Your-AI', 'Know-Your-AI', null, null, [
@@ -29,6 +30,7 @@ export const tree = N('Know-Your-AI', 'Know-Your-AI', null, null, [
     N('跨形态通用底线', 'Cross-form baselines', '四、跨形态的通用底线', '4. Cross-form baselines', [
       N('一般底线', 'General', '4.1', '4.1'),
       N('本行特有硬约束', 'Institution hard constraints', '4.2', '4.2'),
+      N('成本与护栏的管理面', 'Platform cost & guardrails', '4.3', '4.3'),
     ]),
     N('属性打分表', 'Attribute scorecard', '五、属性打分表', '5. Attribute scorecard'),
     N('场景对照库', 'Scenario library', '六、场景对照库', '6. Scenario library'),
@@ -88,6 +90,22 @@ export const tree = N('Know-Your-AI', 'Know-Your-AI', null, null, [
     N('可检验判据', 'Testable criteria', '四、可检验判据', '4. Testable criteria'),
     N('四个词归位', 'Four words re-homed', '五、把四个词', '5. Put the four words'),
   ]), doc: 'definitions' },
+  { ...N('Agent 平台落地与 AI 成本治理', 'Agent platforms & AI cost governance', null, null, [
+    N('Agent 用在哪，难在哪', 'Where agents work', '一、', '1. Where agents', [
+      N('跑得顺的场景', 'What works', '1.1', '1.1'), N('失败多不在模型', 'Failures aren\'t the model', '1.2', '1.2')]),
+    N('平台分层与解耦', 'Layers & decoupling', '二、', '2. Platform layers', [
+      N('六层结构', 'Six layers', '2.1', '2.1'), N('为什么解耦', 'Why decouple', '2.2', '2.2'),
+      N('开放权重模型', 'Open-weight models', '2.3', '2.3'), N('供应商五种出身', 'Five kinds of vendor', '2.4', '2.4')]),
+    N('自主性与护栏', 'Autonomy vs guardrails', '三、', '3. Autonomy', [
+      N('全生命周期管理', 'Lifecycle management', '3.1', '3.1'), N('业务人员自建工具', 'Business-built tools', '3.2', '3.2')]),
+    N('AI 成本怎么管（FinOps）', 'Managing AI cost (FinOps)', '四、', '4. Managing AI cost', [
+      N('为什么越来越难估', 'Why estimates get harder', '4.1', '4.1'), N('十条做法', 'Ten practices', '4.2', '4.2'),
+      N('实时还是批处理', 'Real-time or batch', '4.3', '4.3'), N('成本跟责任对上', 'Cost & accountability', '4.4', '4.4'),
+      N('先放开还是先控', 'Open up or control first', '4.5', '4.5'), N('预算怎么拆', 'Budget breakdown', '4.6', '4.6')]),
+    N('自研还是外购', 'Build or buy', '五、', '5. Roadmap'),
+    N('会议共识', 'Consensus', '六、', '6. Consensus'),
+    N('待核实', 'To be verified', '待核实', 'To be verified'),
+  ]), doc: 'finops' },
   { ...N('企业级 Agent 平台术语提炼 · 10 领域', 'Enterprise agent platform term digest · 10 domains', null, null, [
     ['一、', '1.', '基础形态', 'Foundations'], ['二、', '2.', '模型与推理', 'Models & inference'],
     ['三、', '3.', '数据基础设施', 'Data infrastructure'], ['四、', '4.', '向量与 RAG', 'Vectors & RAG'],

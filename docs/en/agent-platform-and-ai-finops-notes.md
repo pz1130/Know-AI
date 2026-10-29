@@ -2,7 +2,7 @@
 
 > A write-up of an industry roundtable, reorganised to fit KYA. It is not a standard and not a vendor quote. Most conclusions are participants' experience, so anything marked "meeting view" is only what was said in the room; figures with an official source are linked, the rest are marked "to be verified".
 >
-> How it relates to the other documents: the layering maps to the Concept Map L0–L6 and the Protocol Comparison; the cost part supplements Cost & Capacity Estimation (that one is how to calculate, this one is how to manage); the guardrails map to Chapter 4 of the Selection Handbook (cost gates) and the Release & Operations Checklist.
+> How it relates to the other documents: the layering maps to the Concept Map L0–L6 and the Protocol Comparison; the cost part supplements Cost & Capacity Estimation (that one is how to calculate, this one is how to manage); the guardrails map to Chapter 4 of the Selection Handbook (§4.3 distils the platform-level practices from this page) and Chapters 1 and 7 of the Release & Operations Checklist.
 
 ---
 
@@ -108,7 +108,7 @@ Many models, big price gaps, separate input and output pricing, and agents that 
 
 ## 4.3 Real-time or batch
 
-Not everything needs an instant answer. Candidate screening, cash-flow analysis, bulk document processing, data cleansing, report generation and non-urgent classification can run as batch. The meeting said batch can save about 50% in some cases. There is an official source: OpenAI's [Batch API](https://platform.openai.com/docs/guides/batch) and Anthropic's [Message Batches](https://docs.anthropic.com/en/docs/build-with-claude/batch-processing) both state a 50% discount versus synchronous calls; other vendors and self-hosting may differ, so go by actual quotes. Month-end disbursement document checks are a typical batch job.
+Not everything needs an instant answer. Candidate screening, cash-flow analysis, bulk document processing, data cleansing, report generation and non-urgent classification can run as batch. The meeting said batch can save about 50% in some cases. This matches the official docs: OpenAI's [Batch API](https://platform.openai.com/docs/guides/batch) states a 50% discount versus the synchronous APIs with completion within 24 hours; Anthropic's [Message Batches](https://docs.anthropic.com/en/docs/build-with-claude/batch-processing) states all usage is charged at 50% of standard prices with processing within 24 hours (both checked 2026-10-29). Other vendors and self-hosting may not offer this, so go by actual quotes. Month-end disbursement document checks are a typical batch job.
 
 ## 4.4 Match cost to accountability
 
@@ -154,7 +154,9 @@ AI transformation also touches the organisation: hiring, training, performance, 
 
 # To be verified
 
+The three items below were stated verbally with no public source found. The 50% batch discount has been checked against official docs; see 4.3.
+
+
 - "Large enterprises run tens to hundreds of thousands of agents internally": stated verbally, no source.
 - "Private AI interest: high in China, rising in the US over the past year": stated verbally, no data.
 - "A company requires AI FinOps certification before using AI engineering tools": anecdote, unnamed.
-- Batch saves about 50%: confirmed in OpenAI and Anthropic official docs (see 4.3); other vendors per actual quote.

@@ -167,11 +167,20 @@
        "hz": "4.2",
        "he": "4.2",
        "children": []
+      },
+      {
+       "id": "n19",
+       "zh": "成本与护栏的管理面",
+       "en": "Platform cost & guardrails",
+       "doc": "selection",
+       "hz": "4.3",
+       "he": "4.3",
+       "children": []
       }
      ]
     },
     {
-     "id": "n19",
+     "id": "n20",
      "zh": "属性打分表",
      "en": "Attribute scorecard",
      "doc": "selection",
@@ -180,7 +189,7 @@
      "children": []
     },
     {
-     "id": "n20",
+     "id": "n21",
      "zh": "场景对照库",
      "en": "Scenario library",
      "doc": "selection",
@@ -189,7 +198,7 @@
      "children": []
     },
     {
-     "id": "n21",
+     "id": "n22",
      "zh": "从零开始的建设顺序",
      "en": "Build order from zero",
      "doc": "selection",
@@ -198,7 +207,7 @@
      "children": []
     },
     {
-     "id": "n22",
+     "id": "n23",
      "zh": "危险信号清单",
      "en": "Red-flag list",
      "doc": "selection",
@@ -207,7 +216,7 @@
      "children": []
     },
     {
-     "id": "n23",
+     "id": "n24",
      "zh": "关于原书的提醒",
      "en": "Notes on the source book",
      "doc": "selection",
@@ -218,7 +227,7 @@
    ]
   },
   {
-   "id": "n24",
+   "id": "n25",
    "zh": "概念讲解手册（给 IT 团队）",
    "en": "Concept Handbook (for IT)",
    "doc": "handbook",
@@ -226,7 +235,7 @@
    "he": null,
    "children": [
     {
-     "id": "n25",
+     "id": "n26",
      "zh": "词汇速查 · 13 节",
      "en": "Vocabulary · 13 sections",
      "doc": "handbook",
@@ -234,7 +243,7 @@
      "he": "Part 1",
      "children": [
       {
-       "id": "n26",
+       "id": "n27",
        "zh": "1.1 模型层",
        "en": "1.1 Model layer",
        "doc": "handbook",
@@ -243,7 +252,7 @@
        "children": []
       },
       {
-       "id": "n27",
+       "id": "n28",
        "zh": "1.2 模型内部的数字概念",
        "en": "1.2 Numbers inside the model",
        "doc": "handbook",
@@ -252,7 +261,7 @@
        "children": []
       },
       {
-       "id": "n28",
+       "id": "n29",
        "zh": "1.3 与模型交互",
        "en": "1.3 Interacting with the model",
        "doc": "handbook",
@@ -261,7 +270,7 @@
        "children": []
       },
       {
-       "id": "n29",
+       "id": "n30",
        "zh": "1.4 Agent 与工具",
        "en": "1.4 Agents and tools",
        "doc": "handbook",
@@ -270,7 +279,7 @@
        "children": []
       },
       {
-       "id": "n30",
+       "id": "n31",
        "zh": "1.5 Workflow 与 Agent",
        "en": "1.5 Workflow vs agent",
        "doc": "handbook",
@@ -279,7 +288,7 @@
        "children": []
       },
       {
-       "id": "n31",
+       "id": "n32",
        "zh": "1.6 知识与检索层",
        "en": "1.6 Knowledge & retrieval",
        "doc": "handbook",
@@ -288,7 +297,7 @@
        "children": []
       },
       {
-       "id": "n32",
+       "id": "n33",
        "zh": "1.7 数据层",
        "en": "1.7 Data layer",
        "doc": "handbook",
@@ -297,7 +306,7 @@
        "children": []
       },
       {
-       "id": "n33",
+       "id": "n34",
        "zh": "1.8 工程与运行层",
        "en": "1.8 Engineering & runtime",
        "doc": "handbook",
@@ -306,7 +315,7 @@
        "children": []
       },
       {
-       "id": "n34",
+       "id": "n35",
        "zh": "1.9 安全与权限层",
        "en": "1.9 Security & permissions",
        "doc": "handbook",
@@ -315,7 +324,7 @@
        "children": []
       },
       {
-       "id": "n35",
+       "id": "n36",
        "zh": "1.10 治理、评测与成本",
        "en": "1.10 Governance, eval & cost",
        "doc": "handbook",
@@ -324,7 +333,7 @@
        "children": []
       },
       {
-       "id": "n36",
+       "id": "n37",
        "zh": "1.11 产品形态词",
        "en": "1.11 Product-form terms",
        "doc": "handbook",
@@ -333,7 +342,7 @@
        "children": []
       },
       {
-       "id": "n37",
+       "id": "n38",
        "zh": "1.12 术语来源提醒",
        "en": "1.12 Where terms come from",
        "doc": "handbook",
@@ -342,7 +351,7 @@
        "children": []
       },
       {
-       "id": "n38",
+       "id": "n39",
        "zh": "1.13 完整速查表",
        "en": "1.13 Full reference table",
        "doc": "handbook",
@@ -353,7 +362,7 @@
      ]
     },
     {
-     "id": "n39",
+     "id": "n40",
      "zh": "必修十讲",
      "en": "Ten required lectures",
      "doc": "handbook",
@@ -361,7 +370,7 @@
      "he": "Part 2",
      "children": [
       {
-       "id": "n40",
+       "id": "n41",
        "zh": "1. 语义层与指标口径",
        "en": "1. Semantic layer & metrics",
        "doc": "handbook",
@@ -370,7 +379,7 @@
        "children": []
       },
       {
-       "id": "n41",
+       "id": "n42",
        "zh": "2. 上下文工程",
        "en": "2. Context engineering",
        "doc": "handbook",
@@ -379,7 +388,7 @@
        "children": []
       },
       {
-       "id": "n42",
+       "id": "n43",
        "zh": "3. 引用溯源",
        "en": "3. Citation traceability",
        "doc": "handbook",
@@ -388,7 +397,7 @@
        "children": []
       },
       {
-       "id": "n43",
+       "id": "n44",
        "zh": "4. 幂等与补偿事务",
        "en": "4. Idempotency & compensation",
        "doc": "handbook",
@@ -397,7 +406,7 @@
        "children": []
       },
       {
-       "id": "n44",
+       "id": "n45",
        "zh": "5. 人工介入点设计",
        "en": "5. Human checkpoint design",
        "doc": "handbook",
@@ -406,7 +415,7 @@
        "children": []
       },
       {
-       "id": "n45",
+       "id": "n46",
        "zh": "6. 提示注入",
        "en": "6. Prompt injection",
        "doc": "handbook",
@@ -415,7 +424,7 @@
        "children": []
       },
       {
-       "id": "n46",
+       "id": "n47",
        "zh": "7. 模型不执行任何东西",
        "en": "7. The model executes nothing",
        "doc": "handbook",
@@ -424,7 +433,7 @@
        "children": []
       },
       {
-       "id": "n47",
+       "id": "n48",
        "zh": "8. 可观测与追踪",
        "en": "8. Observability & tracing",
        "doc": "handbook",
@@ -433,7 +442,7 @@
        "children": []
       },
       {
-       "id": "n48",
+       "id": "n49",
        "zh": "9. 评测集与 LLM-as-Judge",
        "en": "9. Eval sets & LLM-as-Judge",
        "doc": "handbook",
@@ -442,7 +451,7 @@
        "children": []
       },
       {
-       "id": "n49",
+       "id": "n50",
        "zh": "10. Agent 身份与权限传递",
        "en": "10. Agent identity & credentials",
        "doc": "handbook",
@@ -453,7 +462,7 @@
      ]
     },
     {
-     "id": "n50",
+     "id": "n51",
      "zh": "选修",
      "en": "Optional",
      "doc": "handbook",
@@ -462,7 +471,7 @@
      "children": []
     },
     {
-     "id": "n51",
+     "id": "n52",
      "zh": "现阶段先不学",
      "en": "Not yet",
      "doc": "handbook",
@@ -471,7 +480,7 @@
      "children": []
     },
     {
-     "id": "n52",
+     "id": "n53",
      "zh": "必须补的六块",
      "en": "Six gaps we must fill",
      "doc": "handbook",
@@ -479,7 +488,7 @@
      "he": "Part 5",
      "children": [
       {
-       "id": "n53",
+       "id": "n54",
        "zh": "爆炸半径与沙箱",
        "en": "Blast radius & sandboxing",
        "doc": "handbook",
@@ -488,7 +497,7 @@
        "children": []
       },
       {
-       "id": "n54",
+       "id": "n55",
        "zh": "长时运行与断点恢复",
        "en": "Long-running & resumption",
        "doc": "handbook",
@@ -497,7 +506,7 @@
        "children": []
       },
       {
-       "id": "n55",
+       "id": "n56",
        "zh": "验证瓶颈",
        "en": "Verification bottleneck",
        "doc": "handbook",
@@ -506,7 +515,7 @@
        "children": []
       },
       {
-       "id": "n56",
+       "id": "n57",
        "zh": "多 Agent 组织形态",
        "en": "Multi-agent org form",
        "doc": "handbook",
@@ -515,7 +524,7 @@
        "children": []
       },
       {
-       "id": "n57",
+       "id": "n58",
        "zh": "密级感知检索",
        "en": "Classification-aware retrieval",
        "doc": "handbook",
@@ -524,7 +533,7 @@
        "children": []
       },
       {
-       "id": "n58",
+       "id": "n59",
        "zh": "模型版本漂移",
        "en": "Model version drift",
        "doc": "handbook",
@@ -535,7 +544,7 @@
      ]
     },
     {
-     "id": "n59",
+     "id": "n60",
      "zh": "讲解安排建议",
      "en": "Teaching plan",
      "doc": "handbook",
@@ -546,7 +555,7 @@
    ]
   },
   {
-   "id": "n60",
+   "id": "n61",
    "zh": "概念层级图谱：LLM → Agent",
    "en": "Concept map: LLM → Agent",
    "doc": "elevator",
@@ -554,7 +563,7 @@
    "he": null,
    "children": [
     {
-     "id": "n61",
+     "id": "n62",
      "zh": "L0–L6 七层",
      "en": "Seven layers L0–L6",
      "doc": "elevator",
@@ -562,7 +571,7 @@
      "he": null,
      "children": [
       {
-       "id": "n62",
+       "id": "n63",
        "zh": "L0 模型本身",
        "en": "L0 The model",
        "doc": "elevator",
@@ -571,7 +580,7 @@
        "children": []
       },
       {
-       "id": "n63",
+       "id": "n64",
        "zh": "L1 对话",
        "en": "L1 Conversation",
        "doc": "elevator",
@@ -580,7 +589,7 @@
        "children": []
       },
       {
-       "id": "n64",
+       "id": "n65",
        "zh": "L2 上下文供给",
        "en": "L2 Context supply",
        "doc": "elevator",
@@ -588,7 +597,7 @@
        "he": "L2 ·",
        "children": [
         {
-         "id": "n65",
+         "id": "n66",
          "zh": "L2-A 知识问答",
          "en": "L2-A Knowledge Q&A",
          "doc": "elevator",
@@ -597,7 +606,7 @@
          "children": []
         },
         {
-         "id": "n66",
+         "id": "n67",
          "zh": "L2-B 数据问答",
          "en": "L2-B Data Q&A",
          "doc": "elevator",
@@ -608,7 +617,7 @@
        ]
       },
       {
-       "id": "n67",
+       "id": "n68",
        "zh": "L3 函数调用",
        "en": "L3 Function calling",
        "doc": "elevator",
@@ -617,7 +626,7 @@
        "children": []
       },
       {
-       "id": "n68",
+       "id": "n69",
        "zh": "L4 标准化工具接入",
        "en": "L4 Standard tool access",
        "doc": "elevator",
@@ -626,7 +635,7 @@
        "children": []
       },
       {
-       "id": "n69",
+       "id": "n70",
        "zh": "L5 Agent",
        "en": "L5 Agent",
        "doc": "elevator",
@@ -635,7 +644,7 @@
        "children": []
       },
       {
-       "id": "n70",
+       "id": "n71",
        "zh": "L6 多 Agent 协同",
        "en": "L6 Multi-agent",
        "doc": "elevator",
@@ -646,7 +655,7 @@
      ]
     },
     {
-     "id": "n71",
+     "id": "n72",
      "zh": "横切四件事",
      "en": "Four cross-cutting concerns",
      "doc": "elevator",
@@ -655,7 +664,7 @@
      "children": []
     },
     {
-     "id": "n72",
+     "id": "n73",
      "zh": "两条规律",
      "en": "Two laws",
      "doc": "elevator",
@@ -663,7 +672,7 @@
      "he": "Two laws",
      "children": [
       {
-       "id": "n73",
+       "id": "n74",
        "zh": "越往上模型贡献越小",
        "en": "Higher layers, smaller model share",
        "doc": "elevator",
@@ -672,7 +681,7 @@
        "children": []
       },
       {
-       "id": "n74",
+       "id": "n75",
        "zh": "层边界在往下移",
        "en": "Boundaries move down",
        "doc": "elevator",
@@ -683,7 +692,7 @@
      ]
     },
     {
-     "id": "n75",
+     "id": "n76",
      "zh": "怎么用这份图谱",
      "en": "How to use this map",
      "doc": "elevator",
@@ -694,7 +703,7 @@
    ]
   },
   {
-   "id": "n76",
+   "id": "n77",
    "zh": "Agent 术语定义修订提案",
    "en": "Agent definitions revision",
    "doc": "definitions",
@@ -702,7 +711,7 @@
    "he": null,
    "children": [
     {
-     "id": "n77",
+     "id": "n78",
      "zh": "根定义：运行时决策权",
      "en": "Root: runtime decision rights",
      "doc": "definitions",
@@ -711,7 +720,7 @@
      "children": []
     },
     {
-     "id": "n78",
+     "id": "n79",
      "zh": "两条正交主轴",
      "en": "Two orthogonal axes",
      "doc": "definitions",
@@ -719,7 +728,7 @@
      "he": "2. Two orthogonal axes",
      "children": [
       {
-       "id": "n79",
+       "id": "n80",
        "zh": "A 轴 决策权归属",
        "en": "Axis A Decision rights",
        "doc": "definitions",
@@ -728,7 +737,7 @@
        "children": []
       },
       {
-       "id": "n80",
+       "id": "n81",
        "zh": "B 轴 作用域",
        "en": "Axis B Scope",
        "doc": "definitions",
@@ -739,7 +748,7 @@
      ]
     },
     {
-     "id": "n81",
+     "id": "n82",
      "zh": "五个可调维度",
      "en": "Five knobs",
      "doc": "definitions",
@@ -748,7 +757,7 @@
      "children": []
     },
     {
-     "id": "n82",
+     "id": "n83",
      "zh": "可检验判据",
      "en": "Testable criteria",
      "doc": "definitions",
@@ -757,7 +766,7 @@
      "children": []
     },
     {
-     "id": "n83",
+     "id": "n84",
      "zh": "四个词归位",
      "en": "Four words re-homed",
      "doc": "definitions",
@@ -768,7 +777,210 @@
    ]
   },
   {
-   "id": "n84",
+   "id": "n85",
+   "zh": "Agent 平台落地与 AI 成本治理",
+   "en": "Agent platforms & AI cost governance",
+   "doc": "finops",
+   "hz": null,
+   "he": null,
+   "children": [
+    {
+     "id": "n86",
+     "zh": "Agent 用在哪，难在哪",
+     "en": "Where agents work",
+     "doc": "finops",
+     "hz": "一、",
+     "he": "1. Where agents",
+     "children": [
+      {
+       "id": "n87",
+       "zh": "跑得顺的场景",
+       "en": "What works",
+       "doc": "finops",
+       "hz": "1.1",
+       "he": "1.1",
+       "children": []
+      },
+      {
+       "id": "n88",
+       "zh": "失败多不在模型",
+       "en": "Failures aren't the model",
+       "doc": "finops",
+       "hz": "1.2",
+       "he": "1.2",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n89",
+     "zh": "平台分层与解耦",
+     "en": "Layers & decoupling",
+     "doc": "finops",
+     "hz": "二、",
+     "he": "2. Platform layers",
+     "children": [
+      {
+       "id": "n90",
+       "zh": "六层结构",
+       "en": "Six layers",
+       "doc": "finops",
+       "hz": "2.1",
+       "he": "2.1",
+       "children": []
+      },
+      {
+       "id": "n91",
+       "zh": "为什么解耦",
+       "en": "Why decouple",
+       "doc": "finops",
+       "hz": "2.2",
+       "he": "2.2",
+       "children": []
+      },
+      {
+       "id": "n92",
+       "zh": "开放权重模型",
+       "en": "Open-weight models",
+       "doc": "finops",
+       "hz": "2.3",
+       "he": "2.3",
+       "children": []
+      },
+      {
+       "id": "n93",
+       "zh": "供应商五种出身",
+       "en": "Five kinds of vendor",
+       "doc": "finops",
+       "hz": "2.4",
+       "he": "2.4",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n94",
+     "zh": "自主性与护栏",
+     "en": "Autonomy vs guardrails",
+     "doc": "finops",
+     "hz": "三、",
+     "he": "3. Autonomy",
+     "children": [
+      {
+       "id": "n95",
+       "zh": "全生命周期管理",
+       "en": "Lifecycle management",
+       "doc": "finops",
+       "hz": "3.1",
+       "he": "3.1",
+       "children": []
+      },
+      {
+       "id": "n96",
+       "zh": "业务人员自建工具",
+       "en": "Business-built tools",
+       "doc": "finops",
+       "hz": "3.2",
+       "he": "3.2",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n97",
+     "zh": "AI 成本怎么管（FinOps）",
+     "en": "Managing AI cost (FinOps)",
+     "doc": "finops",
+     "hz": "四、",
+     "he": "4. Managing AI cost",
+     "children": [
+      {
+       "id": "n98",
+       "zh": "为什么越来越难估",
+       "en": "Why estimates get harder",
+       "doc": "finops",
+       "hz": "4.1",
+       "he": "4.1",
+       "children": []
+      },
+      {
+       "id": "n99",
+       "zh": "十条做法",
+       "en": "Ten practices",
+       "doc": "finops",
+       "hz": "4.2",
+       "he": "4.2",
+       "children": []
+      },
+      {
+       "id": "n100",
+       "zh": "实时还是批处理",
+       "en": "Real-time or batch",
+       "doc": "finops",
+       "hz": "4.3",
+       "he": "4.3",
+       "children": []
+      },
+      {
+       "id": "n101",
+       "zh": "成本跟责任对上",
+       "en": "Cost & accountability",
+       "doc": "finops",
+       "hz": "4.4",
+       "he": "4.4",
+       "children": []
+      },
+      {
+       "id": "n102",
+       "zh": "先放开还是先控",
+       "en": "Open up or control first",
+       "doc": "finops",
+       "hz": "4.5",
+       "he": "4.5",
+       "children": []
+      },
+      {
+       "id": "n103",
+       "zh": "预算怎么拆",
+       "en": "Budget breakdown",
+       "doc": "finops",
+       "hz": "4.6",
+       "he": "4.6",
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "n104",
+     "zh": "自研还是外购",
+     "en": "Build or buy",
+     "doc": "finops",
+     "hz": "五、",
+     "he": "5. Roadmap",
+     "children": []
+    },
+    {
+     "id": "n105",
+     "zh": "会议共识",
+     "en": "Consensus",
+     "doc": "finops",
+     "hz": "六、",
+     "he": "6. Consensus",
+     "children": []
+    },
+    {
+     "id": "n106",
+     "zh": "待核实",
+     "en": "To be verified",
+     "doc": "finops",
+     "hz": "待核实",
+     "he": "To be verified",
+     "children": []
+    }
+   ]
+  },
+  {
+   "id": "n107",
    "zh": "企业级 Agent 平台术语提炼 · 10 领域",
    "en": "Enterprise agent platform term digest · 10 domains",
    "doc": "glossary-book",
@@ -776,7 +988,7 @@
    "he": null,
    "children": [
     {
-     "id": "n85",
+     "id": "n108",
      "zh": "基础形态",
      "en": "Foundations",
      "doc": "glossary-book",
@@ -785,7 +997,7 @@
      "children": []
     },
     {
-     "id": "n86",
+     "id": "n109",
      "zh": "模型与推理",
      "en": "Models & inference",
      "doc": "glossary-book",
@@ -794,7 +1006,7 @@
      "children": []
     },
     {
-     "id": "n87",
+     "id": "n110",
      "zh": "数据基础设施",
      "en": "Data infrastructure",
      "doc": "glossary-book",
@@ -803,7 +1015,7 @@
      "children": []
     },
     {
-     "id": "n88",
+     "id": "n111",
      "zh": "向量与 RAG",
      "en": "Vectors & RAG",
      "doc": "glossary-book",
@@ -812,7 +1024,7 @@
      "children": []
     },
     {
-     "id": "n89",
+     "id": "n112",
      "zh": "Agent 与编排",
      "en": "Agent & orchestration",
      "doc": "glossary-book",
@@ -821,7 +1033,7 @@
      "children": []
     },
     {
-     "id": "n90",
+     "id": "n113",
      "zh": "评估与可观测",
      "en": "Eval & observability",
      "doc": "glossary-book",
@@ -830,7 +1042,7 @@
      "children": []
     },
     {
-     "id": "n91",
+     "id": "n114",
      "zh": "安全与合规",
      "en": "Security & compliance",
      "doc": "glossary-book",
@@ -839,7 +1051,7 @@
      "children": []
     },
     {
-     "id": "n92",
+     "id": "n115",
      "zh": "K8s 部署运维",
      "en": "Deploy & ops on K8s",
      "doc": "glossary-book",
@@ -848,7 +1060,7 @@
      "children": []
     },
     {
-     "id": "n93",
+     "id": "n116",
      "zh": "前端与交互",
      "en": "Frontend & interaction",
      "doc": "glossary-book",
@@ -857,7 +1069,7 @@
      "children": []
     },
     {
-     "id": "n94",
+     "id": "n117",
      "zh": "数据智能",
      "en": "Data intelligence",
      "doc": "glossary-book",
@@ -866,7 +1078,7 @@
      "children": []
     },
     {
-     "id": "n95",
+     "id": "n118",
      "zh": "易混术语对照",
      "en": "Easy confusions",
      "doc": "glossary-book",
@@ -893,6 +1105,10 @@
   "definitions": [
    "Agent术语定义_修订提案.md",
    "en/agent-definitions-revision.md"
+  ],
+  "finops": [
+   "Agent平台落地与AI成本治理_会议要点.md",
+   "en/agent-platform-and-ai-finops-notes.md"
   ],
   "glossary-book": [
    "企业级Agent平台_概念术语提炼.md",

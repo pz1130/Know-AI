@@ -50,11 +50,7 @@ This group is the easiest to confuse, and confusing it leads directly to errors 
 
 **Parameter** — the weights and biases the model has learned. Parameter count (e.g. "tens of billions") determines the model's capacity and expressive power.
 
-**Vocabulary size** — how many distinct token types the tokenizer supports; for some models this is in the hundred-thousand range.
-
 **Context window** — the token ceiling for a single pass, commonly 200K to 1M. A larger window does not retire retrieval: classification filtering, citation grounding, and long-task compression still have to be done.
-
-**Training tokens** — how many tokens the model saw in total during training; a measure of training data scale.
 
 **Input vs output tokens** — two different things for billing, and output is typically several times more expensive than input. Estimate them separately, especially where the model generates long documents.
 
@@ -129,7 +125,7 @@ Some easily confused items: a tool is a specific capability; an MCP tool is a to
 
 **Plugin** — an installable extension package that bundles a set of related capabilities (skills, agent configurations, hooks, MCP servers, tools, prompt templates) into one distributable, manageable unit. Also not AI-specific.
 
-**Harness** — the unified runtime environment that schedules and orchestrates all of the above so they work together.
+**Harness** — the unified runtime environment that schedules and orchestrates all of the above so they work together. Tool calling, identity, permissions, memory and runtime control live here; the model only does the thinking. Keep the harness decoupled from the model: swapping models shouldn't mean rewriting the agent, and governance rules shouldn't be tied to one model.
 
 **Sub-agent** — an independent agent dispatched by a main agent to handle a subtask, with its own context and tool set. The main reason to use one is context isolation, not "being smarter".
 
@@ -194,8 +190,6 @@ Required for data Q&A (Form B).
 **Metadata** — data describing the data itself: what this table is, what the fields mean, who maintains it, how often it updates.
 
 **Data catalogue** — a central register of what data assets exist, who owns them, what they mean and what condition they are in.
-
-**Data layering** — organising into raw, detail and summary tiers so that processing logic is reusable and traceable.
 
 **Semantic layer / metric definitions** — the definition layer connecting business terminology to physical data. It specifies which tables and fields "commitment amount" maps to, what filters apply and how it aggregates. This is what makes or breaks data Q&A projects; see Part 2, Lecture 1.
 
@@ -312,7 +306,13 @@ Required for process automation (Form D) and autonomous agents (Form E).
 
 **Three kinds of cache** — prefix / prompt cache reuses server-side computation for identical context prefixes and is cheap on a hit; semantic cache returns a stored answer based on semantic similarity, and the risk is that a similar question is not the same question; used on data queries it will go wrong; an ordinary result cache hits on an exact key. The three are routinely conflated.
 
-**Model routing and fallback** — allocating models of different tiers by task difficulty, plus an alternative when the primary model is unavailable. The main lever for both cost control and availability.
+**Model routing and fallback** — automatically allocating models of different tiers by task difficulty, data classification, latency and cost limits, plus an alternative when the primary model is unavailable. The main lever for both cost control and availability. Rules live centrally in the gateway and enterprise policy can override the automatic choice, e.g. classified data may only go to a designated self-hosted model.
+
+**Model tiers (gold / silver / bronze)** — grouping available models into three bands by capability and price: gold, strongest and most expensive, for the few hard tasks; silver as the everyday workhorse; bronze for repetitive work like classification and extraction. Don't use gold where silver will do, or silver where bronze will do.
+
+**Showback / Chargeback** — showing AI spend to each team or project (showback), or charging it to their budget (chargeback). If users can't see cost, they keep picking the most expensive model.
+
+**Kill switch** — a switch that stops an agent and its queued tasks in one action. Mandatory for any agent that can write data or call external systems, and it must be rehearsed.
 
 **SLO and TTFT (time to first token)** — in interactive systems, perceived speed is driven mainly by time to first token, not total duration. Look at P95 and P99 rather than the mean; latency tails in AI systems are heavy.
 
