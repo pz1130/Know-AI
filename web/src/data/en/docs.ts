@@ -38,6 +38,13 @@ export const docsEn: DocMeta[] = [
     audience: 'Solution architects · budget review',
   },
   {
+    id: 'finops',
+    title: 'Agent platforms in practice & AI cost governance (meeting notes)',
+    file: 'en/agent-platform-and-ai-finops-notes.md',
+    blurb: 'Six platform layers and decoupling, autonomy vs guardrails, tiering/routing/caching/batch, FinOps and budget breakdown, build vs buy.',
+    audience: 'Architects · budget review · management',
+  },
+  {
     id: 'handbook',
     title: 'Concept handbook for IT teams',
     file: 'en/concept-handbook-for-it.md',

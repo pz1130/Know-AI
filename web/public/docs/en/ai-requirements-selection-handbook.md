@@ -230,6 +230,24 @@ Clarify multilingual and translation responsibility up front. When member langua
 
 ---
 
+## 4.3 Managing cost and guardrails at platform level
+
+§4.1 covers the gates each system installs for itself; this section is about the platform. Once there are many systems, per-system gates aren't enough: someone has to see, bank-wide, where the money goes and who can pull the plug.
+
+Tier the models instead of defaulting to the best. We use gold, silver and bronze: gold for the few genuinely hard tasks, such as a complex payment-stall diagnosis; silver as the everyday workhorse for policy Q&A and drafting; bronze for repetitive work like classification and field extraction. Don't use gold where silver will do, or silver where bronze will do. Tiering is enforced by model routing in the gateway, chosen automatically by task complexity, data classification, latency and cost limits; classified data routes only to a designated self-hosted model. No project hard-wires one vendor, and users don't get to pick the most expensive model themselves.
+
+Send work that doesn't need an instant answer to batch. Disbursement document checks, month-end reports and bulk classification aren't urgent. OpenAI's [Batch API](https://platform.openai.com/docs/guides/batch) and Anthropic's [Message Batches](https://docs.anthropic.com/en/docs/build-with-claude/batch-processing) both bill at 50% of the synchronous price (checked 2026-10-29), at the cost of results taking up to 24 hours. Self-hosted inference has no such discount, but batch jobs can be scheduled overnight on idle capacity.
+
+Cost must land on people and departments. Circuit breakers alone aren't enough: you need tokens and spend visible by person, team, project and model, then shown to departments (showback) or charged to their budgets (chargeback). Each team gets a default quota; beyond it, show the extra cost; more quota needs a written business case approved by the business owner. If users can't see cost, they will always pick the most expensive model.
+
+Guardrails before autonomy. A new agent starts with least privilege, a tool allow-list, time-boxed access and human approval, and gets more autonomy only once evals and production behaviour are stable. Every agent that can write data or call external systems needs a kill switch that stops it in one action, and it must be rehearsed: on-call staff shouldn't be hunting for the switch during an incident. Payments, external commitments and production changes are the last to get autonomy.
+
+Keep an agent registry. Record each agent's owner, purpose, model and version, permission scope, launch date and planned retirement date; otherwise in a year nobody can say how many agents the bank runs or what each can touch. Unclaimed agents get switched off.
+
+Background and further practices (budget breakdown, build vs buy) are in *Agent Platforms in Practice and AI Cost Governance: Meeting Notes*.
+
+---
+
 # 5. Attribute scorecard
 
 Use this for requirements reviews, proposal defenses, or when the decision tree does not give a clear answer. Score seven dimensions from 0 to 3.

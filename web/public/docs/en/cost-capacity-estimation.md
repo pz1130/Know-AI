@@ -3,6 +3,8 @@
 > Companion to the *AI requirements selection handbook*, §4 "Cost gate". The goal is not a quote but an order of magnitude in ten minutes at triage time: roughly how many tokens a request uses, how long it takes, what it costs, and how much concurrency it needs. Procurement-guide Q&A and a payment-stuck Agent differ by more than an order of magnitude—getting the magnitude right at triage beats arguing over decimal places.
 >
 > Every number here is an example (labelled "example"), not a vendor price or measurement. Look up unit prices, throughput and rate limits on the chosen model's official pricing page and contract at project start, and record the date; prices change, often together with billing changes (caching, batch, long-context tiers).
+>
+> This page is how to calculate; how to manage (model tiers, routing, quotas, cost allocation, budget breakdown) is in Chapter 4 of *Agent platforms in practice & AI cost governance: meeting notes*.
 
 ---
 

@@ -13,6 +13,8 @@
 - [ ] Rollback rehearsed: at least one real rollback in staging, with the time it took.
 - [ ] Human fallback: how business continues if the system is switched off (form D falls back to a manual queue; forms A/B show "service paused", not an error page).
 - [ ] §4.2 hard constraints re-checked: classification filtering, data residency, accountability trail, no conclusive determinations, external-publication firewall; signed off at review.
+- [ ] Kill switch rehearsed: on-call staff can stop this agent (including queued tasks) in one action, and the business continues on the human fallback.
+- [ ] Registered in the agent registry: owner, purpose, model and version, permission scope, planned retirement date; cost attached to a specific team or project quota.
 - [ ] On-call and escalation: who receives alerts, response time, when to call the business owner and information security.
 
 ---
@@ -115,3 +117,21 @@ Every P1/P2 adds its triggering samples to the eval set so the same error cannot
 Postmortems chase which defence failed, not individuals; but the §4.2 trail of "who confirmed what, based on which input" must be reconstructable from audit logs; if it isn't, that is itself a follow-up.
 
 Sources (OTel attribute and event names): https://github.com/open-telemetry/semantic-conventions-genai (docs/gen-ai/ gen-ai-spans.md, gen-ai-agent-spans.md, gen-ai-metrics.md, gen-ai-events.md), checked 2026-10-26.
+
+---
+
+# 7. Cost operations and agent registry (after launch)
+
+Pre-launch gates keep a single system from running away; after launch you also need a monthly look at the whole. The platform team should review the following monthly and send conclusions to each business owner.
+
+| What to look at | How | If there's a problem |
+|---|---|---|
+| Spend distribution | Token and cost reports by team, project, model and agent (showback), sourced from OTel `gen_ai.usage.*` | Teams over quota justify the business value, approved by the business owner; move to chargeback against the department budget if needed |
+| Model tiers | Share of calls and spend in gold / silver / bronze | If gold is unusually high, first check whether routing rules are being bypassed, then whether the task really needs gold |
+| Batch share | Whether async-capable work (document checks, reports, bulk classification) runs as batch | Move it to the batch API or an overnight queue |
+| Agent registry | Does every agent have an owner, any calls in the last 30 days, permissions within the registered scope | Switch off orphaned or idle agents; treat permission overreach as P2 |
+| Kill switch | Actually stop one sampled agent each quarter | If it can't be stopped or takes longer than expected, log a follow-up |
+
+Example: one month's report shows a drafting agent with 80% of calls on gold. It turns out the project team hard-wired routing to gold for convenience. After switching back to complexity-based routing, cost for the same output drops to roughly 30% (example figure). Without the report nobody would notice.
+
+Background and more practices are in Chapters 3–4 of *Agent Platforms in Practice and AI Cost Governance: Meeting Notes*.
