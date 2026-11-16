@@ -115,7 +115,7 @@ Failure modes: vague tool descriptions leading to wrong picks (the Schema text i
 
 Everything above is still one question, one answer. Real tasks need multi-step loops: look something up, decide the next lookup from the result, retry another way on failure, until done. The leap is not a stronger model; it is moving “what next” from if-else in our code to the model at runtime.
 
-Book concepts: Runtime, ReAct, Plan-and-Execute, Reflexion, Self-Refine, memory (short/long), HITL, orchestration frameworks (LangGraph, Microsoft Agent Framework, CrewAI, Dify, Coze). AutoGen is in maintenance mode; do not list it for new work.
+Book concepts: Runtime, ReAct, Plan-and-Execute, Reflexion, Self-Refine, memory (short/long), HITL, orchestration frameworks (LangGraph, Microsoft Agent Framework, CrewAI, Dify, Coze). AutoGen is officially archived and unmaintained; do not list it for new work.
 
 Engineering cost cliffs here regardless of model IQ. Paths are no longer enumerable, so you cannot test every case before go-live; you must add state persistence and resume, timeouts and token budgets, retries and idempotency, step-level audit, human checkpoints, and eval sets.
 

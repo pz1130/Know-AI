@@ -115,7 +115,7 @@ L3 之后，每个 AI 应用要接每个业务系统，都得单独写一遍适�
 
 前面所有层，都是「问一次答一次」。真实任务需要多步：查一下、根据结果决定下一步查什么、失败了换个方式、直到完成。这一步的跃迁不是模型变强了，而是把决定下一步的权力，从我们代码里的 if-else 交给了模型在运行时决定。
 
-对应概念：Runtime、ReAct、Plan-and-Execute、Reflexion、Self-Refine、记忆（短期/长期）、HITL、编排框架（LangGraph、Microsoft Agent Framework、CrewAI、Dify、Coze）。AutoGen 已进维护模式，新项目不要再列。
+对应概念：Runtime、ReAct、Plan-and-Execute、Reflexion、Self-Refine、记忆（短期/长期）、HITL、编排框架（LangGraph、Microsoft Agent Framework、CrewAI、Dify、Coze）。AutoGen 官方已宣布项目归档、不再维护，新项目不要再列。
 
 这一层带来的工程负担是断崖式的，而且和模型能力无关。因为路径不再可枚举，你就没法在上线前测完所有情况，于是必须补上一整套东西：状态持久化和断点恢复、超时与 token 预算上限、失败重试和幂等、每一步的审计留痕、人工介入点、评测集。
 

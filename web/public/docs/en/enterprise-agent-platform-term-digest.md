@@ -62,7 +62,7 @@ As of 2026-09: MCP spec 2026-07-28 is sessionless—self-describing requests, sc
 
 Orchestration patterns: ReAct (think/call loop), Plan-and-Execute (plan globally then step), Reflexion (review the trace after failure), Self-Refine (iterate on own output). HITL (Human-in-the-Loop) inserts human approve or correct at critical nodes—external correspondence and money-touching writes almost always keep such nodes here.
 
-Memory splits short-term (session) and long-term (user / enterprise). Frameworks compared: LangGraph, AutoGen, CrewAI, Dify, Coze. Note: AutoGen is in maintenance mode; new work should look at Microsoft Agent Framework; CrewAI remains fine for prototypes.
+Memory splits short-term (session) and long-term (user / enterprise). Frameworks compared: LangGraph, AutoGen, CrewAI, Dify, Coze. Note: AutoGen is officially archived and unmaintained; new work should look at Microsoft Agent Framework; CrewAI remains fine for prototypes.
 
 ---
 

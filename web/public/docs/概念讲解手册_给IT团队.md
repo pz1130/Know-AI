@@ -565,7 +565,7 @@ Agent 访问业务系统时，用的是谁的身份——这是安全设计的�
 
 **OLAP 架构角色**——自建数仓需要理解 FE/BE/CN 分工和存算分离取舍。用托管服务了解概念即可。
 
-**编排框架的分野**——流程引擎（Temporal、Camunda）解决路径确定的问题；Agent 框架（LangGraph、Microsoft Agent Framework 等）解决路径不确定的问题。选错方向，后面改架构的代价很大。AutoGen 已进维护模式，不接新项目。
+**编排框架的分野**——流程引擎（Temporal、Camunda）解决路径确定的问题；Agent 框架（LangGraph、Microsoft Agent Framework 等）解决路径不确定的问题。选错方向，后面改架构的代价很大。AutoGen 官方已宣布项目归档、不再维护，不接新项目。
 
 **上下文压缩与长任务状态管理**——任务跑得久，上下文会溢出。压缩策略（摘要、分层记忆、外部状态）是长任务能否成立的关键。
 

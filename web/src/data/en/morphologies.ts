@@ -96,7 +96,7 @@ export const morphologiesEn: Morphology[] = [
     notes: [
       'Four prerequisites: ≤15 tools, single domain, rollback-tolerant, clear stop criteria',
       'Tooling work = five actions per tool',
-      'AutoGen is in maintenance; sandbox includes allowlisted proxies and eval fixtures',
+      'AutoGen is archived and unmaintained; sandbox includes allowlisted proxies and eval fixtures',
     ],
     layer: 'L5',
   },
