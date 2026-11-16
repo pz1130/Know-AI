@@ -62,7 +62,7 @@ Runtime（运行时）负责 Agent 任务执行、状态管理与故障恢复；
 
 推理编排范式有四种：ReAct（思考与调用交替循环）、Plan-and-Execute（先全局规划再分步执行）、Reflexion（反思）（失败后复盘轨迹并改进）、Self-Refine（自我改进）（用自己的输出做输入迭代优化）。关键节点引入人工审批或纠正的设计叫 HITL（Human-in-the-Loop，人在回路）——对外发文、资金相关写入，本行几乎总会留这类节点。
 
-Memory（记忆）分短期（会话级）和长期（用户/企业级）。编排框架横向对比了 LangGraph、AutoGen、CrewAI、Dify、Coze。时点注记：AutoGen 已进维护模式，新项目看 Microsoft Agent Framework；CrewAI 仍可用于原型。
+Memory（记忆）分短期（会话级）和长期（用户/企业级）。编排框架横向对比了 LangGraph、AutoGen、CrewAI、Dify、Coze。时点注记：AutoGen 官方已宣布项目归档、不再维护，新项目看 Microsoft Agent Framework；CrewAI 仍可用于原型。
 
 ---
 

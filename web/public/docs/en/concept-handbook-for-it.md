@@ -565,7 +565,7 @@ For an architect this is two things: a checklist for assessing any framework, an
 
 **OLAP architectural roles** — building a warehouse in-house means understanding the FE / BE / CN division of labour and the trade-offs of separating storage from compute. With a managed service, the concepts are enough.
 
-**The divide between orchestration frameworks** — workflow engines (Temporal, Camunda) solve the fixed-path problem; agent frameworks (LangGraph, Microsoft Agent Framework and similar) solve the open-path problem. Choosing the wrong side makes later architecture changes expensive. AutoGen is in maintenance mode; do not start new work on it.
+**The divide between orchestration frameworks** — workflow engines (Temporal, Camunda) solve the fixed-path problem; agent frameworks (LangGraph, Microsoft Agent Framework and similar) solve the open-path problem. Choosing the wrong side makes later architecture changes expensive. AutoGen is officially archived and unmaintained; do not start new work on it.
 
 **Context compression and long-task state management** — long-running tasks overflow the context. The compression strategy (summarisation, tiered memory, external state) determines whether long tasks are viable at all.
 
